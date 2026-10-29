@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/amortiza/app/index.html" }
+  ]
+}
