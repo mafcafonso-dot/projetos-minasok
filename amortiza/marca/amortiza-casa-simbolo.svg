@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs><clipPath id="cs"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+  
+  <rect class="nivel" x="0" y="178.0" width="300" height="122.0" fill="#F7BC0A" clip-path="url(#cs)"/>
+  <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#06449D" stroke-width="40" stroke-linejoin="miter" stroke-miterlimit="10"/>
+</svg>

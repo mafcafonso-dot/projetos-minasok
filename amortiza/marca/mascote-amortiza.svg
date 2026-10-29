@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -100 320 490" width="320" height="490">
+  <ellipse id="a-sombra" cx="150" cy="368" rx="95" ry="11" fill="#0B1F45" opacity=".22"/>
+  <g id="a-corpo">
+    <g id="a-pe-e"><rect x="96" y="296" width="24" height="52" rx="12" fill="#06449D"/><ellipse cx="98" cy="352" rx="27" ry="13" fill="#06449D"/></g>
+    <g id="a-pe-d"><rect x="180" y="296" width="24" height="52" rx="12" fill="#06449D"/><ellipse cx="202" cy="352" rx="27" ry="13" fill="#06449D"/></g>
+    <defs><clipPath id="a-clip"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+    
+    <rect x="0" y="178" width="300" height="300" fill="#F7BC0A" clip-path="url(#a-clip)"/>
+    <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#06449D" stroke-width="40" stroke-linejoin="round"/>
+    <g id="a-olhos"><ellipse cx="116" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#06449D" stroke-width="7"/><circle cx="120" cy="134" r="12" fill="#06449D"/><circle cx="124" cy="129" r="4" fill="#FFFFFF"/><ellipse cx="184" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#06449D" stroke-width="7"/><circle cx="188" cy="134" r="12" fill="#06449D"/><circle cx="192" cy="129" r="4" fill="#FFFFFF"/></g>
+  </g>
+</svg>
