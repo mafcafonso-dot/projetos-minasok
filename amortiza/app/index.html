@@ -1,0 +1,584 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Amortiza Minas Ok</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one column "ficha de obra" — inputs, then the verdict, then the why. Concrete greys, blueprint ink, a safety-yellow highlight used once per section. */
+:root{
+  --brand:#06449D; --brand-yellow:#F7BC0A; --on-brand:#ffffff;
+  --bg:#f3f2ee; --paper:#ffffff; --ink:#1d2430; --muted:#5d6573; --line:#d9d8d1;
+  --blue:#06449D; --blue-soft:#e2ebf7; --yellow:#F7BC0A; --yellow-soft:#FFF4D1;
+  --good:#1d7a4a; --good-soft:#dff2e7; --bad:#b4442c; --bad-soft:#f8e2dc;
+  --s0:#8a8f99; --s1:#06449D; --s2:#c99a00; --house:#06449D;
+  --f-display:"Fredoka", system-ui, sans-serif;
+  --f-body:"Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-num:"Montserrat", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --brand:#06449D; --bg:#14171c; --paper:#1c2028; --ink:#e9ebef; --muted:#a2a9b5; --line:#313744;
+  --blue:#7fa8e0; --blue-soft:#1f2b3d; --yellow:#ffd503; --yellow-soft:#3a3311;
+  --good:#5fc68f; --good-soft:#173326; --bad:#ef8a73; --bad-soft:#3b1f19;
+  --s0:#7d8592; --s1:#7fa8e0; --s2:#ffd503; --house:#9DBDEA; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --brand:#06449D; --bg:#14171c; --paper:#1c2028; --ink:#e9ebef; --muted:#a2a9b5; --line:#313744;
+  --blue:#7fa8e0; --blue-soft:#1f2b3d; --yellow:#ffd503; --yellow-soft:#3a3311;
+  --good:#5fc68f; --good-soft:#173326; --bad:#ef8a73; --bad-soft:#3b1f19;
+  --s0:#7d8592; --s1:#7fa8e0; --s2:#ffd503; --house:#9DBDEA; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:600;letter-spacing:-.01em}
+h2{font-size:clamp(1.35rem,3.2vw,1.8rem);font-weight:600}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+.eyebrow{font:600 .75rem/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.band{background:var(--brand);color:var(--on-brand);padding-block:28px 36px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+header{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+header .logo{height:56px;width:auto;max-width:100%;align-self:flex-start}
+header .eyebrow{color:var(--on-brand);opacity:.75}
+header .lead{font-size:1.1rem;color:var(--on-brand);opacity:.9;max-width:60ch}
+.mark{color:var(--brand-yellow)}
+.badge{display:inline-flex;gap:6px;align-items:center;font-size:.82rem;font-weight:600;background:var(--brand-yellow);color:#14223a;padding:6px 10px;border-radius:999px;width:fit-content}
+section{display:flex;flex-direction:column;gap:16px}
+.sec-head{display:flex;flex-direction:column;gap:6px}
+.sec-head p{color:var(--muted);max-width:65ch}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tag{font-size:.75rem;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.04em}
+.tag.bank{background:var(--blue-soft);color:var(--blue)}
+.tag.cons{background:var(--yellow-soft);color:var(--ink)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:.82rem;font-weight:600;color:var(--muted)}
+.field input,.field select{font:500 1rem var(--f-num);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px 10px;width:100%;min-width:0}
+.field input:focus,.field select:focus{outline:2px solid var(--blue);outline-offset:1px}
+.field.wide{grid-column:1/-1}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px dashed var(--line);padding-top:12px}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat span{font-size:.78rem;color:var(--muted)}
+.stat b{font:600 1.05rem var(--f-num)}
+.split{display:flex;flex-direction:column;gap:6px}
+.split-bar{display:flex;height:12px;border-radius:3px;overflow:hidden;background:var(--line)}
+.split-bar i{display:block;height:100%}
+.split-bar .j{background:var(--bad)}
+.split-bar .a{background:var(--good)}
+.split small{font-size:.8rem;color:var(--muted)}
+.plan{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px;align-items:end}
+.order{grid-column:1/-1;font-size:.92rem;color:var(--muted)}
+.order b{color:var(--ink)}
+.verdict{background:var(--brand);color:var(--on-brand);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.verdict .big{font-family:var(--f-display);font-weight:600;font-size:clamp(1.5rem,4.6vw,2.4rem);line-height:1.15;text-wrap:balance}
+.verdict .big em{font-style:normal;color:var(--brand-yellow)}
+.verdict p{opacity:.85;max-width:70ch}
+.scen{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.scen.best{border:2px solid var(--good)}
+.scen-h{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.pill{font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--good-soft);color:var(--good)}
+.row{display:flex;justify-content:space-between;gap:10px;font-size:.92rem;border-bottom:1px solid var(--line);padding-bottom:6px}
+.row:last-child{border-bottom:0;padding-bottom:0}
+.row span{color:var(--muted)}
+.row b{font-family:var(--f-num);font-weight:600;text-align:right}
+.save{color:var(--good)}
+.chart-box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.chart-scroll{overflow-x:auto}
+svg text{fill:var(--muted);font-family:var(--f-num);font-size:11px}
+.slider-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.slider-row input[type=range]{flex:1;min-width:180px;accent-color:var(--blue)}
+.slider-row output{font:600 1.1rem var(--f-num);min-width:7ch}
+.table-wrap{overflow-x:auto;max-height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;background:var(--paper)}
+th,td{padding:8px 12px;text-align:right;white-space:nowrap}
+th{position:sticky;top:0;background:var(--bg);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+td{font-family:var(--f-num);font-variant-numeric:tabular-nums;border-top:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+tfoot td{font-weight:700;background:var(--yellow-soft)}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.compare .k{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:2px}
+.compare .k span{font-size:.8rem;color:var(--muted)}
+.compare .k b{font:600 1.25rem var(--f-num)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px}
+.note{border-left:3px solid var(--line);padding:4px 0 4px 12px;font-size:.92rem;color:var(--muted)}
+.note b{color:var(--ink)}
+footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:480px){.fields{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.verdict .big{transition:opacity .2s}}
+.obs{font-size:.86rem;color:var(--muted);background:var(--bg);border-radius:6px;padding:10px 12px;max-width:none}
+.obs b{color:var(--ink)}
+.check{display:flex;gap:10px;align-items:center;font-weight:600;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--blue)}
+.hint{font-size:.78rem;color:var(--muted)}
+.tag.late{background:var(--bad-soft);color:var(--bad)}
+.card.atraso{border:2px solid var(--bad)}
+.btn.wa{background:var(--brand-yellow);color:#06449D;font-weight:800;text-decoration:none;font-size:1.05rem;letter-spacing:.02em;padding:14px 22px;display:inline-block}
+.btn.wa:hover{background:#e5ad06}
+.tipo{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.tipo legend{font-weight:700;margin-bottom:6px;padding:0}
+.faixa-row{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:10px;align-items:end}
+.faixa-row .tag-f{font:600 .8rem var(--f-body);color:var(--muted);padding-bottom:12px;white-space:nowrap}
+.faixa-row .rm{background:transparent;border:1px solid var(--line);border-radius:6px;color:var(--muted);width:38px;height:38px;cursor:pointer;font-size:1.1rem}
+@media (max-width:480px){.faixa-row{grid-template-columns:1fr 1fr}.faixa-row .tag-f{grid-column:1/-1;padding:0}.faixa-row .rm{grid-column:2;justify-self:end}}
+.btn-sec{font:600 .92rem var(--f-body);background:transparent;color:var(--blue);border:1px dashed var(--blue);border-radius:8px;padding:9px 14px;cursor:pointer}
+.conf{font-size:.88rem;border-radius:6px;padding:10px 12px;margin:0}
+.conf.ok{background:var(--good-soft);color:var(--good)}
+.conf.warn{background:var(--yellow-soft);color:var(--ink)}
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.cmp-k{border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:2px}
+.cmp-k span{font-size:.82rem;font-weight:600}
+.cmp-k b{font:600 1.45rem var(--f-num)}
+.cmp-k small{font-size:.8rem;opacity:.85}
+.cmp-k.good{background:var(--good-soft);color:var(--good)}
+.cmp-k.bad{background:var(--bad-soft);color:var(--bad)}
+.atraso-msg{font-weight:600;margin:0}
+.parc-list{display:flex;flex-direction:column;gap:8px}
+.parc{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:2px 12px;font-size:.88rem}
+.parc .t{font-weight:700}
+.parc .v{font:600 1rem var(--f-num);text-align:right}
+.parc .d{color:var(--muted);grid-column:1/-1;font-size:.8rem}
+</style>
+<style>
+.tabs{max-width:980px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tab{font:600 .95rem var(--f-body);color:var(--on-brand);background:transparent;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:9px 16px;text-decoration:none;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--brand-yellow);border-color:var(--brand-yellow);color:#14223a}
+.tab:focus-visible{outline:2px solid var(--brand-yellow);outline-offset:2px}
+.hero-num{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.hero-num .k{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:4px}
+.hero-num .k span{font-size:.85rem;color:var(--muted)}
+.hero-num .k b{font:600 1.5rem var(--f-num)}
+.hero-num .k.hl{background:var(--yellow-soft);border-color:var(--yellow)}
+.cta{background:var(--paper);border:2px solid var(--brand);border-radius:12px;padding:20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.cta p{max-width:52ch}
+.btn{font:700 1rem var(--f-body);background:var(--brand);color:var(--on-brand);border:0;border-radius:8px;padding:12px 18px;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--brand-yellow);outline-offset:2px}
+.phone{font:600 1.3rem var(--f-num);user-select:all}
+header .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+header .logo{height:auto;width:120px;align-self:flex-start}
+@media (max-width:520px){header .logo{width:92px}}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand .masc{width:44px;height:68px;flex:none;overflow:visible}
+.brand .n{font:600 2.1rem/1 var(--f-display);letter-spacing:-.01em}
+.brand .s{font:700 .62rem/1 var(--f-body);letter-spacing:.22em;color:var(--brand-yellow);margin-top:5px}
+.casa-card{align-items:center;text-align:center;gap:10px}
+.casa{position:relative;width:min(80vw,300px);aspect-ratio:1}
+.casa svg{width:100%;height:100%;display:block}
+.casa .cn{position:absolute;left:0;right:0;top:47%;display:flex;flex-direction:column;align-items:center;color:var(--house)}
+.casa .cn b{font:600 clamp(3.4rem,15vw,5rem)/1 var(--f-display)}
+.casa .cn span{font:600 .82rem var(--f-body)}
+.casa .sua{font:700 clamp(2.4rem,10.5vw,3.5rem)/1 var(--f-display);color:#06449D}
+.casa.won .cn{top:39%}
+.casa .jan{opacity:0;transition:opacity .5s .5s}
+.casa.won .jan{opacity:1;filter:drop-shadow(0 0 6px #fff)}
+.casa-cmp{font-size:.95rem;color:var(--muted)} .casa-cmp b{color:var(--ink);font-weight:800}
+.casa-won{font:600 1.25rem var(--f-display);color:var(--good)}
+.selo{background:#FDF0D5;color:#7A4B00;border:1.5px solid #E9A62B;border-radius:999px;padding:7px 14px;font-weight:700;font-size:.88rem}
+.btn-share{font:600 .95rem var(--f-body);background:transparent;color:var(--blue);border:1.5px solid var(--blue);border-radius:10px;padding:10px 16px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.btn-share:focus-visible{outline:2px solid var(--brand-yellow);outline-offset:2px}
+</style>
+
+<div class="band">
+<header>
+  <div class="top">
+  <div class="brand"><svg class="masc" viewBox="-10 -100 320 490" aria-hidden="true"><style>
+  #hd-corpo{transform-box:view-box;transform-origin:150px 362px;animation:hd-pulo 1.5s infinite}
+  #hd-sombra{transform-box:view-box;transform-origin:150px 366px;animation:hd-sombra 1.5s infinite}
+  #hd-olhos{transform-box:view-box;transform-origin:150px 128px;animation:hd-pisca 4.5s infinite}
+  #hd-pe-e{transform-box:view-box;transform-origin:108px 300px;animation:hd-pe-e 1.5s infinite}
+  #hd-pe-d{transform-box:view-box;transform-origin:192px 300px;animation:hd-pe-d 1.5s infinite}
+  @keyframes hd-pulo{
+    0%{transform:translateY(0) scale(1.07,.9);animation-timing-function:ease-out}
+    14%{transform:translateY(-8px) scale(.95,1.07);animation-timing-function:ease-out}
+    45%{transform:translateY(-82px) scale(1,1);animation-timing-function:ease-in}
+    80%{transform:translateY(0) scale(.97,1.04);animation-timing-function:ease-out}
+    88%{transform:translateY(0) scale(1.09,.88);animation-timing-function:ease-in-out}
+    100%{transform:translateY(0) scale(1.07,.9)}}
+  @keyframes hd-sombra{
+    0%,88%,100%{transform:scale(1.1,1);opacity:.25}
+    45%{transform:scale(.6,.7);opacity:.1}}
+  @keyframes hd-pe-e{0%,14%,80%,100%{transform:rotate(0)} 45%{transform:rotate(14deg)}}
+  @keyframes hd-pe-d{0%,14%,80%,100%{transform:rotate(0)} 45%{transform:rotate(-14deg)}}
+  @keyframes hd-pisca{0%,92%,100%{transform:scaleY(1)} 95%{transform:scaleY(.08)}}
+  @media (prefers-reduced-motion:reduce){#hd-corpo,#hd-sombra,#hd-olhos,#hd-pe-e,#hd-pe-d{animation:none}}
+</style>
+  <ellipse id="hd-sombra" cx="150" cy="368" rx="95" ry="11" fill="#0B1F45" opacity=".22"/>
+  <g id="hd-corpo">
+    <g id="hd-pe-e"><rect x="96" y="296" width="24" height="52" rx="12" fill="#FFFFFF"/><ellipse cx="98" cy="352" rx="27" ry="13" fill="#FFFFFF"/></g>
+    <g id="hd-pe-d"><rect x="180" y="296" width="24" height="52" rx="12" fill="#FFFFFF"/><ellipse cx="202" cy="352" rx="27" ry="13" fill="#FFFFFF"/></g>
+    <defs><clipPath id="hd-clip"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+    
+    <rect x="0" y="178" width="300" height="300" fill="#F7BC0A" clip-path="url(#hd-clip)"/>
+    <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linejoin="round"/>
+    <g id="hd-olhos"><ellipse cx="116" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="7"/><circle cx="120" cy="134" r="12" fill="#06449D"/><circle cx="124" cy="129" r="4" fill="#FFFFFF"/><ellipse cx="184" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="7"/><circle cx="188" cy="134" r="12" fill="#06449D"/><circle cx="192" cy="129" r="4" fill="#FFFFFF"/></g>
+  </g></svg><div><div class="n">amortiza</div><div class="s">ANTECIPE E CONQUISTE</div></div></div>
+  <img class="logo" alt="Construtora Minas Ok" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXYAAABrCAIAAADsAz7DAAAxHklEQVR42u1dd1gT5x9/MwiEEPbee8reQ0EQByCOOuuqVq2tWm1rq7XV1lm17tnW2rq34l6IggxBZMuSvfeGkJ3fH1EacpfLBSIEf/d5+vSRy3t3792997nv/uKUJp8FGDBgwPBhgMduAQYMGDCKwYABA0YxGDBgwIBRDAYMGDCKwYABw8cA4kd8bR5GpUt9nofaZKuSaXn1BqUtOm/qDaMLnTJrTLAHjwHD0AD3UTqtjVRb9k85N9EuC/rTy3Kr8X9sxB48BgyYFDNAzHJJPjjtLFW+F/bXf18FYU8dAwaMYgaI6U6vTs35E2EApiVhwIBRzICuBM89Mv3f+R4JyMMiHNLLW7V6WST+n5Gj0pb6PKOQmHn1Bknl1pczfHk8HLYsMGAA/w+2mAiH9N0RF399NPNaljfCMFeD8iOfnCYR2HY6NWgO28UgJ5VZx5fa4nDcbZOuCf50+lXgt7cXsDgEbGVgwPDxU8wy32f7p5yjs+UMfz3OYBONVFuq2jWExjjrV9z+fK8GpVtaJ00otZl3flUrTQlbHBgwDB4Eks00mZ3cKL2qcPtMIp47zjpnkm32zvArxc26BY36/F8Xer5YN/betrCrVAW6FE9qrNYy1+2llVZDYaN+Wy8FWyIYMHxUFGOpWX9j8QEfk+LmHmVXg4oA80IAgJ5yu5VWvRyB86TQOafOGAAQbp/x79w/bXVqiXiu1OegJE93NSj/zOsFwIGMajM2F9ObMGD4WBSlAPPCh8t3wf6UVGa993nEOJscCokxyyWZLMccgvm00pSSy60OxU/MrDYdbV4QapN9OH5iZZsmtnQwYAAj0aNkrVWH8LZfWHB0aJilD+qK3WH2GWH2GX1bpjmlRv79fW69IbZ6MGAYeYpSRo1psFWeoWorDPto18kROMM+QwqJMc0xNa7Evr5LFVtAGDCAkZUG6W5U6mlUIuN3TYPS/WjFb5Gj0rAFhAHDCKOY74IeED6ABVfqUJRjnpt3zMWgAltDGDCMJIo5kTiOwx0ZJSbwON4E2yxsDWHAAEaQuTe+1PZOrvs0x9QRcftUyT38fygr9K4Z85DBlqOQGK+rzO7mun+I0+FwwMtGa6yLno2RigqFRGewW7uYuRVtzzPrCqo60BxBS0VhvLuBq5WGvjpZUYFIo7Orm2lpRc0PX1V30lii9poVaCZH7Mf7BVUdaW+bhYaFeRmqUeX7/mxs641Or4UeTVlRLthV38NKQ09DUYVC4nJ57T3MwqqOFzn1r98283j9BpvrUX3ttdHfogsxJQAAX3ttcz0q8kgOh9fSSc8qbW1sh4+rmupvQlEgwh6/Dzpq5HFu+oJbrsWVMdlcoVuBDNibCQAw0qKEuhs4manpqpPJ8sQuGqu8oTu1sOnJ65peJrxRkkTEzww0E3tGGp1d1dSTU9bGYIk3bqpR5cO8YJwb11+Uo9ldFnOUEstsRgrFfOn3dIx5QVW7hpdxiZZSZ9/2G9leGdWmscX25W1aXXQyVxp5TyGu+ruXetgYqcD+mpzf+MPJ1xnFLaJ211Mn/7LQdXagOZEAMxk6k3M2unj7xay2Lgb01wNfeisrygluaelkuH15u7X/4J/nuTiaqfX9mfCmQYhi1KnyP89znhdioSgPv/AKqzp+OZtxP6Wqb4uvvfYfa/wkpZhF4y3nBVug3CWzpPVwVO61F+VC23csdjfWpiBTjLWhstD07iVXMdlMoVuBjON3C4QoxspAedtnbmFeRji4hdNJY524m7//ei6NwRb6iSxPRH+76EzOjYTy36/mlNR2IQyb6md8eKUPdHtTO/1JWs0IU5QUSYxAi3xb7RowQkDAc530K8PtMwT5BQDwidOr7WFXE77+tfqXlYemnRH6dQBYP9vp1pYQUfwCAPCx0475feL0APg88tGOOq+ORs4LtoDlFwCAAomwPNwm+XCEu5UGmvloKMv/9rmHRJdgrkdNOBi+LMxGFL8AAGyMVC7/FLRrqcdQPkQXC/V/1o2+/FMQwsSGErODzF4ejgj3hucXvhi4frZT3P4wsZIaMhRIhHnBFi8PT545xhRhWLi3Eez2CB+jkWSLsdepqfplVd2WL+8t27PU5/nHpIt+5hWXtOYXf7NCHI43sCMsD7f5eZ6z2GFyBPzf3wV42WoJbfe21brxS4iqEknsEfQ1FO9uC3WxUEczq0+DzYOcddF+PBSId7eNM9JClZCxMtJu7XSHIX5M4d5G+77wGvbVMj3A5K9v/OXlxAeU2xqpPNw5HipnSQoyifD3dwGeNpqiHlygE/xTDvMyxONwI4Nivht7/8mKnarkHvxAX0IZhy61/dEXuzaFRg1gX2tDFfTyghwBf/BLb8EHr0IhndsQSCahzYGgKspd3BhE7a8WicLhlT4K6I68bsYoY20JMks3zXcZ5Cd6AJg/zgK9dvMhYK5HPbHGD8172/dJOLs+UJRkCiRwXOB2iVhjIa76oh6xjhrZw0ZzZNhixlrmqpBp4GOHo17lAPb6ZYELiSj8JSiu6Tx0K4/F5q6IsBUSOhzN1CJ8jO68fHeuH+c66amThXbn8nhHb+enFjaPMlVdO91B6JtppEX5YZbjptPpYudmpkvdMMfp17MZQJyVel6IsGWksZ2++XR6UW2nOlV+qr/xp2MtBN8sIgEX6Wt88GYui80VtENTyXJCLyCDxWGwUEU5fH0suamDzqddV0uNZWHW0Jd5ip9xTlnb4J91dy+rb9pEAg6qgnXRWH2fU/p7k8rOJe7Qkb1MzsEbufmV7b722l9E2AjN2d1KY8E4y38fFyFMJu1t897rbwAABDxOV408Z6y5h7UwNXjZaulrKNa20CDCHVIUe4S30auCphFAMXrK7eD/ACeTgyXdxUBTcbKPsdDG1i7GhB8f8/0gUQkVcfvDbPvbaKYFmPApRoVCWjLRGnrYNcdTTj8uAgDcSqwoqOz49/vRQgOWTrLedTm7h84WO8M10xyuxZXlViA9QV01sr6GotDGq3FlF569M50+Sq3OKmnds8yTzuTEZNTeS6l6lFrT3EHnD7saV9a3V+7f04VUg/3Xc3deQhU6EJNRV9nY3We1pTPYayDqmIW+slSe9fgNjwVtFpc2BgkNsPv8ZkcPU0jxgbV6zN0RG5NRCwCISqxobO/9ZYEr9BEgU0x9W++95P8s6KefFBf8M11TRQH6wRCiGAIeN8kTkWJ8jDafSZd1RclJvxIhL+mjwW9PpzwpdJJ0rwg4m98/j4r6/Kw0Bvuv+4VCA8Y4vlOeI32NoSpSZWPP2SfFfX/eSCgvrxeutqNElgt1N0AzQyIBd3S1L//T2t0L7/bWUiVDN34y2nSav0nfR/uv+4Uztj4z/vTKnB2x55+W8PnlgyKnvA3WMDFcK2TmGBhn88u8Rj6/8HHibgHUXW2hT3UyV0d/IgaLU1zbCWv9BRAfgrqA6724RngvKwNla0MVmaYYHI53Ysapj55fbmR77Xw6dQA7woaEPO3vCc4sEXZUa6sq8H3MsObYp+k1XIHgEx4PxL+phw7zdxAZjcLtH7viYa25NMyaL9LDjm/ppMM60c+uH1N9efaz3yftXOIe7m30+m2zqCMA6bsCcVN8jaHboZrCkCEQ7mE9et3Pu9pDZ6cXNUv0sKCwNFCGpSTotYf115Iux5blQcRVsX4l4rAX3NVXafu4+SW10mLxpRUD2xdWbi+q6RdlV1bf/fWxZL7y39XL6qKxOnpYfB0H1skNXSWldTBhEZaiVYbMklY3y36+7c3zXaISKnoZ8IpVTTOtsrEb1twrR8B72mh62miungq4PN6rgqabCRVnootpKHQ0SbFyil1HNxOHA9qqCqMdda0MYC4wPqdhuNaJjSGqh1VW1+3voAOVJgCix2DjXGe+nGKsTZnkaQi1+DR10Ash0ZsR/RW3pxm1qkoke5N+2b+TfYz2X38juxTD4hDGnfjpr1l/exkXf5T88tX1JTeyvQZcclxDGSZCVCgatbmDLkoV11RWgNXMhbb0Mjiw/gJRs4rNrHMwURU0EqtQSL8scBUVJgsAOHY7f/cyT7F+DR87bR877VVT7GZte45s3xnIs5hsizygoqFbMOoPDGmAFQ42qqAB8rA64bRRbVUywsGtDJR/nCtGST9xt0BIOLU1UhF06rV1MTKLW9SVSKum2IF+9mZNXTUydFHJkC2mpFln4p8bksqsP0qKeVzgTGPKD3h3FQoJ6l9Avzus75nFHmyWKQ8AqAFo/jikaNo/7xfGZdejPL6xttKdbaFQR9gHRUsnY/6uOCZ7eFJwlcjwUQJsDhelRWwwZ7+fUnXwRi5AjLiLza7ncHmJuY1CSQM4HAjzNpL1uBgWh/Ag3+WjpJhReoP6KkJzQAZvj8TjcVCnskSLmyxP3HM1R8ghQsDjpvoZi9qFw+XN2vb8xN0CNFktfHPSLwtdh+wx3X1Z6b/2XmZJq6ytHxzk2RDwOLh1MkBmbO9mrj+Z+unOOBbkcQvlJfEtgDQGOzm/SSJzjKxE96ZXm31k5PJ38tg/k0IGGUzY3s1EY/kXhUY48VUZItpA/ZewIrrQxKDhMMiJfzQG+4eTqaOWRm2/kJVVKv5lnjHadGgi+pls7upjyTXNwxmZ1dHDhBWglMhEiPILc5PrWgc4+fuvqo5DVCQ+xXva9AsTD3LW273Mc/cyT+j6CXTSRYjVJMpOgvWLErsxFvkfB78UN+t+d3vB4LMf61t7oZY8Ex0lQcucOlU+aktIZw+rk8bs7GF10JidPayDUbk0OruoptMSsrupDhUafQM9dX6lmNTtfx4VzQuxgAZxibmitt7dV7J3X8nWUyf72Gl722kFjNJxMlOHSlLycgQ7E1XYFOSBYcbWZ3WtvUdX+bj2t1WTiPgF4ywP3swd3jVTVNPpYKIKjVVJym0E/QMjAVyuNtLLldOw4dRrCz3q2fVjhH76JMD0x1Np0NzXSV6GQk8EIY+JRMSPdze4EV8uu1IMicD+dcJ1X9O3H40IE13oKJXsalgPpVA6iYuFupulRpCzbqSv8fxxFisj7dZ+4sBgcgAAL/MbobuPcRL2R3haa0GHJeaK8a1webw1x1M4XB6atAYHE9U5QebbP3O7tSWk6MwMSwPlutbeqMSKDX+/Dlh733v13ermHuiOivLSjFLJr+zILm09/QTGsbB0EkykL4fLFWs00YIIgCitJ1Akwd3w0Y46QrQ7yhQmxSHxDdLD6qQxs0tboxIr8ivboRLx/BAYI1q4l5FEk0fQlfCywC/n5x/7bux9WajLKzXZmyMd8fAxXLL88jAbOQJeMElSaEBWSQv/zb+dVAkXQ6HjLBAWMdpRx0KfCg0gjs0Sb53NLm09fidfbLZew/W5yUcmn/zWf810hxBXfV018pGVPooCpVjyK9uhGj7UdyYVXH9RBjWZm+goCZV9AQC0dMLUtYj0NRK0Yc3qX5yFyeb2DNTd3pfzIYhpfiaCgdEzxpgqQkrY5FW0F9WgSuU/97QEll6F2FVRnjjWRU+iyU9wN4CmucgKxeyJvDjJLvMjM8R0M+SlcpyENw3QaAVXS42bv4ZM8jIc56b/97cB0KjzvtInpXVdsF7Yq5vGRvoaW+hTPxltevr7MdABf94rRGmX3XExC9mKUVDVUQGJHg4YpZN6NHLTPJd5wRZzgsz3LPOcAjEVd/eyyuq6pP5oOmms20kw5VCXhVlDw6Chww5+5bNloesno02Xh9tE754odPMHM+G47PpsiIlKUYEY9WtIiKu+pYHy4glWsLngh2/loTzF5eelbA4PmnsZ7NKPXoNd9RQk9CpQFeVGO+rKoi1msVfsPPcE8NEh+q2jVI7D44Et5zMv/hgotD3IWVdUIYX2buaV2P+SejadTg921RfyQ+lrKF6AHFPg1eo+FIXWMNFDZ6/76xU0B0cQu6/knPzWHwh7pik/zHZE/uR+IBfy+aclc4LMhb/DHobG2hRBWnmaXgutv0MmEb6dMUoiqRP9s/7+ZOqjnROEZAp7E9VbW0JE7fX6bfPl56UoT9HUQX/4qmoyJKx5WZi1YJqCUMRdaV3XqqMvhdbP398GQHUlwYPIihTjYVSmQGR9fBSzdsxDaV3X3ZeV555KEJe47q9Xgu7koprO1f3XBzJ6mZwFu15IJO3fS656+KoaYcCVuNJHqdUSXXV5ffeOix+qLvKLnPqKhm6o514oZfT6i7Kqph70h6XR2SfuFAxmYkm5jVvPZ6Af39xBX7QnHo057D/ijoHRlSZ6GhpqUvqc4hP7pz7eS6mKz2kQ/O9KbBlcTjZ8Da1hppizr0evuPZ5SoXlR0YxUx1ff+L8SmqEdTzlEoovFY8HNp1OFxRh3r3hsWUrj7xkoTBDtnczP9kSky66OicCr9EYbISJLdmX8CIHbehdcU1n5OanQnE3UgSPB87DvWmLQi0FDQq9TM6CXXEop8HicFccSoI1WkuEvdfeoOTWqqaeiJ+j+3LH0crXaTXQcAQCHvfZBMu+qg5CMeWwnweowKKnTnaz0pQ5ikmpsLyQFvDr4xkfnyBz7JN/vgl8AKQUuPHFwcS1J1Ja4Qrr8lFS2zV5U7Qoz+vZ6OLgdQ9TC5EcwA9eVfutuTewJJ3Kxp6dl7IRBnTRWFM3x2w5lyEqG7tPEDh8Ky/gm/tl9V0f9OlciCmBxIIATRWFqf79NKO0oha/NfdvJYppZZNe3BK6/nFUonQ63uy6nD15U3ShaD80h8u7EFMSsPb+AHIs2Bwe7Ofqs/FWfB+CkHWpo4f5Mg/GL/kkDUYnmgznV5KJuJilPs8+Pooh4LlbJ13ToHT/+mgGe9BtW3g8cOrh28vPS6f6m4S66dsaq6opkdgcbksnI6O45dHrmsepNdAAKtA/dzH4+4fetlqRfsbuVhqGmhQFEoHGYFc29qTkN12PL4d6NPvw94NCBYEouAQ4F+mx23kaVHl5AaNPaf+KASwOd++1NyfuFoR7G40epeNgqqapIq9AIvYy2G3dzDdlbS/zG28nVSJz0LmnxUIBfqmFMK6oZxl1HT3Cx+kSOHJVU8+m02n6msIxJiQ5PNQytWD3CyMtyvQAEzcrTXM9qjpVXo6I7+5lVTf3ZBa33k2uRObusrqu43eFFSgmojU9Nqvea9XdYFe9SZ6GLhbquuqK8nL47l52aX1XUm7D1bhyUcILk8WBniu3f9mKU4/ekuAKdxppU0rruupaaIJHeFvdAbUQAwCeZ9ZBTwQbrolTmnwWDHfPs7qtKz7WkpoAgDVRi/5JCQIYMACsj9JwgMEh0pjySvJ0weoHfI+MDrXjc+/nTd3KffXiVvo/uZfnVtGmaa1VF2qdcyxxPABgqmOqvU4Nfy8nvcoIh3QAwJNCp9dV5gCAJd6xutR2AEAPU/5imn92nTFZjhlgVjjZIV2wXndRk+6VTN/aDjVT9ab5Hgn6ym3Rbx1TKy1M1JrnuSfkNxhE5XhSSPTVox+jYcPUSgs5Attco7GXRXr6dhS2zjBgFDNs4HDxDwucZzqn9G15VWnx29Mp/Ki8uW6JMUUO/D8BAPPdE86nBSSU2oTbZ3gZl/C3P8x3eb5yK3+vee6JfIrZ/mRaRo0pAEBdsXuF31Mmhxh64qecOqP3PSdDF3vFHp5+ps/HPPvMGhbnnfR4MG7S3WW/Py10PJ4YGmBeONs1afnVZZk1JvumnEfmlx3RU530q3qYpOVXl/F4OAKe62JQXtmmia0zDABrOAuGr6GihmK3qBjZ+FLb2GJ75CNk1picSAwV3FLTocbnFwDA/TxXAEBssT2fX07MOHVo2hlT9SZFEpNvImFxCF9dW8LiEOx1ai4vPGyo0trFIK++sbjvaAdiwzNrTIKtcpch2owYbOJ0p9Q1UQuXXVnOLxDD4eLTqsyxRYYBo5hhK3k3x/Vl/OotwVYwfhBtpU4AwPMih/hSO76mAwt++Mn26GndjP+yRR7muwAAQqzeAAASSm3beylE/Dvr2g93P31W5PBN4ION424R8VwAQGaNaX2XKgBgkVdcuH3GDJdkAEBOnRG/zkt5i9aumEgAwHdB9xEaIcWX2voe2rb0ynI5PAdbVRgwDD/F4HC864sPnJz9l6k6fJOEsVa5AIArGb6VbRqBliITYQxUW530K2lM+VMpY/s2PshzBQBsGh+lQGSxufhHBU6BFvmh1jkAgC4G+fYbjzVRiwKPbqaz5QAADV3vChrqUDsAAMrvrUK9LDkAQHWHOj/h6HxagKg5lLZoz/j3m6Im3exa49pONWxV/T+AgMepUEgqFNJw9ZCkKsqpUEjQrtsfsy2GRGAv8IifPCq9rEWrjaZEkaeT5VgkAovFIdZ2qt3M9ixsfJcKYaTasjfyAl/KEAVn/YrHBU7NPVQAQKBF/pUMXwAf8kTcFXE67K/1dZ2q7/ODFOJK7AAACy58xeYSAAD3ct1muyQfmHouvtSmpkP9ZrZXXoNBcbNuUpl1sFWu7vsWK03dygCAFtq7ErNK8u+CUIzVWirbNK5m+mwIuW2uARMj8EfSOBqLBD5Y+64vImwBurRsaNxdH9ZOd9DTUERznEM3cwVjN2cFmrkjVmxYf7JfA/I10x30RZ/oZnx5CmLnHVH1N9PeNgt2OxGFgFE6k32NEQYwWZzNZ9J5kjsw5eUIQc66Y130XCzUrQxUtFQU+oJZOVxebQstr6I9vajlXkpVdukHKW1lb6I6ydPQz0Hb1kjFQJPSV5uKyeaW13dllba9yKm/l1wltnkDcoVToafZv5uKPdTND9475v+4V/BhKcZco/HWkn1m/DfQCmbAxnG3MmtM4kttqfL02a4vyXJMcZVceYEW+bffeKiSe5CbnI02L5jnnngh7V0WzNO3o5gcopI8HYcDygq0VppS9FvHVTc/O5s6RpXcsz7kTpBlXl6DAQCAKk/nc5mhSmt1h/o/KUGq5J6obE/+MeWJLACAiXrTkxW/ufy+q5dF2vMs8o+Zf0Mn4KRX6WZYnl5t+iEWloGmotiis+B9roAoiqEoEH9d6ApbMA3AhaUJUkywqx5yC3qhRTk70Ayhp+IkTwOvVXfposuDirrYC89K0FDMykg7sTXxb8SXS1TgTo0q/810h8/GW4qquUXA44y0KEZalAkeBj/OdSqq6dx/483FmFIujycNeR9MDzBdM81eqMyNYLkWa0MVa0OVmWNMD6zwvp1UsedqTp7oqDzk5SSKYiJ8jLYvdgcigrYmbnwsfUWJiOfO90iIWrJPnsjWVuq8/fleM7gvvCBcDCpWj378mVecWH55t7itcgEAAeaFYv3E28OuqCm+i91+kO8KAPh98oXc9euiluwDANCY8j4mRbrU9vZeyo/35h5PDAUATHNM9TAqBQDIETgnZ/+lSGLkNxgsu7K8tlNNX7mtz9lkpNqqr9w23yMBAHA106eqHeYxz/dI2BBye9glUisDZVFNo/0ddFDyy4cGv4HkBzq4AokQjKIKAcp+73xM9jXOODHlm08ckGv6CT2IE1/7Pds7afA9c831qI92Tjj9/WhR/AIt4vvJaNOkQxG/fe6BpjE2SqhT5Q995SPq18O38oTqZg1cijFSbZnjlqSt1ClH4IyzemOi3gQAuLjgiIlasyiTygAQYF64K+JSgHmhLrW9l0XyNinWV2nbFXEJAKCm2POF79MI+3RzjUY1xZ5dEZeUFXoBAJqUrovzj2TVmtjq1NZ3qjrrV4TZZ/JJbffkizwezlqr/vW3P93M8Spt0SLiuf5mhSFWuX3m2wDzwox1P17P8q7tUDPXaJzt8lKFTJvskGas1myg0goA+DbovoVGAwCguYdqpNoC63rH4Xg83jC/xmNd9M5GF6Ps0TNcWDPN4WpcWV6F9FuABjrpKqKwTUT4GG+/gCoP6JtPHLYuchvYZNytNF7sD5v6S8zrgRbuG+emf+aHMcro+osLSVWrptj5O2jP3RkrlYKhvy/31FZVAPCFvtq3X8iUgi1mR/iVxV5xVHmYAOHxNtnSXSjO+hXO+u/SPVYGPBH6x1TH1/9Jxe838mkiwLwQqm195R8NBGpHiDqpvnLb16MfCTFd3wENVVoFzwWzah3St0y8vvnhzOF9e4NFUMwYRxmiGCIBd2SlT+j6x1LRIxD6/oiCg4mqqa4StAemEBaGWg6YX8D7BhJ3to4b+/3DwqoOSfcNddO/smmsYO0xSeFqqfFw5/iwjdGDTM6c4GEgVHkLCGQ8fXEwiY7YFQPVBcxzT/h69CNYfsFQ06F2NdOnqEmXKAPu6rEuetACkWpUeWdJGpIOAbxstT6fZC1tHyWY6GUoLTKyNlTZv8ILSMPvc35DoKQ6i52x6vkNgYPhlz619OavwVTJ5SBBljyyylekdHM1J0NcXr74a7DRrj0w9dzQr0IOHcdl4WSfYrSVOplsos/BbRvvzxn2yahT5Z0t1KFOFpzs3cgtC12l2ynJzUpTV408+FqzfGxd5CotW4atkcrX0+yBJK6r8xvGKErJG21nrDoYrty9zEPUY8oobtlzNVsKcTGexqUorbNSAw8U71NJDtNNmaxTd5Mi4xQjR+DM90iY5ZosI/OBVl0NctKVwftGVZT7fbkXGHItCbxvFg7baRO8L+UbJq4+dmVj97PMuvspVZklrbC5yIJYNcUOfQDLtzMcxPaiBwAw2dyqph409U/nBJmHQioTo0GIq74oZyKDxVl2IFHshYuhGAKea6zWPM0xdYgXX+tLhYZ7ioAHuAxc2TFlZjMBgBFQ5s5Kq14WZhLiqgdpOaArmzdtip9xGGrVRiwmSXIoPA6HMD4c0uJDyEf72e/xDkujpmx+OmdH7Ohv7lssvLbv+htRpiUeDxTXdCL0CAf9WwyvneaAPKaLxlp+IFF35iX7z2/qz7789bFksT1Ct37mJqkkS1WUO7papBdp67lMlAYmPIJP+tlX23LXfy91a65YMJr+mxWPC5jNeNmnGBvtWmkVoBokfOy0BeNNddTItkYqMnvf9q3wkkp8qomOErQJ0YClHlcrDcTKOy1CPYNauxi/ns1YcTAJ9C9Rej+l6qvDLy0XXQv54VEWuni8L8JtkVUkHg/M3vH80vNSfhlDJpv77+OipfvEFMAeZaoW5CRZU4HflngYigi0S8ptPHo7f7AJBH/OOulmWD48BgUfBkHh3QdBwYBNsRwZxX21qR1gSDPUeaICsfwdtIGAHxfAtUCSkZtmqEnZvEAKjWXDRYgkCBcaAqma3gcDDST1XEeNDGumufS89F5yVWM7/cyT4lnbn5t8emXOjthzT4vRt2rB43ALQy3FBkZCKxPeeVkptm7pglAJyteOcdRdNN5SVGXC5QcT0S8heIqx1a6d5TJsxgV5HY7TsWa96T2Gn3Y7Hm7BEUcEwwAOZ0gVOoRoi2BXfWSKyShqkZ37tiLCxt1KY7AUI8J8ez2+HCFOL0SEhQJa+w70r79/b/u4CR4G0E4gn+9PsFp0fdXRlw9fVYtVXmClJ9jOnII4+aAQiKidirzjeHd9IgGVskRRIJ5YI9KLtOHUa2hxdckohirfi5B2ODRQNGebr+40WdZFUueCEYK+YjRDg+YOek5Zm6joGASKKarprG+TofgDPA53aKUPytUPC1Ulkp+9DoBr4XQ2umgAulJrJ0OsNnp9c3Dlxdl3t4X+ONcp2EWPr+7R6OzBSIhQOxqAdCkRVbz9RXa9WPczbCdJKLZ95masrQT705O0mtNPisAg0yA1lbr2Rp4HGCTBtSzvA3FhQ3zS51l1sNlA9iaqumrk+rZeY20lEx0lSF3YOn10+ZDSRXl9t6ku/MJ1NldfEWHLV+87aSxJ41nHuxvAMlRMRm1yflMvkyNKIZrkZUjA46AqZ1Ft5yQU5yWTCH0Nrbg8Xk5Z28u8xueZdbHZ9bQB9YR0txJTvQyhSHBda297N1NVCSkd18lcXWxylp+D9tJJNqJ+fZFdLymFwkgxK/yeYpQhEd426e2IntbDlB/i88Zm1onWlfREaUkvBtRjYPBAbpK9ca4zP0S9vVviCIlwEcLI88w6OpMTL9pIoU6V97XXht1xALIYnyiv/Dy26uLsa5vGTvEzxkvoxbE2EON1KqlFaixbIa7hiQWKnKkTX/shzHr1VHtJG0XCUEyAWSHGGhJhbdTCkmad4XhpG0V1R+JHx0AphscTL1F/IHTSWAiRoFRFOX60fnOnZH2sSUQ8bNAHk83lm0WR+QI2Bi8uq34wqT0kIn6ip+H5DYFJhyNQpi+C9z0AkAdUI7aO66KJcYzooAhNRE7d1FEjzwuxGCzFcHj/baSz5VZcW3o4fiLGIwhopSkNy3lpDHZKfpMIc4w+DgeT/fimvA2hGRP4sDnWSgduIPWxnRdi4W6tWd8qmZ0oYJQObIB8cn4jv3vc0/RaSc0xLA53y7mMwV+yg4nq0z0TUcb+KMoTxcYTdyCSiNgenshqFEqsmzlKsKHdQGwxjd3vpLVOOnnpleUP811wON7tHHd5IptEYAdb5wZb5ior0AAAeDxPR6lDjvB/XUryYb5LX6mtocfzrLqAUTAClLaqwjR/E2hAfVz2sMUHaqko3EqqyChuQfiw//yps6RN2kRpSTEZdX1G35pmmihPjYmO0ihTtTflbVAP9ERPQ2hP6wFINOc2BE7Y8FhsvrUciveWyeLIQpzB/HGW/zx6O3CKoTHlM2pM98eGRxc68u0LPB7uVeU7J3lM0SihVGYf0yJrrbov/aPtdVD1DO+kk/9IGudjUqysQLuW6bN10jUCnjtC+SWnzmj22a+HsYbDs4y6TfNcYH/aPB8m3mQYKYYkR+DxwE//pj3YMR6ILl+A4GaGRZi3oYg7UytoW5k/zgJBV4JSDABg+YFEAh43xc948Czz77rRnqvu0JmDJQgWYsD+kBXZXDvd/mx0EZrsAXhFqbRZe9zxn27leKCxX3J5uKQy6wd5rgj80s1QSKs2e1bkAAC4kOYfX2q77cn0yFPrgo9vOhw/ceP9ObQhN5RKC0ll1sNbIyajuEWUBm6hT4VG6yHbXIcA8TkNsD2SgUARA/RHczJXh41AbelkZJf+xxrR6TUDSIlksDjzd8WtOJRU1zpYH7+prtKSCVZi1F4UTihkEhFrXR6AKV1UAvfsIPOBSzED6DDdSlNq6VHSoHSfTR0TYp3T3KN8InEcm0vIbzB426hHZ8sZqLS19Sr6mRa9LLfiMxeH+672wfHE0NdVZjFf7RiJFBNd6ASGuQsV70VOfTi6DEAEPhpK/HDy9VgXPVF2BxUKSRItCV6EKazq8B+lLTYSGrx3mRtpUapEWFIvxJRcf1E+Y4zp4glW3rZaA77qheOtoB1ahQxAXTQWcuEF5FLkmipiPtXo44zFYv1sx0vPUFUOlY5kxebi98VGrPCL/v7OvNOfnnhc4HShf73+mg41AICovojlrdpsLp44EtQlJocYdHRzbr0hhUSXI3CGy9Ar5GFFSTHDqCUJoqy+6/erb36e5zz4Q4nKh/Zz0EZQx2ANOqKqW/PFmQsxJRdiSoy0KOHeRuPc9L1ttSQ1nTqYqGqqKCDX7q5q6rFHzLQSVTgVoHMYSWrnQhZkpgeYoNFqpZZheCR+gsf+nTQWicUh8ABOwkqaBcQRYo5ZfmVZTp0Rl4frYpBlgV8AAM9QB3HEZdXLyG08eDO3qKYTDLpwuouFdEptoazmW9XU88e9ghlbnxnPu+K58s7qY8kXnpWgrylnI65EA6xJSBCW+lSE4F2xAqDY4wtCbDH2DXOc0AT+SDOJuZdFAgAciAt7LWELRLLcyEh0BAD4y17QUFFNJ5ogDgaLg9xdZCjBYHG+OZHygUSYgTxWBx1RUglFgehhrbl4gtW+L7z6pEUeDxRUdZx+XLTiYJLdkpueK+9cel4KxHcyEEMBaeK8Tt522qJ+Esu2vUyOqIwTWPXwi4OJlY1I7GljpILGFi59E/RryVusXkz3I+A5eyMvDHXtKzCABl2yKG3FZtch9yEBAKQWNvPjRGQEcdn1l2NL5wSZD4JiDKVYTniih+Hl2FIc7p0b29FMjf9/Ux1q36fa11774atqqAGioKpj+YFEigIx0ndQ7qcn6bW7EQdoqyp422rBfirEtl6Iy6pD6dIqr+/+7s9XbA7v+J38XUs9AGKMzK2kCmSDjEyUYuHxcGdTx4hqxiZTSKmwlEWKyRSvAYlN9h96bDyVNmAfhxJZTrqltvi60rIwm5y/pl3aGLRxrnOkr7GZLlVQFXA0U1s/xxGIbJUnJn9drGequKYzV1xjhlVT7ABc1vhccd+Yay/KAToHwpJ98fwovtNPijoR/QNO5upi7YCyUu1JTbEn3D5D9immoNFABmf1PEu8OSY2S+YopqmDvvlM+sD2DXXTlyjGFM0BFUiEe8lVyF6SjXOdj67y1VRRgHhzFGYHmQGk8A7e22rxFYX+fiBGE5/qbyIkseJwYO9yL+RCyA1tvbeTKtHch12Xs/uSLXvo7FMPxYTY/TDLcagVpYHhS79oLaVOIPNRMB+o5eMg0dDWm1fRjuCMoDHYaQPt5vNBceZJ8fwQCy/JncGiIu4GDEUFYqCT7uPXNY9Ta5BrdC4abzkvxCKloDGvor29m6lCIRlqUYLEtXB6mdeIJmLgfEzJdzNHiSo3x8cfa/2CXfVuJlS0djEs9KmLx1uJvYEHbuQy0EUG/341R/DPE3fzV021Q+iF4GqpEeqmHy06S0NWKMbNqEzG+YXDxa+9tVBmp/c8qw6BYpJyG5lsWbQicXm8NcdTEg6GS9SskoDHTfQwFHUfRHXdxeHAwS+9EfKAJvsYP35ds+dqjtgywEQCzt9Bx99BgtzXfx6hKrNCZ3J+PJV2bv0Y5GGzAs1E9TYCcN3U/n74dmDVFOtae6/GliGnPm781HkEUMzmB7MmDHmRYPRYdWPxmdQxssyAsVn1KyPtRpAhBgh4Uo/dyf96qgRtQPwctEU5gP59VBSVWCFqx9mB5kGiG2OGeRvij+Fev22++Kz002BzKV5jZknrdXSmEADArcSKay/KZ44xlZbz7ouDSYxBJDcdvpWHTDEe1ppjnfVEaeuyYovJazCo61SV2deA74+XZcTn1CPkjMRl1cvy5HdczJKoY6EoEyOLw32agZRX/RQxk0BLRcHTRhMA8P1fr6QYpdZFY32+L0GianirjrxMk1Lx01VHksV2UxPzbla0I2erAwB+mO0o6+ZeAMD516Nl8wWo7lC/me0l4xTTQ2enFjaJKtSCsvz9cIFGZ6/7M3Xw7urEN2LsHX3p16J1JSP+HZv2a4xUyo9297JmbX+OxtArZDuL3BQ9SPMZjwe+OZFyObZ08FdxOCoPiCupMdpRR9YpZvezyOoOdRl8AR7lO7O5I6DRiihJNT6nHjlJRxZwP6XqwatqgK69oZkufJArcoIlACC3og2ZOCJ8jN/Xl+sKXf8IfawaEOGEDl3/OOFNw8AqeIX9HH0NtXoF3X3W9ufoTTBil1a2uK/UupmOsk4xDDbxSrovv5oElydDHVKfDHeuI+pkpXpRyc0jYv7r/nyFJjgwXLQvSSxJ8XggBlGTstCn9rWdKq/vDv7+4W+XsgdQiLeXydlzJcd/7X2JYvahwt2SvfGL9ryobZGsBN+95CqvVXfEEq6kFhnkAcEuenw1U3YpBgBwOcNv3vlVZtsPmW478t3t+fkNwx+E0tCl8qjAeUS8oq/fNsHWPUMTNSMLqGrq2Xkpe8B5A2+rO9AYUGLEmRUEDT10JmfnpSz7pTe3nMsoQNf8MKesbdPpdNvFN7ZdyJRKOPXNhArHZVGrjyWLLWpFo7Mvx5YGfvtg7s7YwRQGhcWN+HKx9rKNc2HeFJzS5LMyu+YCLfLvLdszvHO4mO7/xdWlwzgBigLRAq5XaUcPE9rOxspAmQzJ988paxUyNZroKCGkzBVVdwj2ADLSoqhRkaoECInQsHMAAPQy2GJTH4kEnL0JfCOOti4Gv97CKFM1PJyHu72bWdnYjaZtgBViOiLCcQw1KZ42mrbGKrpqZKoiSVlRDocDTBa3qYNe00zLq2x/VdDU8CEbyOiqkf1H6dgbq5roKCmRiQokAp3JaWqnF9d1pRc1pxY2o0kRcDJXR/80BWGsTVFVElMvArq7TFNMhEP6pQVHhnECTd3Kvoe2NnTJbsNWDBhkHLJrxQyxenNixj/DOwctpc7jwz0HDBhGNGS3meuawIeq5J5hnEBM0ai/XgbHvHXEVgkGDB8hxVhpDU+0GItDuJrpczI5OK3KHFsfGDB8tBQTX2I71y1piE96KmXs3mcRshmegwEDRjFSgwKRNc76zYc4clmLdjtdsYtO7mIo5DcYROV4sjmEYKvccPv0zY9mplZaYGsCAwYpQnY9Sj+HRq0PuQOkGkF3Od0vKscTGqqLx/FkKtgPAwZMivmw0FbqXBnwZPDHKWnW4Rfx3h8Xdi/XDYjuBoUtBQwY/o8oxlyjQUl+UD1fbr/xOPNqTDTmD8KAAaMYKFKrLO7lukU4SFx1saVHaf29T6MLHWWkAwkGDACzxcjs5Oa5J2yecFNfWXwiWXsvZXdM5ItS27x6wxGRFY0BAybFDD8upAXUdard/nyv0PYepnxlm6adTg2LQ5AjcF5XmS+6+FVlmwb2ODFgwChGMnwbdB+68X6e69H4CUry9KImXQOVtvQaUx5mr8WAAWA5SpLjq+tLoAU3DVTaMmpM40tt67tU06rNMH7BgAGTYgaIyjbNJ4VOlpoNesptGordJ5OD5QicyyOhqRsGDBiAjJt7MWDAgClKGDBgwIBRDAYMGDCKwYABA0YxGDBgwIBRDAYMGGQA/wPx5RCHzsb7ZwAAAABJRU5ErkJggg==">
+
+  </div>
+  <h1 id="h1">Amortize suas parcelas, <span class="mark">economize seu dinheiro!</span></h1>
+  <p class="lead" id="lead">–</p>
+</header>
+</div>
+
+<!-- ============ ENTRADA ============ -->
+<div class="wrap" id="view-entrada" role="tabpanel" aria-labelledby="tab-entrada">
+<section>
+  <div class="sec-head">
+    <h2>Seu parcelamento com a Minas Ok</h2>
+    <p>Os dados estão na sua confissão de dívida (cláusula terceira) e nos seus boletos.</p>
+  </div>
+  <div class="card">
+    <div class="fields" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
+      <div class="field"><label for="c-valor">Valor parcelado com a construtora (R$)</label><input id="c-valor" type="number" min="0" step="100" value="60000"></div>
+      <div class="field"><label for="c-qtd">Quantidade de parcelas</label><input id="c-qtd" type="number" min="1" step="1" value="60"></div>
+      <div class="field"><label for="c-per">Parcelas</label><select id="c-per"><option value="mensal" selected>Mensais</option><option value="anual">Anuais</option></select></div>
+      <div class="field"><label for="c-ini">Data da primeira parcela</label><input id="c-ini" type="date" value="2026-04-20"></div>
+      <div class="field"><label for="c-ult">Data da última parcela paga</label><input id="c-ult" type="date" value="2026-10-20"></div>
+      <div class="field"><label for="c-taxa">Juros ao mês (%)</label><input id="c-taxa" type="number" min="0" step="0.01" value="1"></div>
+    </div>
+    <p class="obs" id="obs-anual" hidden><b>Parcelas anuais:</b> para quem paga uma parcela por ano, e não por mês. No contrato, a cláusula terceira fala em "parcelas anuais e sucessivas". Os juros continuam sendo de 1% ao mês.</p>
+
+    <fieldset class="tipo">
+      <legend>Como são as suas parcelas?</legend>
+      <label class="check"><input type="radio" name="c-tipo" id="c-tipo-uma" value="uma" checked> Todas com o mesmo valor</label>
+      <label class="check"><input type="radio" name="c-tipo" id="c-tipo-faixas" value="faixas"> O valor muda ao longo do contrato</label>
+    </fieldset>
+
+    <div class="fields" id="f-uma" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
+      <div class="field"><label for="c-parc">Valor da parcela (R$)</label><input id="c-parc" type="number" min="0" step="0.01" value="1334.66"><small id="c-parc-hint" class="hint"></small></div>
+    </div>
+    <div id="f-faixas" hidden style="display:flex;flex-direction:column;gap:12px">
+      <p class="obs"><b>Para quem é:</b> contratos em que o valor da parcela muda. Exemplo: R$ 48.200,00 em 80 parcelas, sendo 27 de R$ 828,25 e 53 de R$ 915,67. Preencha uma faixa para cada valor, na mesma ordem do contrato (cláusula terceira). Se houver mais de dois valores, toque em "Adicionar faixa".</p>
+      <div id="faixas-list" style="display:flex;flex-direction:column;gap:10px"></div>
+      <div><button type="button" class="btn-sec" id="add-faixa">+ Adicionar faixa</button></div>
+      <p class="hint" id="faixas-soma"></p>
+    </div>
+    <p class="conf" id="c-conf" hidden></p>
+
+    <label class="check"><input id="c-adit" type="checkbox"> Meu contrato teve aditivo que pausou parcelas</label>
+    <p class="obs"><b>Para quem é:</b> clientes que assinaram com a Minas Ok um aditivo de "suspensão temporária de exigibilidade de parcelas". As parcelas desse período ficaram pausadas, sem juros nem multa, e passaram para o fim do contrato, pelo mesmo valor. Se você não assinou aditivo, deixe desmarcado.</p>
+    <div class="fields" id="f-adit" hidden style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
+      <div class="field"><label for="c-s-ini">Vencimento da 1ª parcela pausada</label><input id="c-s-ini" type="date" value="2025-10-20"></div>
+      <div class="field"><label for="c-s-qtd">Quantas parcelas foram pausadas</label><input id="c-s-qtd" type="number" min="1" step="1" value="8"></div>
+    </div>
+
+    <div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))">
+      <div class="stat"><span>Parcelas pagas</span><b id="c-pagas">–</b></div>
+      <div class="stat"><span>Parcelas que faltam</span><b id="c-faltam">–</b></div>
+      <div class="stat"><span>Próximo vencimento</span><b id="c-prox">–</b></div>
+      <div class="stat"><span>Última parcela do contrato</span><b id="c-ultima">–</b></div>
+    </div>
+  </div>
+
+  <div class="card atraso" id="atraso" hidden>
+    <div class="card-top"><h3 id="atraso-t">Você tem parcelas em atraso</h3><span class="tag late">REGULARIZAR</span></div>
+    <div class="cmp">
+      <div class="cmp-k good"><span>Regularizando hoje</span><b id="atraso-total">–</b><small id="atraso-n"></small></div>
+      <div class="cmp-k bad"><span id="cobr-l">Se o contrato for para cobrança</span><b id="cobr-total">–</b><small id="cobr-n"></small></div>
+    </div>
+    <p id="atraso-p" class="atraso-msg"></p>
+    <div class="parc-list" id="atraso-body"></div>
+    <p class="obs" id="cobr-obs"></p>
+    <p class="obs">Pelo contrato, cada parcela em atraso tem multa de 2% e juros de mora de 1% ao mês, contados por dia. Para antecipar parcelas com desconto, é preciso estar em dia.</p>
+  </div>
+
+  <div class="hero-num">
+    <div class="k"><span>Pagando as parcelas a vencer até o fim</span><b id="c-total">–</b></div>
+    <div class="k hl"><span>Para quitar tudo na data do pagamento</span><b id="c-hoje">–</b></div>
+    <div class="k"><span>Desconto na quitação</span><b class="save" id="c-desc-hoje">–</b></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Adiantar parcelas com desconto</h2>
+    <p>Para quem está com as parcelas da construtora em dia. Você escolhe quantas parcelas do fim do contrato quer adiantar e paga um valor exato, com desconto dos juros. A Minas Ok emite um boleto com esse valor e cancela os boletos das parcelas adiantadas. A parcela do mês continua igual e o contrato termina antes.</p>
+  </div>
+  <div class="plan">
+    <div class="field"><label for="x-tenho">Quanto você tem para adiantar (R$)</label><input id="x-tenho" type="number" min="0" step="100" value="5000"></div>
+    <div class="field"><label for="x-data">Data em que vai pagar</label><input id="x-data" type="date"></div>
+  </div>
+  <div class="card casa-card" id="casa-card">
+    <span class="selo" id="casa-selo" hidden>Regularize suas parcelas para continuar avançando</span>
+    <div class="casa" id="casa" role="img" aria-label="Casa de progresso">
+      <svg viewBox="0 0 300 300" aria-hidden="true"><defs><clipPath id="cp-casa"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+        <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="#F7BC0A" fill-opacity=".15"/>
+        <rect id="casa-nivel" x="0" y="263" width="300" height="300" fill="#F7BC0A" clip-path="url(#cp-casa)"/>
+        <g class="jan"><rect x="54" y="214" width="34" height="34" rx="5" fill="#fff"/><rect x="212" y="214" width="34" height="34" rx="5" fill="#fff"/></g>
+        <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="var(--house)" stroke-width="40" stroke-linejoin="round"/></svg>
+      <div class="cn" id="casa-cn"><b id="casa-num">–</b><span id="casa-lbl">parcelas para ser sua</span></div>
+    </div>
+    <p class="casa-cmp" id="casa-cmp"></p>
+    <p class="casa-won" id="casa-won" hidden>Parabéns! Sua casa fica quitada com a Minas Ok.</p>
+    <button type="button" class="btn-share" id="casa-share"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="m8.7 10.7 6.6-3.4M8.7 13.3l6.6 3.4"/></svg>Compartilhar minha casa</button>
+  </div>
+  <div class="verdict" aria-live="polite">
+    <span class="eyebrow" style="color:inherit;opacity:.75">Resultado</span>
+    <div class="big" id="c-verdict">–</div>
+    <p id="c-verdict-sub">–</p>
+  </div>
+  <div class="card">
+    <div class="slider-row">
+      <label for="n-ant" style="font-weight:600">Parcelas do fim a adiantar</label>
+      <input id="n-ant" type="range" min="1" max="60" value="6">
+      <output id="n-ant-o" for="n-ant">6</output>
+    </div>
+    <div class="compare">
+      <div class="k"><span>Valor nos boletos</span><b id="a-nom">–</b></div>
+      <div class="k"><span>Valor exato para pagar</span><b id="a-vp">–</b></div>
+      <div class="k"><span>Desconto</span><b class="save" id="a-desc">–</b></div>
+      <div class="k"><span>Contrato termina</span><b id="a-fim">–</b></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parcela</th><th>Vence em</th><th>No boleto</th><th>Pagando adiantado</th><th>Desconto</th></tr></thead>
+        <tbody id="a-body"></tbody>
+        <tfoot><tr><td>Total</td><td></td><td id="a-t-nom"></td><td id="a-t-vp"></td><td id="a-t-desc"></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="hint" id="a-resc" hidden>* Parcela que foi pausada pelo aditivo e passou para o fim do contrato.</p>
+    <p class="obs">O desconto é calculado até a data do pagamento. Se você pagar em outra data, o valor muda um pouco. Quando tiver mais dinheiro no futuro, é só simular de novo e adiantar mais parcelas.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Antes de adiantar, saiba disso</h2></div>
+  <div class="notes">
+    <p class="note"><b>Parcelas em dia.</b> A antecipação com desconto é só para quem está com as parcelas da construtora em dia. Se houver parcela vencida, regularize primeiro com a Minas Ok.</p>
+    <p class="note"><b>Parcelas inteiras.</b> A antecipação é feita sempre em parcelas inteiras, a partir da última do contrato. Os boletos das parcelas adiantadas são cancelados.</p>
+    <p class="note"><b>Data do pagamento.</b> O valor com desconto vale para a data escolhida na simulação. O boleto de antecipação sai com essa mesma data.</p>
+    <p class="note"><b>É uma simulação.</b> O valor oficial é o do boleto emitido pela Minas Ok.</p>
+  </div>
+</section>
+
+
+<div class="cta">
+  <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+    <h3 id="wa-t">Quer adiantar essas parcelas?</h3>
+    <p style="color:var(--muted)" id="wa-p">Toque no botão e mande sua simulação para a Minas Ok pelo WhatsApp. A gente confere e envia o boleto com o valor exato.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+    <a class="btn wa" id="wa" href="https://wa.me/553438313999" target="_blank" rel="noopener">QUERO AMORTIZAR!</a>
+    <span class="hint">WhatsApp Minas Ok: <span class="num" style="user-select:all">(34) 3831-3999</span></span>
+  </div>
+</div>
+<footer>Construtora Minas Ok · Simulação educativa. Não substitui o boleto nem o extrato oficial do contrato.</footer>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2});
+const brl0=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0};
+function pmt(P,i,n){if(n<=0)return P;if(i===0)return P/n;return P*i/(1-Math.pow(1+i,-n));}
+function nper(P,i,parc){if(P<=0)return 0;if(i===0)return Math.ceil(P/parc);const x=1-P*i/parc;if(x<=0)return Infinity;return Math.ceil(-Math.log(x)/Math.log(1+i)-1e-9);}
+function anosMeses(m){const a=Math.floor(m/12),r=m%12;const pa=a?a+(a===1?' ano':' anos'):'';const pm=r?r+(r===1?' mês':' meses'):'';return [pa,pm].filter(Boolean).join(' e ')||'0 meses';}
+function emMeses(m){return m<=0?'hoje':'daqui a '+anosMeses(m);}
+
+/* ---------- topo ---------- */
+function route(){ $('lead').textContent='A parte da entrada que você parcelou com a Minas Ok tem juros de 1% ao mês. Cada parcela que você adianta sai com desconto desses juros, e o contrato termina antes.'; }
+
+/* ---------- entrada (construtora) ---------- */
+const MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+function parseD(id){const v=$(id).value;if(!v)return null;const [y,m,d]=v.split('-').map(Number);return new Date(y,m-1,d);}
+function addM(d,k){const r=new Date(d.getFullYear(),d.getMonth()+k,1);const last=new Date(r.getFullYear(),r.getMonth()+1,0).getDate();r.setDate(Math.min(d.getDate(),last));return r;}
+const fmtD=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+const fmtM=d=>MESES[d.getMonth()]+'/'+d.getFullYear();
+const DIA=86400000; const diasEntre=(a,b)=>Math.round((b-a)/DIA);
+const hoje0=()=>{const h=new Date();return new Date(h.getFullYear(),h.getMonth(),h.getDate());};
+let parcEditada=false;
+function addFaixa(q,v){const k=$('faixas-list').children.length;const r=document.createElement('div');r.className='faixa-row';
+  r.innerHTML=`<span class="tag-f">${k+1}ª faixa</span><div class="field"><label>Quantas parcelas</label><input class="fq" type="number" min="1" step="1" value="${q??''}"></div><div class="field"><label>Valor de cada parcela (R$)</label><input class="fv" type="number" min="0" step="0.01" value="${v!=null?(+v).toFixed(2):''}"></div><button type="button" class="rm" aria-label="Remover faixa">×</button>`;
+  r.querySelector('.rm').addEventListener('click',()=>{r.remove();entrada();});
+  $('faixas-list').appendChild(r);}
+$('c-parc').addEventListener('input',()=>{parcEditada=true;});
+function entrada(){
+  const valor=num('c-valor'), i=num('c-taxa')/100; let n=Math.max(1,Math.round(num('c-qtd')));
+  const anual=$('c-per').value==='anual', step=anual?12:1, faixas=$('c-tipo-faixas').checked;
+  $('obs-anual').hidden=!anual; $('f-uma').hidden=faixas; $('f-faixas').hidden=!faixas;
+  if(faixas&&!$('faixas-list').children.length){const c=Math.round(pmt(valor,i,n)*100)/100||0;const q1=Math.min(12,Math.max(1,n-1));addFaixa(q1,c);addFaixa(Math.max(1,n-q1),c);}
+  if(!faixas){
+    if(!anual){const calc=Math.round(pmt(valor,i,n)*100)/100;
+      if(!parcEditada&&valor>0)$('c-parc').value=calc.toFixed(2);
+      const p=num('c-parc');$('c-parc-hint').textContent=valor>0?(Math.abs(p-calc)>1?`Pelo contrato daria ${brl(calc)}. Confira no boleto.`:'Calculado pelo valor, prazo e juros. Confira no boleto.'):'';}
+    else $('c-parc-hint').textContent='Digite o valor da parcela anual que está no contrato.';
+  }
+  // valores de cada parcela, na ordem do contrato
+  let vals=[];
+  if(faixas){
+    const rows=[...$('faixas-list').querySelectorAll('.faixa-row')];
+    rows.forEach((r,k)=>{r.querySelector('.tag-f').textContent=`${k+1}ª faixa`;r.querySelector('.rm').hidden=rows.length<=1;
+      const q=Math.max(0,Math.round(parseFloat(r.querySelector('.fq').value)||0)), v=Math.max(0,parseFloat(r.querySelector('.fv').value)||0);
+      for(let j=0;j<q;j++)vals.push(v);});
+    const soma=vals.length;
+    $('faixas-soma').textContent=soma===n?`As faixas somam ${soma} parcelas, igual ao contrato.`:`Atenção: as faixas somam ${soma} parcelas, mas a quantidade de parcelas é ${n}. Ajuste as faixas; a simulação usa as ${soma} parcelas das faixas.`;
+    $('faixas-soma').style.color=soma===n?'var(--muted)':'var(--bad)';
+    if(soma>0)n=soma; else vals=[0];
+  } else { const p1=num('c-parc'); for(let j=0;j<n;j++)vals.push(p1); }
+  // conferência: as parcelas batem com o valor parcelado e os juros?
+  const conf=$('c-conf');
+  if((faixas||anual)&&valor>0&&vals.some(v=>v>0)){
+    const pvC=vals.reduce((s,v,k)=>s+v/Math.pow(1+i,anual?12*k:k+1),0), dif=Math.abs(pvC-valor)/valor;
+    conf.hidden=false; conf.className='conf '+(dif<0.002?'ok':'warn');
+    conf.textContent=dif<0.002?`Conferido: essas parcelas batem com o valor parcelado de ${brl(valor)} e juros de ${(i*100).toLocaleString('pt-BR')}% ao mês.`
+      :`Confira os dados: com essas parcelas e juros de ${(i*100).toLocaleString('pt-BR')}% ao mês, o valor parcelado seria ${brl(pvC)}, e não ${brl(valor)}. Verifique quantidades, valores e juros no contrato.`;
+  } else conf.hidden=true;
+  const ini=parseD('c-ini')||hoje0(), ult=parseD('c-ult'), hoje=hoje0();
+  // cronograma completo
+  const adit=$('c-adit').checked; $('f-adit').hidden=!adit;
+  let cron=[]; for(let j=0;j<n;j++)cron.push({num:j+1,venc:addM(ini,j*step),valor:vals[j]??vals[vals.length-1],resc:false});
+  if(adit){ // parcelas pausadas pelo aditivo: sem juros, vão para o fim do contrato pelo mesmo valor
+    const sIni=parseD('c-s-ini'), sQ=Math.max(0,Math.round(num('c-s-qtd')));
+    if(sIni&&sQ>0){const sFim=addM(sIni,sQ*step);
+      const pausadas=cron.filter(x=>x.venc>=sIni&&x.venc<sFim), mantidas=cron.filter(x=>!(x.venc>=sIni&&x.venc<sFim));
+      const ultimaOrig=cron[cron.length-1].venc;
+      pausadas.forEach((x,k)=>{x.venc=addM(ultimaOrig,(k+1)*step);x.resc=true;});
+      cron=[...mantidas,...pausadas]; cron.forEach((x,k)=>x.num=k+1);}
+  }
+  n=cron.length;
+  const pagas=ult?cron.filter(x=>x.venc<=ult):[];
+  const abertas=cron.slice(pagas.length), vencidas=abertas.filter(x=>x.venc<hoje), aVencer=abertas.filter(x=>x.venc>=hoje);
+  $('c-pagas').textContent=pagas.length+' de '+n; $('c-faltam').textContent=abertas.length;
+  $('c-prox').textContent=abertas.length?fmtD(abertas[0].venc):'quitado'; $('c-ultima').textContent=fmtM(cron[n-1].venc);
+
+  // atraso
+  const box=$('atraso');
+  if(vencidas.length){
+    box.hidden=false; let tot=0;
+    const nv=vencidas.length;
+    $('atraso-t').textContent=nv===1?'Você tem 1 parcela em atraso':`Você tem ${nv} parcelas em atraso`;
+    $('atraso-body').innerHTML=vencidas.map(x=>{const d=diasEntre(x.venc,hoje),mu=x.valor*0.02,ju=x.valor*0.01*d/30,t=x.valor+mu+ju;tot+=t;
+      return `<div class="parc"><span class="t">${x.num}ª parcela · venceu em ${fmtD(x.venc)}</span><span class="v">${brl(t)}</span><span class="d">${brl(x.valor)} + multa ${brl(mu)} + juros de mora ${brl(ju)} (${d} ${d===1?'dia':'dias'} de atraso)</span></div>`;}).join('');
+    $('atraso-total').textContent=brl(tot);
+    $('atraso-n').textContent=nv===1?'1 parcela com multa e juros':`${nv} parcelas com multa e juros`;
+    // vencimento antecipado (cláusula 4ª): todas as parcelas em aberto pelo valor cheio + multa de 10% + honorários de 20%
+    const aberto=abertas.reduce((s,x)=>s+x.valor,0), cobr=aberto*1.10*1.20;
+    $('cobr-total').textContent=brl(cobr);
+    $('cobr-n').textContent=`${abertas.length} parcelas em aberto + multa de 10% + honorários de 20%`;
+    if(nv>=3){
+      $('cobr-l').textContent='Se o contrato for para cobrança';
+      $('atraso-p').textContent=`Com ${nv} parcelas seguidas em atraso, o contrato já permite cobrar a dívida toda de uma vez: ${brl(cobr)}, contra ${brl(tot)} para regularizar hoje. Regularize o quanto antes.`;
+    } else {
+      $('cobr-l').textContent='Se chegar a 3 parcelas em atraso';
+      $('atraso-p').textContent=`Regularizando hoje, você paga ${brl(tot)}. Se chegar a 3 parcelas seguidas em atraso, a dívida toda vence de uma vez: ${brl(cobr)}.`;
+    }
+    $('cobr-obs').innerHTML=`<b>Vencimento antecipado (cláusula 4ª da confissão de dívida):</b> com 3 parcelas seguidas em atraso, todas as parcelas em aberto vencem de uma vez, pelo valor dos boletos (${brl(aberto)}), com multa de 10% e honorários de 20%. Depois disso ainda correm juros de 1% ao mês e as custas do processo.`;
+  } else box.hidden=true;
+
+  const vp=(x,data)=>{const d=diasEntre(data,x.venc);return d<=0?x.valor:x.valor/Math.pow(1+i,d/30);};
+  const dx=$('x-data'); if(!dx.value){const h=hoje;dx.value=`${h.getFullYear()}-${String(h.getMonth()+1).padStart(2,'0')}-${String(h.getDate()).padStart(2,'0')}`;}
+  let pag=parseD('x-data')||hoje; if(pag<hoje)pag=hoje;
+  const fut=aVencer.filter(x=>x.venc>pag);
+  const total=fut.reduce((s,x)=>s+x.valor,0), qHoje=fut.reduce((s,x)=>s+vp(x,pag),0);
+  $('c-total').textContent=brl(total); $('c-hoje').textContent=brl(qHoje); $('c-desc-hoje').textContent=brl(total-qHoje);
+
+  // quantas parcelas cabem no valor disponível (sempre parcelas inteiras, do fim para o começo)
+  const R=fut.length, tenho=num('x-tenho'); let k=0,acum=0;
+  for(let j=R-1;j>=0;j--){const c=vp(fut[j],pag);if(acum+c>tenho+0.005)break;acum+=c;k++;}
+  const sl=$('n-ant'); sl.max=Math.max(1,R);
+  if(window.__tenhoMudou){sl.value=Math.max(1,k);window.__tenhoMudou=false;}
+  if(+sl.value>R)sl.value=Math.max(1,R);
+  const N=Math.min(+sl.value,R); $('n-ant-o').textContent=N;
+  const sel=fut.slice(R-N); let an=0,av=0; const r2=[];
+  for(const x of sel){const v=vp(x,pag);an+=x.valor;av+=v;r2.push(`<tr><td>${x.num}ª${x.resc?' *':''}</td><td>${fmtM(x.venc)}</td><td>${brl(x.valor)}</td><td>${brl(v)}</td><td>${brl(x.valor-v)}</td></tr>`);}
+  $('a-body').innerHTML=r2.join(''); $('a-resc').hidden=!sel.some(x=>x.resc);
+  $('a-t-nom').textContent=brl(an);$('a-t-vp').textContent=brl(av);$('a-t-desc').textContent=brl(an-av);
+  $('a-nom').textContent=brl(an);$('a-vp').textContent=brl(av);$('a-desc').textContent=brl(an-av);
+  const novoFim=N>=R?null:fut[R-N-1].venc, fimOrig=R?fut[R-1].venc:null;
+  const mesesAntes=fimOrig&&novoFim?((fimOrig.getFullYear()-novoFim.getFullYear())*12+fimOrig.getMonth()-novoFim.getMonth()):0;
+  $('a-fim').textContent=!R?'–':novoFim?`${fmtM(novoFim)} (${anosMeses(mesesAntes)} antes)`:'quitado';
+
+  if(!R){$('c-verdict').textContent=vencidas.length?'Regularize as parcelas em atraso para quitar o contrato.':'Seu parcelamento já está quitado.';$('c-verdict-sub').textContent='';}
+  else if(vencidas.length){$('c-verdict').textContent='Primeiro, regularize as parcelas em atraso.';$('c-verdict-sub').textContent='Os valores abaixo mostram quanto você economiza adiantando depois de ficar em dia.';}
+  else{
+    const faixa=N===1?`a ${sel[0].num}ª parcela`:`as parcelas ${sel[0].num}ª a ${sel[N-1].num}ª`;
+    $('c-verdict').innerHTML=`Adiantando ${faixa}, você paga <em>${brl(av)}</em> em ${fmtD(pag)} e economiza <em>${brl(an-av)}</em>.`;
+    let sub=novoFim?`Seu contrato passa a terminar em ${fmtM(novoFim)}, ${anosMeses(mesesAntes)} antes.`:'Com isso seu contrato fica quitado.';
+    if(tenho>0){ if(k===0) sub+=` Com ${brl(tenho)} ainda não dá para adiantar uma parcela inteira: a última sai por ${brl(vp(fut[R-1],pag))}.`;
+      else if(av>tenho+0.005) sub+=` Esse valor passa dos ${brl(tenho)} que você tem; com ele dá para adiantar ${k} ${k===1?'parcela':'parcelas'}.`;
+      else if(N===k) sub+=` É o máximo de parcelas inteiras que cabe em ${brl(tenho)}. Sobram ${brl(tenho-av)}, que ficam com você.`; }
+    $('c-verdict-sub').textContent=sub;
+  }  // mensagem do WhatsApp
+  let msg;
+  if(vencidas.length){
+    const tot=$('atraso-total').textContent;
+    msg=`Olá, Minas Ok! Quero regularizar meu parcelamento.\nTenho ${vencidas.length} ${vencidas.length===1?'parcela':'parcelas'} em atraso (simulação: ${tot} para regularizar hoje).\nÚltima parcela paga: ${ult?fmtD(ult):'-'}.\nMeu nome e lote: `;
+    $('wa-t').textContent='Quer regularizar suas parcelas?'; $('wa-p').textContent='Toque no botão e fale com a Minas Ok pelo WhatsApp. Depois de ficar em dia, você pode adiantar parcelas com desconto.';
+  } else if(R){
+    const faixa=N===1?`a ${sel[0].num}ª parcela`:`as parcelas ${sel[0].num}ª a ${sel[N-1].num}ª (${N} parcelas)`;
+    msg=`Olá, Minas Ok! QUERO AMORTIZAR!\nQuero adiantar ${faixa}, pagando ${brl(av)} em ${fmtD(pag)}.\nValor nos boletos: ${brl(an)}. Desconto: ${brl(an-av)}.\nÚltima parcela paga: ${ult?fmtD(ult):'-'}. Parcelas que faltam: ${abertas.length} de ${n}.\nMeu nome e lote: `;
+    $('wa-t').textContent='Quer adiantar essas parcelas?'; $('wa-p').textContent='Toque no botão e mande sua simulação para a Minas Ok pelo WhatsApp. A gente confere e envia o boleto com o valor exato.';
+  } else msg='Olá, Minas Ok! Tenho uma dúvida sobre meu parcelamento.\nMeu nome e lote: ';
+  $('wa').href='https://wa.me/553438313999?text='+encodeURIComponent(msg);
+  // casa de progresso
+  const hojeF=abertas.length, depoisF=vencidas.length?hojeF:Math.max(0,hojeF-N);
+  casa.total=n; casa.hoje=hojeF; casa.alvo=depoisF; casa.atraso=!!vencidas.length;
+  $('casa-selo').hidden=!vencidas.length;
+  $('casa-cmp').innerHTML=vencidas.length?`Faltam <b>${hojeF}</b> parcelas`:`Hoje: faltam <b>${hojeF}</b> → Depois de adiantar: faltam <b>${depoisF}</b>`;
+  animarCasa();
+}
+
+/* ---------- casa de progresso ---------- */
+const casa={total:1,hoje:0,alvo:0,mostrado:null,atraso:false,raf:0};
+const yNivel=f=>263-209*((casa.total-f)/casa.total);
+function pintarCasa(f){
+  const won=f<=0&&!casa.atraso, fr=Math.round(f);
+  $('casa-nivel').setAttribute('y',won?0:yNivel(f).toFixed(1));
+  $('casa').classList.toggle('won',won); $('casa-won').hidden=!won;
+  $('casa-cn').innerHTML=won?'<b class="sua">SUA.</b>':`<b>${fr}</b><span>${fr===1?'parcela para ser sua':'parcelas para ser sua'}</span>`;
+  $('casa').setAttribute('aria-label',won?'Casa quitada':`Faltam ${fr} parcelas para a casa ser sua`);
+}
+function animarCasa(){
+  cancelAnimationFrame(casa.raf);
+  const de=casa.mostrado==null?casa.hoje:casa.mostrado, para=casa.alvo;
+  const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduz||de===para){casa.mostrado=para;pintarCasa(para);return;}
+  const t0=performance.now()+(casa.mostrado==null?450:0), dur=1000;
+  pintarCasa(de);
+  const passo=t=>{const k=Math.max(0,Math.min(1,(t-t0)/dur)), e=1-Math.pow(1-k,3), v=de+(para-de)*e;
+    casa.mostrado=v; pintarCasa(k<1?v:para); if(k<1)casa.raf=requestAnimationFrame(passo); else casa.mostrado=para;};
+  casa.raf=requestAnimationFrame(passo);
+}
+async function compartilharCasa(){
+  try{await document.fonts.ready;}catch(e){}
+  const c=document.createElement('canvas'); c.width=c.height=1080; const g=c.getContext('2d');
+  const f=casa.alvo, won=f<=0&&!casa.atraso, AZ='#06449D', AM='#F7BC0A';
+  g.fillStyle='#fff'; g.fillRect(0,0,1080,1080);
+  const S=2.3, ox=540-150*S, oy=90;
+  const casaP=new Path2D('M17 150 L150 27 L283 150 L283 283 L17 283 Z');
+  g.save(); g.translate(ox,oy); g.scale(S,S);
+  g.save(); g.clip(casaP); g.fillStyle='rgba(247,188,10,.15)'; g.fillRect(0,0,300,300);
+  g.fillStyle=AM; const y=won?0:yNivel(f); g.fillRect(0,y,300,300-y);
+  if(won){g.fillStyle='#fff'; g.fillRect(54,214,34,34); g.fillRect(212,214,34,34);} g.restore();
+  g.strokeStyle=AZ; g.lineWidth=40; g.lineJoin='round'; g.stroke(casaP); g.restore();
+  g.fillStyle=AZ; g.textAlign='center';
+  if(won){g.font='700 125px Fredoka'; g.fillText('SUA.',540,oy+172*S);}
+  else{g.font='600 170px Fredoka'; g.fillText(String(f),540,oy+198*S);
+    g.font='600 34px Montserrat'; g.fillText(f===1?'parcela para ser sua':'parcelas para ser sua',540,oy+226*S);}
+  g.font='600 84px Fredoka'; g.fillText('amortiza',540,960);
+  g.font='700 22px Montserrat'; g.fillStyle=AM; g.fillText('A N T E C I P E   E   C O N Q U I S T E',540,1000);
+  const blob=await new Promise(r=>c.toBlob(r,'image/png'));
+  const file=new File([blob],'minha-casa-amortiza.png',{type:'image/png'});
+  try{ if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Minha casa',text:won?'Minha casa está quitada!':`Faltam ${f} parcelas para minha casa ser minha!`});return;} }catch(e){if(e&&e.name==='AbortError')return;}
+  const dl=window.claude&&await window.claude.use('downloads');
+  if(!dl){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='minha-casa-amortiza.png';document.body.appendChild(a);a.click();a.remove();return;}
+  try{await dl.save({filename:'minha-casa-amortiza.png',data:blob});}catch(e){}
+}
+
+document.querySelectorAll('#view-entrada input,#view-entrada select').forEach(el=>{el.addEventListener('input',entrada);el.addEventListener('change',entrada);});
+$('x-tenho').addEventListener('input',()=>{window.__tenhoMudou=true;},true);
+$('faixas-list').addEventListener('input',entrada);
+$('add-faixa').addEventListener('click',()=>{addFaixa('','');entrada();});
+window.__tenhoMudou=true;
+$('casa-share').addEventListener('click',compartilharCasa);
+route(); entrada();
+})();
+</script>
+
+</body></html>

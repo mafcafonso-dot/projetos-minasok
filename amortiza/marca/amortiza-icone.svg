@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <rect width="1024" height="1024" rx="230" fill="#06449D"/>
+  <g transform="translate(242 227) scale(1.8)">
+  <defs><clipPath id="ci"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+  
+  <rect class="nivel" x="0" y="178.0" width="300" height="122.0" fill="#F7BC0A" clip-path="url(#ci)"/>
+  <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linejoin="miter" stroke-miterlimit="10"/></g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <!-- Para animar: mude o atributo "y" do retângulo .nivel.
+       y = 263 - 209 * progresso   (0 = vazia, 1 = cheia até a ponta do telhado) -->
+  <defs><clipPath id="casa"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+  <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="#F7BC0A" fill-opacity="0.15"/>
+  <rect class="nivel" x="0" y="178.0" width="300" height="300" fill="#F7BC0A" clip-path="url(#casa)"/>
+  <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#06449D" stroke-width="40" stroke-linejoin="miter"/>
+</svg>
