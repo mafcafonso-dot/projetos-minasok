@@ -39,19 +39,12 @@ at(26.0,whoosh(.45)); at(26.6,fanfarra()); at(27.8,pop(.4))
 # voz
 w=wave.open('voz.wav');x=np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(float)/32768
 a=int(OFF*SR);voz=np.zeros(N);voz[a:a+len(x)]=x[:N-a]
-# trilha leve: ukulele/pluck em loop (acordes C G Am F), abaixa quando há voz
-bpm=104;beat=60/bpm;prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]]
-bg=np.zeros(N);step=0;tt=0
-while tt<DUR:
-    ch=prog[int(tt/(4*beat))%4]
-    for j,f in enumerate(ch if step%2==0 else ch[::-1]):
-        n=int(.6*SR);t=np.arange(n)/SR;s=(np.sin(2*np.pi*f*t)+.4*np.sin(2*np.pi*2*f*t)+.15*np.sin(2*np.pi*3*f*t))*env(n,.004,.22)
-        i0=int((tt+j*.025)*SR);i1=min(N,i0+n)
-        if i0<N:bg[i0:i1]+=s[:i1-i0]
-    tt+=beat/2;step+=1
+# trilha: Warm Welcome (ElevenLabs Music)
+wm=wave.open('musica.wav');m=np.frombuffer(wm.readframes(wm.getnframes()),np.int16).astype(float)/32768
+bg=np.zeros(N);bg[:min(N,len(m))]=m[:N]
 from numpy.lib.stride_tricks import sliding_window_view
-lvl=np.abs(voz);k=int(.15*SR);sm=np.convolve(lvl,np.ones(k)/k,'same');duck=np.where(sm>.02,.35,1.0);duck=np.convolve(duck,np.ones(int(.1*SR))/int(.1*SR),'same')
+lvl=np.abs(voz);k=int(.15*SR);sm=np.convolve(lvl,np.ones(k)/k,'same');duck=np.where(sm>.02,.45,1.0);duck=np.convolve(duck,np.ones(int(.1*SR))/int(.1*SR),'same')
 fade=np.minimum(1,np.arange(N)/(SR*.4))*np.minimum(1,(N-np.arange(N))/(SR*1.2))
-out=voz*1.0+mix*.55+bg*.06*duck*fade
+out=voz*1.0+mix*.45+bg*.30*duck*fade
 out=out/max(1,np.abs(out).max()/.95)
 wv=wave.open('trilha.wav','wb');wv.setnchannels(1);wv.setsampwidth(2);wv.setframerate(SR);wv.writeframes((out*32767).astype(np.int16).tobytes());wv.close();print('ok')
