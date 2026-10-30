@@ -315,6 +315,12 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--bad)}
       <div class="field"><label for="c-s-qtd">Quantas parcelas foram pausadas</label><input id="c-s-qtd" type="number" min="1" step="1" value="8"></div>
     </div>
 
+    <label class="check"><input id="c-jaad" type="checkbox"> Já adiantei parcelas antes</label>
+    <p class="obs"><b>Para quem é:</b> quem já adiantou parcelas do fim do contrato com a Minas Ok. Coloque quantas parcelas você já adiantou no total. Esse número vem na mensagem de confirmação que a Minas Ok manda junto com o boleto.</p>
+    <div class="fields" id="f-jaad" hidden style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
+      <div class="field"><label for="c-jaad-n">Quantas parcelas do fim você já adiantou</label><input id="c-jaad-n" type="number" min="1" step="1" value="6"><small class="hint" id="c-jaad-hint"></small></div>
+    </div>
+
     <div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))">
       <div class="stat"><span>Parcelas pagas</span><b id="c-pagas">–</b></div>
       <div class="stat"><span>Parcelas que faltam</span><b id="c-faltam">–</b></div>
@@ -531,9 +537,13 @@ function entrada(){
   }
   n=cron.length;
   const pagas=ult?cron.filter(x=>x.venc<=ult):[];
-  const abertas=cron.slice(pagas.length), vencidas=abertas.filter(x=>x.venc<hoje), aVencer=abertas.filter(x=>x.venc>=hoje);
-  $('c-pagas').textContent=pagas.length+' de '+n; $('c-faltam').textContent=abertas.length;
-  $('c-prox').textContent=abertas.length?fmtD(abertas[0].venc):'quitado'; $('c-ultima').textContent=fmtM(cron[n-1].venc);
+  // parcelas do fim já adiantadas em antecipações anteriores: saem do contrato e contam como pagas
+  const jaOn=$('c-jaad').checked; $('f-jaad').hidden=!jaOn;
+  const jaAd=jaOn?Math.min(Math.max(0,Math.round(num('c-jaad-n'))),n-pagas.length):0;
+  $('c-jaad-hint').textContent=jaOn&&jaAd?`Parcelas ${n-jaAd+1}ª a ${n}ª já adiantadas.`:'';
+  const abertas=cron.slice(pagas.length,n-jaAd), vencidas=abertas.filter(x=>x.venc<hoje), aVencer=abertas.filter(x=>x.venc>=hoje);
+  $('c-pagas').textContent=(pagas.length+jaAd)+' de '+n+(jaAd?` (${jaAd} adiantadas)`:''); $('c-faltam').textContent=abertas.length;
+  $('c-prox').textContent=abertas.length?fmtD(abertas[0].venc):'quitado'; $('c-ultima').textContent=abertas.length?fmtM(abertas[abertas.length-1].venc):'quitado';
 
   // atraso
   const box=$('atraso');
@@ -600,7 +610,7 @@ function entrada(){
     $('wa-t').textContent='Quer regularizar suas parcelas?'; $('wa-p').textContent='Toque no botão e fale com a Minas Ok pelo WhatsApp. Depois de ficar em dia, você pode adiantar parcelas com desconto.';
   } else if(R){
     const faixa=N===1?`a ${sel[0].num}ª parcela`:`as parcelas ${sel[0].num}ª a ${sel[N-1].num}ª (${N} parcelas)`;
-    msg=`Olá, Minas Ok! QUERO AMORTIZAR!\nQuero adiantar ${faixa}, pagando ${brl(av)} em ${fmtD(pag)}.\nValor nos boletos: ${brl(an)}. Desconto: ${brl(an-av)}.\nÚltima parcela paga: ${ult?fmtD(ult):'-'}. Parcelas que faltam: ${abertas.length} de ${n}.\nMeu nome e lote: `;
+    msg=`Olá, Minas Ok! QUERO AMORTIZAR!\nQuero adiantar ${faixa}, pagando ${brl(av)} em ${fmtD(pag)}.\nValor nos boletos: ${brl(an)}. Desconto: ${brl(an-av)}.\nÚltima parcela paga: ${ult?fmtD(ult):'-'}. Parcelas que faltam: ${abertas.length} de ${n}.${jaAd?`\nJá adiantei antes: ${jaAd} parcelas.`:''}\nMeu nome e lote: `;
     $('wa-t').textContent='Quer adiantar essas parcelas?'; $('wa-p').textContent='Toque no botão e mande sua simulação para a Minas Ok pelo WhatsApp. A gente confere e envia o boleto com o valor exato.';
   } else msg='Olá, Minas Ok! Tenho uma dúvida sobre meu parcelamento.\nMeu nome e lote: ';
   $('wa').href='https://wa.me/553438313999?text='+encodeURIComponent(msg);
@@ -676,6 +686,7 @@ async function compartilharCasa(){
 
 document.querySelectorAll('#view-entrada input,#view-entrada select').forEach(el=>{el.addEventListener('input',entrada);el.addEventListener('change',entrada);});
 $('x-tenho').addEventListener('input',()=>{window.__tenhoMudou=true;},true);
+['c-jaad','c-jaad-n'].forEach(id=>{$(id).addEventListener('input',()=>{window.__tenhoMudou=true;},true);$(id).addEventListener('change',()=>{window.__tenhoMudou=true;},true);});
 $('faixas-list').addEventListener('input',entrada);
 $('add-faixa').addEventListener('click',()=>{addFaixa('','');entrada();});
 window.__tenhoMudou=true;

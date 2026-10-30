@@ -47,6 +47,11 @@ Simulador público (link único enviado a cada cliente) só para o parcelamento 
 - No Lovable as mudanças foram aplicadas na prévia, mas ainda não publicadas. Falta levar o mascote animado, o logo da Minas Ok à direita, o parágrafo do topo e o tamanho da casa.
 - Em aberto: o compartilhar mostra o número depois da antecipação simulada; a sugestão é mostrar a situação de hoje.
 
+## Antecipação repetida (30/10/2026)
+- Campo "Já adiantei parcelas antes" + "Quantas parcelas do fim você já adiantou" (total acumulado).
+- Essas parcelas saem do fim do contrato e contam como pagas; a nova sugestão começa logo antes delas. A casinha e a mensagem do WhatsApp ("Já adiantei antes: N parcelas") refletem isso.
+- A Minas Ok informa o total na confirmação de cada antecipação: "Agora você já adiantou {total} parcelas do fim do contrato. Da próxima vez que usar o app, marque 'Já adiantei parcelas antes' e coloque {total}."
+
 ## Referência (fora do app): contratos da Caixa
 - MCMV: saldo B.5.1, juros B.8 (efetiva a.m.), prazo B.7.3, sistema B.3, índice TR (cláusula 9), desconto FGTS/União B.4.5 (se > 0, devolução proporcional ao amortizar até o 5º ano, cláusula 1.4).
 - SBPE: saldo C3.1, juros C7.1 (a.m.), prazo C6.2, sistema C5, índice C5.1 (TR); sem desconto do FGTS.
