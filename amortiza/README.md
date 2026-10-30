@@ -12,9 +12,9 @@ A marca é uma casa que se completa conforme o cliente paga.
 |---|---|
 | `app/` | `index.html` — versão de trabalho completa do simulador (abre direto no navegador) |
 | `marca/` | Logomarca (fundo branco e azul), ícone do app, casa-símbolo, casa para animação, mascote (parado e animado, SVG, GIF e MP4) e logo da construtora |
-| `divulgacao/` | Post para Instagram/Facebook (1080×1350) |
+| `divulgacao/` | Post para Instagram/Facebook (1080×1350) e vídeo de lançamento para WhatsApp (`amortiza-video.mp4`, 26 s, vertical, voz Sofia/ElevenLabs) |
 | `docs/` | Regras do parcelamento, identidade visual e situação do projeto |
-| `fonte/` | Scripts que geraram as logos, o mascote e o post (Node + Python/Playwright) |
+| `fonte/` | Scripts que geraram as logos, o mascote, o post e o vídeo (`fonte/video/`) |
 
 ## Cores e fontes
 
@@ -25,3 +25,8 @@ A marca é uma casa que se completa conforme o cliente paga.
 
 - Os scripts de `fonte/` foram escritos para o ambiente onde a marca foi criada: precisam de `opentype.js`, `@fontsource/fredoka`, `@fontsource/montserrat`, `@resvg/resvg-js` e Playwright, e os caminhos de entrada podem precisar de ajuste.
 - O logo da construtora em `marca/` foi recortado do app publicado (335 px de largura). Para impressão, use o arquivo original da Minas Ok.
+
+## Vídeo de lançamento
+
+- Link direto: https://projetos-minasok.vercel.app/amortiza/divulgacao/amortiza-video.mp4
+- Voz: Sofia (ElevenLabs, plano Starter, licença comercial). Efeitos e trilha gerados no próprio script.
