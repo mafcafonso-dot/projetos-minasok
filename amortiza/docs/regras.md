@@ -3,7 +3,8 @@
 Simulador público (link único enviado a cada cliente) só para o parcelamento da entrada com a Minas Ok. O cliente preenche os próprios dados; nada é salvo e não há base de clientes. Objetivo: a Minas Ok receber antes e reduzir atrasos e calotes.
 
 - Site publicado (para os clientes): https://amortiza-minasok.lovable.app (projeto "Amortiza Minasok" no Lovable)
-- Versão de trabalho: `app/index.html` nesta pasta (mesma versão do artefato no Claude)
+- Versão nova (Vercel, publicada a partir deste repositório): https://projetos-minasok.vercel.app — cada push na `main` publica de novo
+- Versão de trabalho: `app/index.html` nesta pasta (mesma versão do artefato no Claude: https://claude.ai/artifact/WvT4HYVfGXoyhsYrhuo5te)
 - Botão "QUERO AMORTIZAR!": abre o WhatsApp da Minas Ok (34) 3831-3999 com a simulação já escrita; se houver atraso, a mensagem pede regularização.
 
 ## Dados que o cliente preenche
