@@ -29,4 +29,4 @@ A marca é uma casa que se completa conforme o cliente paga.
 ## Vídeo de lançamento
 
 - Link direto: https://projetos-minasok.vercel.app/amortiza/divulgacao/amortiza-video.mp4
-- Voz: Sofia (ElevenLabs, plano Starter, licença comercial). Efeitos e trilha gerados no próprio script.
+- Voz: Sofia (ElevenLabs, plano Starter, licença comercial). Trilha: "Warm Welcome" (ElevenLabs Music, licença comercial). Efeitos gerados no próprio script.
