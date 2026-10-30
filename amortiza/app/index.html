@@ -12,7 +12,6 @@
 <meta property="og:image:height" content="700">
 <meta name="twitter:card" content="summary_large_image">
 </head><body>
-
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap">
@@ -20,9 +19,9 @@
 /* Layout: one column "ficha de obra" — inputs, then the verdict, then the why. Concrete greys, blueprint ink, a safety-yellow highlight used once per section. */
 :root{
   --brand:#06449D; --brand-yellow:#F7BC0A; --on-brand:#ffffff;
-  --bg:#f3f2ee; --paper:#ffffff; --ink:#1d2430; --muted:#5d6573; --line:#d9d8d1;
+  --bg:#F4F8FD; --paper:#ffffff; --ink:#0B2547; --muted:#4A5F80; --line:#D6E2F2;
   --blue:#06449D; --blue-soft:#e2ebf7; --yellow:#F7BC0A; --yellow-soft:#FFF4D1;
-  --good:#1d7a4a; --good-soft:#dff2e7; --bad:#b4442c; --bad-soft:#f8e2dc;
+  --good:#1B7F45; --good-soft:#E2F4E8; --bad:#C0392B; --bad-soft:#FBE6E1; --field:#ffffff; --field-line:#C9D9EE; --zebra:#F4F8FD;
   --s0:#8a8f99; --s1:#06449D; --s2:#c99a00; --house:#06449D;
   --f-display:"Fredoka", system-ui, sans-serif;
   --f-body:"Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -31,16 +30,18 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --brand:#06449D; --bg:#14171c; --paper:#1c2028; --ink:#e9ebef; --muted:#a2a9b5; --line:#313744;
   --blue:#7fa8e0; --blue-soft:#1f2b3d; --yellow:#ffd503; --yellow-soft:#3a3311;
-  --good:#5fc68f; --good-soft:#173326; --bad:#ef8a73; --bad-soft:#3b1f19;
+  --good:#5FC68F; --good-soft:#173326; --bad:#ef8a73; --bad-soft:#3b1f19; --field:#151a22; --field-line:#33415a; --zebra:#202633;
   --s0:#7d8592; --s1:#7fa8e0; --s2:#ffd503; --house:#9DBDEA; color-scheme:dark}}
 :root[data-theme="dark"]{
   --brand:#06449D; --bg:#14171c; --paper:#1c2028; --ink:#e9ebef; --muted:#a2a9b5; --line:#313744;
   --blue:#7fa8e0; --blue-soft:#1f2b3d; --yellow:#ffd503; --yellow-soft:#3a3311;
-  --good:#5fc68f; --good-soft:#173326; --bad:#ef8a73; --bad-soft:#3b1f19;
+  --good:#5FC68F; --good-soft:#173326; --bad:#ef8a73; --bad-soft:#3b1f19; --field:#151a22; --field-line:#33415a; --zebra:#202633;
   --s0:#7d8592; --s1:#7fa8e0; --s2:#ffd503; --house:#9DBDEA; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+body{background:var(--bg) url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22420%22%20height%3D%22380%22%20viewBox%3D%220%200%20420%20380%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2306449D%22%20stroke-opacity%3D%220.06%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2820%2024%29%20rotate%28-8%2024%2024%29%22%3E%3Cpath%20d%3D%22M7%2023L24%208l17%2015M11%2020v20h26V20%22%2F%3E%3Cpath%20d%3D%22M20%2040V29h8v11%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%2040%29%20rotate%286%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2212%22%20rx%3D%2212%22%20ry%3D%224%22%2F%3E%3Cpath%20d%3D%22M12%2012v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2019v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2026v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28290%2018%29%20rotate%28-4%2024%2024%29%22%3E%3Cpath%20d%3D%22M12%206h24v36l-4-3-4%203-4-3-4%203-4-3-4%203z%22%2F%3E%3Cpath%20d%3D%22M17%2022l5%205%209-9%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%280%2024%2024%29%22%3E%3Cpath%20d%3D%22M10%2037L30%2011%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2214%22%20r%3D%224.5%22%2F%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2234%22%20r%3D%224.5%22%2F%3E%3Cpath%20d%3D%22M40%2014v24m-6-6%206%206%206-6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28215%20140%29%20rotate%28-6%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2215%22%20ry%3D%2211%22%2F%3E%3Cpath%20d%3D%22M38%2022l5-2v8l-5%201%22%2F%3E%3Ccircle%20cx%3D%2231%22%20cy%3D%2223%22%20r%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M17%2036v5M31%2036v5M20%2016h8M13%2019l-3-6%207%203%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28340%20150%29%20rotate%2812%2024%2024%29%22%3E%3Crect%20x%3D%224%22%20y%3D%2214%22%20width%3D%2240%22%20height%3D%2221%22%20rx%3D%224%22%2F%3E%3Cpath%20d%3D%22M11%2030V19h4a3%203%200%200%201%200%206h-4M19%2030l3-11%203%2011M20%2027h4M33%2021a4%204%200%201%200%200%207v-3h-2M40%2024.5a3%205.5%200%201%201%200%20.1%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2825%20280%29%20rotate%284%2024%2024%29%22%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%2236%22%20height%3D%2231%22%20rx%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2018h36M15%206v8M33%206v8M16%2030h14m-5-5%205%205-5%205%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%20290%29%20rotate%28-20%2024%2024%29%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M22%2024h22M38%2024v6M43%2024v5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28280%20300%29%20rotate%288%2024%2024%29%22%3E%3Crect%20x%3D%225%22%20y%3D%2214%22%20width%3D%2238%22%20height%3D%2221%22%20rx%3D%223%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224.5%22%20r%3D%225.5%22%2F%3E%3Cpath%20d%3D%22M10%2019h4M34%2030h4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28370%20260%29%20rotate%28-12%2024%2024%29%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2234%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2214%22%20r%3D%225%22%2F%3E%3Cpath%20d%3D%22M15%2031L42%2012M15%2017l27%2019%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat;background-size:420px 380px;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22420%22%20height%3D%22380%22%20viewBox%3D%220%200%20420%20380%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%239DBDEA%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2820%2024%29%20rotate%28-8%2024%2024%29%22%3E%3Cpath%20d%3D%22M7%2023L24%208l17%2015M11%2020v20h26V20%22%2F%3E%3Cpath%20d%3D%22M20%2040V29h8v11%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%2040%29%20rotate%286%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2212%22%20rx%3D%2212%22%20ry%3D%224%22%2F%3E%3Cpath%20d%3D%22M12%2012v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2019v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2026v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28290%2018%29%20rotate%28-4%2024%2024%29%22%3E%3Cpath%20d%3D%22M12%206h24v36l-4-3-4%203-4-3-4%203-4-3-4%203z%22%2F%3E%3Cpath%20d%3D%22M17%2022l5%205%209-9%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%280%2024%2024%29%22%3E%3Cpath%20d%3D%22M10%2037L30%2011%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2214%22%20r%3D%224.5%22%2F%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2234%22%20r%3D%224.5%22%2F%3E%3Cpath%20d%3D%22M40%2014v24m-6-6%206%206%206-6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28215%20140%29%20rotate%28-6%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2215%22%20ry%3D%2211%22%2F%3E%3Cpath%20d%3D%22M38%2022l5-2v8l-5%201%22%2F%3E%3Ccircle%20cx%3D%2231%22%20cy%3D%2223%22%20r%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M17%2036v5M31%2036v5M20%2016h8M13%2019l-3-6%207%203%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28340%20150%29%20rotate%2812%2024%2024%29%22%3E%3Crect%20x%3D%224%22%20y%3D%2214%22%20width%3D%2240%22%20height%3D%2221%22%20rx%3D%224%22%2F%3E%3Cpath%20d%3D%22M11%2030V19h4a3%203%200%200%201%200%206h-4M19%2030l3-11%203%2011M20%2027h4M33%2021a4%204%200%201%200%200%207v-3h-2M40%2024.5a3%205.5%200%201%201%200%20.1%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2825%20280%29%20rotate%284%2024%2024%29%22%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%2236%22%20height%3D%2231%22%20rx%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2018h36M15%206v8M33%206v8M16%2030h14m-5-5%205%205-5%205%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%20290%29%20rotate%28-20%2024%2024%29%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M22%2024h22M38%2024v6M43%2024v5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28280%20300%29%20rotate%288%2024%2024%29%22%3E%3Crect%20x%3D%225%22%20y%3D%2214%22%20width%3D%2238%22%20height%3D%2221%22%20rx%3D%223%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224.5%22%20r%3D%225.5%22%2F%3E%3Cpath%20d%3D%22M10%2019h4M34%2030h4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28370%20260%29%20rotate%28-12%2024%2024%29%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2234%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2214%22%20r%3D%225%22%2F%3E%3Cpath%20d%3D%22M15%2031L42%2012M15%2017l27%2019%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E")}}
+:root[data-theme="dark"] body{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22420%22%20height%3D%22380%22%20viewBox%3D%220%200%20420%20380%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%239DBDEA%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2820%2024%29%20rotate%28-8%2024%2024%29%22%3E%3Cpath%20d%3D%22M7%2023L24%208l17%2015M11%2020v20h26V20%22%2F%3E%3Cpath%20d%3D%22M20%2040V29h8v11%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%2040%29%20rotate%286%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2212%22%20rx%3D%2212%22%20ry%3D%224%22%2F%3E%3Cpath%20d%3D%22M12%2012v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2019v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2026v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28290%2018%29%20rotate%28-4%2024%2024%29%22%3E%3Cpath%20d%3D%22M12%206h24v36l-4-3-4%203-4-3-4%203-4-3-4%203z%22%2F%3E%3Cpath%20d%3D%22M17%2022l5%205%209-9%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%280%2024%2024%29%22%3E%3Cpath%20d%3D%22M10%2037L30%2011%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2214%22%20r%3D%224.5%22%2F%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2234%22%20r%3D%224.5%22%2F%3E%3Cpath%20d%3D%22M40%2014v24m-6-6%206%206%206-6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28215%20140%29%20rotate%28-6%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2215%22%20ry%3D%2211%22%2F%3E%3Cpath%20d%3D%22M38%2022l5-2v8l-5%201%22%2F%3E%3Ccircle%20cx%3D%2231%22%20cy%3D%2223%22%20r%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M17%2036v5M31%2036v5M20%2016h8M13%2019l-3-6%207%203%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28340%20150%29%20rotate%2812%2024%2024%29%22%3E%3Crect%20x%3D%224%22%20y%3D%2214%22%20width%3D%2240%22%20height%3D%2221%22%20rx%3D%224%22%2F%3E%3Cpath%20d%3D%22M11%2030V19h4a3%203%200%200%201%200%206h-4M19%2030l3-11%203%2011M20%2027h4M33%2021a4%204%200%201%200%200%207v-3h-2M40%2024.5a3%205.5%200%201%201%200%20.1%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2825%20280%29%20rotate%284%2024%2024%29%22%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%2236%22%20height%3D%2231%22%20rx%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2018h36M15%206v8M33%206v8M16%2030h14m-5-5%205%205-5%205%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%20290%29%20rotate%28-20%2024%2024%29%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M22%2024h22M38%2024v6M43%2024v5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28280%20300%29%20rotate%288%2024%2024%29%22%3E%3Crect%20x%3D%225%22%20y%3D%2214%22%20width%3D%2238%22%20height%3D%2221%22%20rx%3D%223%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224.5%22%20r%3D%225.5%22%2F%3E%3Cpath%20d%3D%22M10%2019h4M34%2030h4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28370%20260%29%20rotate%28-12%2024%2024%29%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2234%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2214%22%20r%3D%225%22%2F%3E%3Cpath%20d%3D%22M15%2031L42%2012M15%2017l27%2019%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E")}
 .wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:40px}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
 h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:600;letter-spacing:-.01em}
@@ -49,7 +50,7 @@ h3{font-size:1.15rem;font-weight:600}
 p{margin:0}
 .eyebrow{font:600 .75rem/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
-.band{background:var(--brand);color:var(--on-brand);padding-block:28px 36px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.band{background:var(--brand) url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22420%22%20height%3D%22380%22%20viewBox%3D%220%200%20420%20380%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2820%2024%29%20rotate%28-8%2024%2024%29%22%3E%3Cpath%20d%3D%22M7%2023L24%208l17%2015M11%2020v20h26V20%22%2F%3E%3Cpath%20d%3D%22M20%2040V29h8v11%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%2040%29%20rotate%286%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2212%22%20rx%3D%2212%22%20ry%3D%224%22%2F%3E%3Cpath%20d%3D%22M12%2012v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2019v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7M12%2026v7c0%202.2%205.4%204%2012%204s12-1.8%2012-4v-7%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28290%2018%29%20rotate%28-4%2024%2024%29%22%3E%3Cpath%20d%3D%22M12%206h24v36l-4-3-4%203-4-3-4%203-4-3-4%203z%22%2F%3E%3Cpath%20d%3D%22M17%2022l5%205%209-9%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%280%2024%2024%29%22%3E%3Cpath%20d%3D%22M10%2037L30%2011%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2214%22%20r%3D%224.5%22%2F%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2234%22%20r%3D%224.5%22%2F%3E%3Cpath%20d%3D%22M40%2014v24m-6-6%206%206%206-6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28215%20140%29%20rotate%28-6%2024%2024%29%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2226%22%20rx%3D%2215%22%20ry%3D%2211%22%2F%3E%3Cpath%20d%3D%22M38%2022l5-2v8l-5%201%22%2F%3E%3Ccircle%20cx%3D%2231%22%20cy%3D%2223%22%20r%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M17%2036v5M31%2036v5M20%2016h8M13%2019l-3-6%207%203%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28340%20150%29%20rotate%2812%2024%2024%29%22%3E%3Crect%20x%3D%224%22%20y%3D%2214%22%20width%3D%2240%22%20height%3D%2221%22%20rx%3D%224%22%2F%3E%3Cpath%20d%3D%22M11%2030V19h4a3%203%200%200%201%200%206h-4M19%2030l3-11%203%2011M20%2027h4M33%2021a4%204%200%201%200%200%207v-3h-2M40%2024.5a3%205.5%200%201%201%200%20.1%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2825%20280%29%20rotate%284%2024%2024%29%22%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%2236%22%20height%3D%2231%22%20rx%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2018h36M15%206v8M33%206v8M16%2030h14m-5-5%205%205-5%205%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28150%20290%29%20rotate%28-20%2024%2024%29%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2224%22%20r%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M22%2024h22M38%2024v6M43%2024v5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28280%20300%29%20rotate%288%2024%2024%29%22%3E%3Crect%20x%3D%225%22%20y%3D%2214%22%20width%3D%2238%22%20height%3D%2221%22%20rx%3D%223%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224.5%22%20r%3D%225.5%22%2F%3E%3Cpath%20d%3D%22M10%2019h4M34%2030h4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28370%20260%29%20rotate%28-12%2024%2024%29%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2234%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2214%22%20r%3D%225%22%2F%3E%3Cpath%20d%3D%22M15%2031L42%2012M15%2017l27%2019%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat;background-size:420px 380px;color:var(--on-brand);padding-block:28px 36px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 header{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 header .logo{height:56px;width:auto;max-width:100%;align-self:flex-start}
 header .eyebrow{color:var(--on-brand);opacity:.75}
@@ -69,7 +70,7 @@ section{display:flex;flex-direction:column;gap:16px}
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .field{display:flex;flex-direction:column;gap:4px;min-width:0}
 .field label{font-size:.82rem;font-weight:600;color:var(--muted)}
-.field input,.field select{font:500 1rem var(--f-num);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px 10px;width:100%;min-width:0}
+.field input,.field select{font:500 1rem var(--f-num);color:var(--ink);background:var(--field);border:1.5px solid var(--field-line);border-radius:6px;padding:9px 10px;width:100%;min-width:0}
 .field input:focus,.field select:focus{outline:2px solid var(--blue);outline-offset:1px}
 .field.wide{grid-column:1/-1}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px dashed var(--line);padding-top:12px}
@@ -88,6 +89,7 @@ section{display:flex;flex-direction:column;gap:16px}
 .verdict{background:var(--brand);color:var(--on-brand);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:8px}
 .verdict .big{font-family:var(--f-display);font-weight:600;font-size:clamp(1.5rem,4.6vw,2.4rem);line-height:1.15;text-wrap:balance}
 .verdict .big em{font-style:normal;color:var(--brand-yellow)}
+.verdict .big em.ganho{color:#6FE3A0}
 .verdict p{opacity:.85;max-width:70ch}
 .scen{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
 .scen.best{border:2px solid var(--good)}
@@ -98,7 +100,7 @@ section{display:flex;flex-direction:column;gap:16px}
 .row:last-child{border-bottom:0;padding-bottom:0}
 .row span{color:var(--muted)}
 .row b{font-family:var(--f-num);font-weight:600;text-align:right}
-.save{color:var(--good)}
+.save{color:var(--good);background:var(--good-soft);border-radius:6px;padding:0 6px;width:fit-content}
 .chart-box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
@@ -112,6 +114,8 @@ table{border-collapse:collapse;width:100%;font-size:.9rem;background:var(--paper
 th,td{padding:8px 12px;text-align:right;white-space:nowrap}
 th{position:sticky;top:0;background:var(--bg);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
 td{font-family:var(--f-num);font-variant-numeric:tabular-nums;border-top:1px solid var(--line)}
+tbody tr:nth-child(even) td{background:var(--zebra)}
+tbody td:nth-child(5),tfoot td:nth-child(5){color:var(--good);font-weight:700}
 th:first-child,td:first-child{text-align:left}
 tfoot td{font-weight:700;background:var(--yellow-soft)}
 .compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
@@ -119,7 +123,7 @@ tfoot td{font-weight:700;background:var(--yellow-soft)}
 .compare .k span{font-size:.8rem;color:var(--muted)}
 .compare .k b{font:600 1.25rem var(--f-num)}
 .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px}
-.note{border-left:3px solid var(--line);padding:4px 0 4px 12px;font-size:.92rem;color:var(--muted)}
+.note{border-left:3px solid var(--brand-yellow);border-radius:0;padding:4px 0 4px 12px;font-size:.92rem;color:var(--muted)}
 .note b{color:var(--ink)}
 footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
 @media (max-width:480px){.fields{grid-template-columns:1fr}}
@@ -194,6 +198,37 @@ header .logo{height:auto;width:120px;align-self:flex-start}
 .selo{background:#FDF0D5;color:#7A4B00;border:1.5px solid #E9A62B;border-radius:999px;padding:7px 14px;font-weight:700;font-size:.88rem}
 .btn-share{font:600 .95rem var(--f-body);background:transparent;color:var(--blue);border:1.5px solid var(--blue);border-radius:10px;padding:10px 16px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
 .btn-share:focus-visible{outline:2px solid var(--brand-yellow);outline-offset:2px}
+.alivio{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.alivio>span{display:inline-flex;align-items:center;gap:8px;background:var(--yellow-soft);color:var(--ink);border-radius:999px;padding:8px 14px;font-size:.92rem}
+.alivio b{color:var(--blue)}
+.alivio>span>svg{flex:none;color:var(--blue)}
+.verdict{display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:center}
+.verdict .vtx{display:flex;flex-direction:column;gap:8px;min-width:0}
+.vmasc{display:flex;flex-direction:column;align-items:center;gap:4px}
+.vmasc svg{width:78px;height:120px;overflow:visible}
+.balao{background:#fff;color:#06449D;font:600 .85rem var(--f-body);padding:7px 12px;border-radius:14px;position:relative;text-align:center;max-width:150px}
+.balao::after{content:"";position:absolute;bottom:-7px;left:50%;margin-left:-7px;border:7px solid transparent;border-bottom:0;border-top-color:#fff}
+@media (max-width:560px){.verdict{grid-template-columns:1fr}.vmasc{flex-direction:row;justify-content:flex-start;order:-1}.vmasc svg{width:52px;height:80px}.balao::after{display:none}}
+#vd-masc .sob{display:none}
+#vd-masc.preocupado .sob{display:inline}
+#vd-masc.preocupado #vd-corpo,#vd-masc.preocupado #vd-sombra{animation:none}
+#vd-masc.preocupado #vd-olhos circle{transform:translateY(5px)}
+#vd-masc.festa #vd-corpo,#vd-masc.festa #vd-sombra{animation-duration:.8s}
+.ad{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative}
+.ad .col{border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ad .col span{font-size:.85rem;font-weight:600}
+.ad .col b{font:600 clamp(1.4rem,4.4vw,1.9rem)/1.15 var(--f-display)}
+.ad .col small{font-size:.82rem}
+.ad .normal{background:var(--paper);border:1.5px solid var(--line);color:var(--muted)}
+.ad .normal b{color:var(--bad)}
+.ad .normal{border-color:var(--bad-soft)}
+.custo{color:var(--bad)}
+tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--bad)}
+.ad .adiant{background:var(--brand);color:#fff}
+.ad .adiant b{color:var(--brand-yellow)}
+.carimbo{grid-column:1/-1;justify-self:center;background:var(--good);color:#fff;font:700 1rem var(--f-body);letter-spacing:.06em;padding:10px 18px;border-radius:10px;transform:rotate(-2deg);text-transform:uppercase;text-align:center}
+.regua{grid-column:1/-1;text-align:center;font-size:.92rem;color:var(--muted)} .regua b{color:var(--ink)}
+@media (max-width:480px){.ad{grid-template-columns:1fr}}
 </style>
 
 <div class="band">
@@ -301,7 +336,7 @@ header .logo{height:auto;width:120px;align-self:flex-start}
   </div>
 
   <div class="hero-num">
-    <div class="k"><span>Pagando as parcelas a vencer até o fim</span><b id="c-total">–</b></div>
+    <div class="k"><span>Pagando as parcelas a vencer até o fim</span><b class="custo" id="c-total">–</b></div>
     <div class="k hl"><span>Para quitar tudo na data do pagamento</span><b id="c-hoje">–</b></div>
     <div class="k"><span>Desconto na quitação</span><b class="save" id="c-desc-hoje">–</b></div>
   </div>
@@ -327,13 +362,53 @@ header .logo{height:auto;width:120px;align-self:flex-start}
       <div class="cn" id="casa-cn"><b id="casa-num">–</b><span id="casa-lbl">parcelas para ser sua</span></div>
     </div>
     <p class="casa-cmp" id="casa-cmp"></p>
+    <div class="alivio" id="alivio" hidden><span><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6h24v36l-4-3-4 3-4-3-4 3-4-3-4 3z"/><path d="M17 22l5 5 9-9"/></svg><span id="alivio-1"></span></span><span><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="10" width="36" height="31" rx="3"/><path d="M6 18h36M15 6v8M33 6v8M16 30h14m-5-5 5 5-5 5"/></svg><span id="alivio-2"></span></span></div>
     <p class="casa-won" id="casa-won" hidden>Parabéns! Sua casa fica quitada com a Minas Ok.</p>
     <button type="button" class="btn-share" id="casa-share"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="m8.7 10.7 6.6-3.4M8.7 13.3l6.6 3.4"/></svg>Compartilhar minha casa</button>
   </div>
   <div class="verdict" aria-live="polite">
-    <span class="eyebrow" style="color:inherit;opacity:.75">Resultado</span>
-    <div class="big" id="c-verdict">–</div>
-    <p id="c-verdict-sub">–</p>
+    <div class="vtx">
+      <span class="eyebrow" style="color:inherit;opacity:.75">Resultado</span>
+      <div class="big" id="c-verdict">–</div>
+      <p id="c-verdict-sub">–</p>
+    </div>
+    <div class="vmasc"><span class="balao" id="vd-balao"></span><svg id="vd-masc" viewBox="-10 -100 320 490" aria-hidden="true"><style>
+  #vd-corpo{transform-box:view-box;transform-origin:150px 362px;animation:vd-pulo 1.5s infinite}
+  #vd-sombra{transform-box:view-box;transform-origin:150px 366px;animation:vd-sombra 1.5s infinite}
+  #vd-olhos{transform-box:view-box;transform-origin:150px 128px;animation:vd-pisca 4.5s infinite}
+  #vd-pe-e{transform-box:view-box;transform-origin:108px 300px;animation:vd-pe-e 1.5s infinite}
+  #vd-pe-d{transform-box:view-box;transform-origin:192px 300px;animation:vd-pe-d 1.5s infinite}
+  @keyframes vd-pulo{
+    0%{transform:translateY(0) scale(1.07,.9);animation-timing-function:ease-out}
+    14%{transform:translateY(-8px) scale(.95,1.07);animation-timing-function:ease-out}
+    45%{transform:translateY(-82px) scale(1,1);animation-timing-function:ease-in}
+    80%{transform:translateY(0) scale(.97,1.04);animation-timing-function:ease-out}
+    88%{transform:translateY(0) scale(1.09,.88);animation-timing-function:ease-in-out}
+    100%{transform:translateY(0) scale(1.07,.9)}}
+  @keyframes vd-sombra{
+    0%,88%,100%{transform:scale(1.1,1);opacity:.25}
+    45%{transform:scale(.6,.7);opacity:.1}}
+  @keyframes vd-pe-e{0%,14%,80%,100%{transform:rotate(0)} 45%{transform:rotate(14deg)}}
+  @keyframes vd-pe-d{0%,14%,80%,100%{transform:rotate(0)} 45%{transform:rotate(-14deg)}}
+  @keyframes vd-pisca{0%,92%,100%{transform:scaleY(1)} 95%{transform:scaleY(.08)}}
+  @media (prefers-reduced-motion:reduce){#vd-corpo,#vd-sombra,#vd-olhos,#vd-pe-e,#vd-pe-d{animation:none}}
+</style>
+  <ellipse id="vd-sombra" cx="150" cy="368" rx="95" ry="11" fill="#0B1F45" opacity=".22"/>
+  <g id="vd-corpo">
+    <g id="vd-pe-e"><rect x="96" y="296" width="24" height="52" rx="12" fill="#FFFFFF"/><ellipse cx="98" cy="352" rx="27" ry="13" fill="#FFFFFF"/></g>
+    <g id="vd-pe-d"><rect x="180" y="296" width="24" height="52" rx="12" fill="#FFFFFF"/><ellipse cx="202" cy="352" rx="27" ry="13" fill="#FFFFFF"/></g>
+    <defs><clipPath id="vd-clip"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+    
+    <rect x="0" y="178" width="300" height="300" fill="#F7BC0A" clip-path="url(#vd-clip)"/>
+    <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linejoin="round"/>
+    <g id="vd-olhos"><ellipse cx="116" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="7"/><circle cx="120" cy="134" r="12" fill="#06449D"/><circle cx="124" cy="129" r="4" fill="#FFFFFF"/><ellipse cx="184" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="7"/><circle cx="188" cy="134" r="12" fill="#06449D"/><circle cx="192" cy="129" r="4" fill="#FFFFFF"/></g>
+  <g class="sob" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"><path d="M92 92 L132 80"/><path d="M208 92 L168 80"/></g></g></svg></div>
+  </div>
+  <div class="ad" id="ad" hidden>
+    <div class="col normal"><span>Pagando normal</span><b id="ad-normal">–</b><small id="ad-normal-fim"></small></div>
+    <div class="col adiant"><span>Adiantando</span><b id="ad-adiant">–</b><small id="ad-adiant-fim"></small></div>
+    <div class="carimbo">Você economiza <span id="ad-eco">–</span></div>
+    <p class="regua" id="ad-regua"></p>
   </div>
   <div class="card">
     <div class="slider-row">
@@ -342,7 +417,7 @@ header .logo{height:auto;width:120px;align-self:flex-start}
       <output id="n-ant-o" for="n-ant">6</output>
     </div>
     <div class="compare">
-      <div class="k"><span>Valor nos boletos</span><b id="a-nom">–</b></div>
+      <div class="k"><span>Valor nos boletos</span><b class="custo" id="a-nom">–</b></div>
       <div class="k"><span>Valor exato para pagar</span><b id="a-vp">–</b></div>
       <div class="k"><span>Desconto</span><b class="save" id="a-desc">–</b></div>
       <div class="k"><span>Contrato termina</span><b id="a-fim">–</b></div>
@@ -511,7 +586,7 @@ function entrada(){
   else if(vencidas.length){$('c-verdict').textContent='Primeiro, regularize as parcelas em atraso.';$('c-verdict-sub').textContent='Os valores abaixo mostram quanto você economiza adiantando depois de ficar em dia.';}
   else{
     const faixa=N===1?`a ${sel[0].num}ª parcela`:`as parcelas ${sel[0].num}ª a ${sel[N-1].num}ª`;
-    $('c-verdict').innerHTML=`Adiantando ${faixa}, você paga <em>${brl(av)}</em> em ${fmtD(pag)} e economiza <em>${brl(an-av)}</em>.`;
+    $('c-verdict').innerHTML=`Adiantando ${faixa}, você paga <em>${brl(av)}</em> em ${fmtD(pag)} e economiza <em class="ganho">${brl(an-av)}</em>.`;
     let sub=novoFim?`Seu contrato passa a terminar em ${fmtM(novoFim)}, ${anosMeses(mesesAntes)} antes.`:'Com isso seu contrato fica quitado.';
     if(tenho>0){ if(k===0) sub+=` Com ${brl(tenho)} ainda não dá para adiantar uma parcela inteira: a última sai por ${brl(vp(fut[R-1],pag))}.`;
       else if(av>tenho+0.005) sub+=` Esse valor passa dos ${brl(tenho)} que você tem; com ele dá para adiantar ${k} ${k===1?'parcela':'parcelas'}.`;
@@ -529,6 +604,21 @@ function entrada(){
     $('wa-t').textContent='Quer adiantar essas parcelas?'; $('wa-p').textContent='Toque no botão e mande sua simulação para a Minas Ok pelo WhatsApp. A gente confere e envia o boleto com o valor exato.';
   } else msg='Olá, Minas Ok! Tenho uma dúvida sobre meu parcelamento.\nMeu nome e lote: ';
   $('wa').href='https://wa.me/553438313999?text='+encodeURIComponent(msg);
+  // antes e depois + alívio
+  const okAd=R>0&&!vencidas.length;
+  $('ad').hidden=!okAd; $('alivio').hidden=!okAd;
+  if(okAd){
+    $('ad-normal').textContent=brl(total); $('ad-normal-fim').textContent='último boleto em '+fmtM(fimOrig);
+    $('ad-adiant').textContent=brl(total-an+av); $('ad-adiant-fim').textContent=novoFim?'último boleto em '+fmtM(novoFim):'contrato quitado';
+    $('ad-eco').textContent=brl(an-av);
+    $('ad-regua').innerHTML=av>0?`Cada <b>R$ 1.000</b> adiantado hoje apaga <b>${brl0(1000*an/av)}</b> em boletos do fim do contrato.`:'';
+    $('alivio-1').innerHTML=`<b>${N} ${N===1?'boleto':'boletos'} a menos</b> para pagar`;
+    $('alivio-2').innerHTML=novoFim?`Você fica livre <b>${anosMeses(mesesAntes)} antes</b>`:`<b>Nenhum boleto</b> pela frente`;
+  }
+  // mascote do resultado
+  const vm=$('vd-masc'), quita=okAd&&N>=R;
+  vm.classList.toggle('preocupado',!!vencidas.length); vm.classList.toggle('festa',quita);
+  $('vd-balao').textContent=vencidas.length?'Vamos regularizar primeiro?':quita?'Casa quitada!':R?'Olha quanto sobra pra você!':'Tudo certo por aqui!';
   // casa de progresso
   const hojeF=abertas.length, depoisF=vencidas.length?hojeF:Math.max(0,hojeF-N);
   casa.total=n; casa.hoje=hojeF; casa.alvo=depoisF; casa.atraso=!!vencidas.length;
