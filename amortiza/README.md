@@ -30,3 +30,9 @@ A marca é uma casa que se completa conforme o cliente paga.
 
 - Link direto: https://projetos-minasok.vercel.app/amortiza/divulgacao/amortiza-video.mp4
 - Voz: Sofia (ElevenLabs, plano Starter, licença comercial). Trilha: "Warm Welcome" (ElevenLabs Music, licença comercial). Efeitos gerados no próprio script.
+
+## Vídeo tutorial (como usar o app)
+
+- Link direto: https://projetos-minasok.vercel.app/amortiza/divulgacao/amortiza-como-usar.mp4
+- 1min12s, vertical, voz Sofia (ElevenLabs). A casinha explica o preenchimento passo a passo sobre a tela do app.
+- Fonte em `fonte/tutorial/` (roteiro, montagem com Playwright, sincronia com a voz e mixagem).
