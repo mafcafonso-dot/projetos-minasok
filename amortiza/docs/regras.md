@@ -10,7 +10,7 @@ Simulador público (link único enviado a cada cliente) só para o parcelamento 
 ## Dados que o cliente preenche
 - Valor parcelado, quantidade de parcelas, mensais ou anuais, data da 1ª parcela, data da última parcela paga, juros ao mês (padrão 1%).
 - "Como são as suas parcelas?": todas com o mesmo valor (calculado pela Price) ou faixas de valor (quantas faixas forem precisas, cada uma com quantidade e valor, na ordem do contrato). O app confere se as faixas somam a quantidade de parcelas e se batem com o valor parcelado a 1% ao mês.
-- Aditivo de suspensão: vencimento da 1ª parcela pausada e quantas foram pausadas.
+- Aditivo de suspensão: vencimento da 1ª e da última parcela pausada. O app conta sozinho as parcelas do contrato que vencem nesse período (tolerância de 10 dias no dia digitado) e mostra o total para o cliente conferir com o aditivo.
 - Para adiantar: quanto tem disponível e a data em que vai pagar.
 
 ## Regras (conforme as confissões de dívida do Jardim Amaral)
@@ -55,3 +55,7 @@ Simulador público (link único enviado a cada cliente) só para o parcelamento 
 ## Referência (fora do app): contratos da Caixa
 - MCMV: saldo B.5.1, juros B.8 (efetiva a.m.), prazo B.7.3, sistema B.3, índice TR (cláusula 9), desconto FGTS/União B.4.5 (se > 0, devolução proporcional ao amortizar até o 5º ano, cláusula 1.4).
 - SBPE: saldo C3.1, juros C7.1 (a.m.), prazo C6.2, sistema C5, índice C5.1 (TR); sem desconto do FGTS.
+
+## Aditivo por datas (01/11/2026)
+- Antes o cliente informava a 1ª parcela pausada e quantas foram pausadas; agora informa a 1ª e a última. Motivo: datas são copiadas do aditivo/boletos, contar parcelas gera erro.
+- Avisos: datas em ordem errada, ou nenhuma parcela no período.
