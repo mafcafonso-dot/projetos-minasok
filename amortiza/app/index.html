@@ -631,7 +631,7 @@ function entrada(){
     $('ad-eco').textContent=brl(an-av);
     $('ad-regua').innerHTML=av>0?`Cada <b>R$ 1.000</b> adiantado hoje apaga <b>${brl0(1000*an/av)}</b> em boletos do fim do contrato.`:'';
     $('alivio-1').innerHTML=`<b>${N} ${N===1?'boleto':'boletos'} a menos</b> para pagar`;
-    $('alivio-2').innerHTML=novoFim?`Você fica livre <b>${anosMeses(mesesAntes)} antes</b>`:`<b>Nenhum boleto</b> pela frente`;
+    $('alivio-2').innerHTML=novoFim?`Você quita o seu imóvel <b>${anosMeses(mesesAntes)} antes</b>`:`<b>Nenhum boleto</b> pela frente`;
   }
   // mascote do resultado
   const vm=$('vd-masc'), quita=okAd&&N>=R;
