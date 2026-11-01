@@ -311,9 +311,10 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--bad)}
     <label class="check"><input id="c-adit" type="checkbox"> Meu contrato teve aditivo que pausou parcelas</label>
     <p class="obs"><b>Para quem é:</b> clientes que assinaram com a Minas Ok um aditivo de "suspensão temporária de exigibilidade de parcelas". As parcelas desse período ficaram pausadas, sem juros nem multa, e passaram para o fim do contrato, pelo mesmo valor. Se você não assinou aditivo, deixe desmarcado.</p>
     <div class="fields" id="f-adit" hidden style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
-      <div class="field"><label for="c-s-ini">Vencimento da 1ª parcela pausada</label><input id="c-s-ini" type="date" value="2025-10-20"></div>
-      <div class="field"><label for="c-s-qtd">Quantas parcelas foram pausadas</label><input id="c-s-qtd" type="number" min="1" step="1" value="8"></div>
+      <div class="field"><label for="c-s-ini">Vencimento da 1ª parcela pausada</label><input id="c-s-ini" type="date" value="2026-05-20"></div>
+      <div class="field"><label for="c-s-fim">Vencimento da última parcela pausada</label><input id="c-s-fim" type="date" value="2026-08-20"></div>
     </div>
+    <p class="hint" id="s-info" hidden></p>
 
     <label class="check"><input id="c-jaad" type="checkbox"> Já adiantei parcelas antes</label>
     <p class="obs"><b>Para quem é:</b> quem já adiantou parcelas do fim do contrato com a Minas Ok. Coloque quantas parcelas você já adiantou no total. Esse número vem na mensagem de confirmação que a Minas Ok manda junto com o boleto.</p>
@@ -525,12 +526,19 @@ function entrada(){
   } else conf.hidden=true;
   const ini=parseD('c-ini')||hoje0(), ult=parseD('c-ult'), hoje=hoje0();
   // cronograma completo
-  const adit=$('c-adit').checked; $('f-adit').hidden=!adit;
+  const adit=$('c-adit').checked; $('f-adit').hidden=!adit; $('s-info').hidden=!adit;
   let cron=[]; for(let j=0;j<n;j++)cron.push({num:j+1,venc:addM(ini,j*step),valor:vals[j]??vals[vals.length-1],resc:false});
   if(adit){ // parcelas pausadas pelo aditivo: sem juros, vão para o fim do contrato pelo mesmo valor
-    const sIni=parseD('c-s-ini'), sQ=Math.max(0,Math.round(num('c-s-qtd')));
-    if(sIni&&sQ>0){const sFim=addM(sIni,sQ*step);
-      const pausadas=cron.filter(x=>x.venc>=sIni&&x.venc<sFim), mantidas=cron.filter(x=>!(x.venc>=sIni&&x.venc<sFim));
+    const sIni=parseD('c-s-ini'), sFimD=parseD('c-s-fim'), sInfo=$('s-info'); sInfo.hidden=false;
+    // tolerância de 10 dias: se o cliente digitar um dia um pouco diferente do vencimento, ainda pega a parcela certa
+    const TOL=10*864e5, a0=sIni&&new Date(sIni.getTime()-TOL), a1=sFimD&&new Date(sFimD.getTime()+TOL);
+    const dentro=x=>x.venc>=a0&&x.venc<=a1;
+    if(!sIni||!sFimD) sInfo.textContent='Coloque as duas datas: a da primeira e a da última parcela pausada.';
+    else if(sFimD<sIni) sInfo.textContent='A data da última parcela pausada tem que ser depois da primeira. Confira as datas.';
+    else if(!cron.some(dentro)) sInfo.textContent='Nenhuma parcela do contrato vence entre essas datas. Confira as datas e a data da 1ª parcela.';
+    else {const qP=cron.filter(dentro).length;
+      sInfo.innerHTML=`<b>${qP===1?'1 parcela pausada':qP+' parcelas pausadas'}</b> — ${qP===1?'ela passa':'elas passam'} para o fim do contrato, pelo mesmo valor. Confira se bate com o seu aditivo.`;
+      const pausadas=cron.filter(dentro), mantidas=cron.filter(x=>!dentro(x));
       const ultimaOrig=cron[cron.length-1].venc;
       pausadas.forEach((x,k)=>{x.venc=addM(ultimaOrig,(k+1)*step);x.resc=true;});
       cron=[...mantidas,...pausadas]; cron.forEach((x,k)=>x.num=k+1);}
