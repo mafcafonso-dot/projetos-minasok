@@ -803,7 +803,7 @@ route(); entrada();
       document.body.classList.remove('precisa-ult');}
     // trava os dados do contrato; o cliente só preenche a última parcela paga
     document.querySelectorAll('#view-entrada section:first-of-type .card:not(.login):not(.bemvindo) input, #view-entrada section:first-of-type .card:not(.login):not(.bemvindo) select').forEach(el=>{
-      if(el.id==='c-ult')return; if(el.type==='checkbox'||el.type==='radio'||el.tagName==='SELECT')el.disabled=true; else el.readOnly=true;});
+      if(el.id==='c-ult'||el.id==='c-jaad'||el.id==='c-jaad-n')return; /* "já adiantei" fica livre: muda a cada antecipação */ if(el.type==='checkbox'||el.type==='radio'||el.tagName==='SELECT')el.disabled=true; else el.readOnly=true;});
     const fx=d.fx.map(([q,v])=>`${q} de ${brl(v)}`).join(' e ');
     const u=d.unica?`<li>Parcela única de ${brl(d.unica.valor)} em ${fmtISO(d.unica.vencimento)}</li>`:'';
     const ad=d.ad?`<li>Aditivo: as parcelas de ${fmtISO(d.ad.primeira_pausada)} a ${fmtISO(d.ad.ultima_pausada)} foram pausadas e passaram para o fim do contrato.</li>`:'';
