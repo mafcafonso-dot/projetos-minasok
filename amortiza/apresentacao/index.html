@@ -4,56 +4,174 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Amortiza Minas Ok</title>
-<meta name="description" content="Conheça o Amortiza: adiante as parcelas da sua casa com a Construtora Minas Ok e economize.">
+<meta name="description" content="Amortiza: o app da Construtora Minas Ok para adiantar as parcelas da entrada da casa e economizar.">
 <meta property="og:title" content="Amortiza · Construtora Minas Ok">
 <meta property="og:description" content="Adiante as parcelas da sua casa e economize. Antecipe e conquiste!">
 <meta property="og:image" content="https://projetos-minasok.vercel.app/amortiza/divulgacao/amortiza-video-capa.jpg">
 <meta name="theme-color" content="#06449D">
 <link rel="icon" href="/amortiza/marca/amortiza-icone.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap">
 <style>
-:root{--azul:#06449D;--amarelo:#F7BC0A;--tinta:#0B1F45;--branco:#FFFFFF;
-  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;--body:"Montserrat","Segoe UI",system-ui,sans-serif}
+:root{
+  --azul:#06449D; --amarelo:#F7BC0A; --tinta:#0B1F45; --cinza:#4A5A78; --fundo:#F5F8FD; --linha:#D8E2F2; --branco:#FFFFFF;
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif; --body:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --barra:64px;
+}
 *{box-sizing:border-box}
-html,body{margin:0}
-body{background:var(--azul);color:var(--branco);font-family:var(--body);line-height:1.5;
-  padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
-main{max-width:440px;margin:0 auto;display:grid;gap:18px}
-.topo{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.nome{font-family:var(--display);font-weight:700;font-size:30px;line-height:1}
-.nome small{display:block;font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--amarelo);margin-top:4px}
-.minasok{background:var(--branco);border-radius:10px;padding:6px 10px;display:flex}
+html,body{margin:0;height:100%}
+body{background:var(--fundo);color:var(--tinta);font-family:var(--body);font-size:16px;line-height:1.6}
+.gutter{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+h1,h2{font-family:var(--display);line-height:1.1;margin:0;text-wrap:balance}
+p{margin:0}
+
+/* barra fixa com marca e abas */
+header{position:sticky;top:0;z-index:5;background:var(--azul);color:var(--branco);padding-top:env(safe-area-inset-top)}
+header .in{max-width:1080px;margin:0 auto;height:var(--barra);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nome{font-family:var(--display);font-weight:700;font-size:26px;line-height:1}
+.nome small{display:block;font-family:var(--body);font-size:9.5px;font-weight:700;letter-spacing:.18em;color:var(--amarelo);margin-top:3px}
+.abas{display:flex;gap:6px;background:rgba(255,255,255,.12);padding:4px;border-radius:999px}
+.abas button{font:600 15px var(--display);border:0;border-radius:999px;padding:9px 18px;cursor:pointer;background:transparent;color:var(--branco);white-space:nowrap}
+.abas button[aria-selected="true"]{background:var(--amarelo);color:var(--tinta)}
+.abas button:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+
+/* aba apresentação */
+.apres .in{max-width:1080px;margin:0 auto;padding-block:36px 48px;display:grid;gap:40px}
+.intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:36px;align-items:start}
+.intro h1{font-size:clamp(30px,4.6vw,46px);font-weight:600;color:var(--azul)}
+.intro h1 em{font-style:normal;background:linear-gradient(transparent 60%,var(--amarelo) 60%)}
+.texto{display:grid;gap:14px}
+.texto p{color:var(--cinza)}
+.texto strong{color:var(--tinta)}
+.minasok{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--cinza);font-weight:600}
+.minasok{justify-self:start;background:var(--azul);border-radius:10px;padding:7px 12px}
 .minasok img{height:30px;width:auto;display:block}
-video{width:100%;aspect-ratio:9/16;max-height:80vh;background:#000;border-radius:18px;display:block;object-fit:contain}
-.botoes{display:grid;gap:10px}
-a.btn{display:flex;justify-content:space-between;align-items:center;gap:12px;text-decoration:none;border-radius:16px;padding:15px 20px;font-weight:600}
-a.btn b{font-family:var(--display);font-size:19px;font-weight:600}
-a.btn span{font-size:14px;opacity:.85;word-break:break-all}
-.app{background:var(--amarelo);color:var(--tinta)}
-.link{background:rgba(255,255,255,.1);color:var(--branco);border:1.5px solid rgba(255,255,255,.28)}
-a.btn:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
-footer{text-align:center;font-size:12.5px;opacity:.7}
+.fatos{display:grid;gap:12px}
+.fato{background:var(--branco);border:1px solid var(--linha);border-radius:14px;padding:16px 18px}
+.fato b{display:block;font-family:var(--display);font-size:30px;font-weight:700;color:var(--azul);line-height:1.1}
+.fato span{font-size:14px;color:var(--cinza);font-weight:500}
+.irapp{display:inline-flex;align-items:center;gap:10px;justify-self:start;background:var(--azul);color:var(--branco);font:600 18px var(--display);border:0;border-radius:999px;padding:13px 24px;cursor:pointer}
+.irapp:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
+
+.videos h2,.redes h2{font-size:26px;font-weight:600;margin-bottom:16px}
+.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:760px}
+figure{margin:0;display:grid;gap:8px;min-width:0}
+video{width:100%;aspect-ratio:9/16;max-height:78vh;background:#000;border-radius:16px;display:block;object-fit:contain}
+figcaption b{font-family:var(--display);font-size:19px;font-weight:600}
+figcaption span{display:block;font-size:14px;color:var(--cinza)}
+
+.rgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:760px}
+.rgrid a{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;text-decoration:none;color:var(--tinta);background:var(--branco);border:1.5px solid var(--linha);border-radius:16px;padding:16px 20px}
+.rgrid a:hover,.rgrid a:focus-visible{border-color:var(--azul)}
+.rgrid b{font-family:var(--display);font-size:18px;font-weight:600}
+.rgrid span{font-weight:700;color:var(--azul);font-size:14.5px}
+footer{color:var(--cinza);font-size:13px;padding-block:0 32px;max-width:1080px;margin:0 auto}
+
+/* aba app */
+.app{height:calc(100dvh - var(--barra) - env(safe-area-inset-top));background:var(--branco)}
+.app iframe{display:block;width:100%;height:100%;border:0}
+
+@media (max-width:760px){
+  .intro{grid-template-columns:1fr;gap:24px}
+  .vgrid,.rgrid{grid-template-columns:1fr}
+  .vgrid{max-width:440px}
+}
+@media (max-width:420px){
+  .nome{font-size:22px}
+  .nome small{display:none}
+  .abas button{padding:8px 13px;font-size:14px}
+}
 </style>
 </head>
 <body>
-<main>
-  <div class="topo">
+<header>
+  <div class="in gutter">
     <div class="nome">amortiza<small>ANTECIPE E CONQUISTE</small></div>
-    <div class="minasok"><img src="/amortiza/marca/logo-construtora-minasok.png" alt="Construtora Minas Ok"></div>
+    <div class="abas" role="tablist" aria-label="Seções">
+      <button id="tab-apres" role="tab" aria-controls="apres" aria-selected="true">Apresentação</button>
+      <button id="tab-app" role="tab" aria-controls="app" aria-selected="false">Abrir o app</button>
+    </div>
   </div>
+</header>
 
-  <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-video-capa.jpg">
-    <source src="/amortiza/divulgacao/amortiza-video.mp4" type="video/mp4">
-  </video>
+<main>
+  <section id="apres" class="apres" role="tabpanel" aria-labelledby="tab-apres">
+    <div class="in gutter">
+      <div class="intro">
+        <div class="texto">
+          <span class="minasok"><img src="/amortiza/marca/logo-construtora-minasok.png" alt="Construtora Minas Ok"></span>
+          <h1>Um app feito para uma demanda real da <em>minha empresa</em></h1>
+          <p>Na Construtora Minas Ok vendemos casas no <strong>Minha Casa, Minha Vida</strong>. O banco financia a maior parte, e a entrada o cliente parcela direto com a construtora. Isso formou uma carteira grande na praça: hoje são <strong>mais de 400 clientes</strong> pagando essas parcelas.</p>
+          <p>O <strong>Amortiza</strong> nasceu para adiantar esse dinheiro. O cliente coloca os dados do próprio contrato, vê quanto economiza adiantando as últimas parcelas e manda a simulação para o WhatsApp da construtora com um toque. A empresa recebe antes e o risco de atraso diminui. Para o cliente, cada parcela adiantada enche um pouco mais a casinha amarela.</p>
+          <button class="irapp" type="button" data-ir="app">Testar o app →</button>
+        </div>
+        <div class="fatos">
+          <div class="fato"><b>+400</b><span>clientes com a entrada parcelada na construtora</span></div>
+          <div class="fato"><b>1% a.m.</b><span>de desconto por antecipação, contado por dia até cada vencimento</span></div>
+          <div class="fato"><b>Parcelas inteiras</b><span>adiantadas das últimas para as primeiras, com boleto de valor exato</span></div>
+        </div>
+      </div>
 
-  <div class="botoes">
-    <a class="btn app" href="https://projetos-minasok.vercel.app/"><b>Simular no Amortiza</b><span>→</span></a>
-    <a class="btn link" href="https://www.minasok.com.br/" target="_blank" rel="noopener"><b>Site da Minas Ok</b><span>minasok.com.br</span></a>
-    <a class="btn link" href="https://www.instagram.com/construtoraminasok/" target="_blank" rel="noopener"><b>Instagram</b><span>@construtoraminasok</span></a>
-  </div>
+      <div class="videos">
+        <h2>Os vídeos</h2>
+        <div class="vgrid">
+          <figure>
+            <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-video-capa.jpg">
+              <source src="/amortiza/divulgacao/amortiza-video.mp4" type="video/mp4">
+            </video>
+            <figcaption><b>Apresentação</b><span>O vídeo curto que vai junto com o link para os clientes.</span></figcaption>
+          </figure>
+          <figure>
+            <video controls playsinline preload="metadata">
+              <source src="/amortiza/divulgacao/amortiza-como-usar.mp4#t=4" type="video/mp4">
+            </video>
+            <figcaption><b>Como usar</b><span>Preencher o contrato, simular a antecipação e pedir o boleto.</span></figcaption>
+          </figure>
+        </div>
+      </div>
 
-  <footer>Construtora Minas Ok · (34) 3831-3999</footer>
+      <div class="redes">
+        <h2>Construtora Minas Ok</h2>
+        <div class="rgrid">
+          <a href="https://www.minasok.com.br/" target="_blank" rel="noopener"><b>Site</b><span>minasok.com.br →</span></a>
+          <a href="https://www.instagram.com/construtoraminasok/" target="_blank" rel="noopener"><b>Instagram</b><span>@construtoraminasok →</span></a>
+        </div>
+      </div>
+    </div>
+    <footer class="gutter">Matheus · Construtora Minas Ok · (34) 3831-3999</footer>
+  </section>
+
+  <section id="app" class="app" role="tabpanel" aria-labelledby="tab-app" hidden>
+    <iframe id="frame" title="App Amortiza" data-src="/amortiza/app/index.html"></iframe>
+  </section>
 </main>
+
+<script>
+(function(){
+  var tabs={apres:document.getElementById('tab-apres'),app:document.getElementById('tab-app')};
+  var panels={apres:document.getElementById('apres'),app:document.getElementById('app')};
+  var frame=document.getElementById('frame');
+  function show(name){
+    if(!panels[name]) name='apres';
+    for(var k in panels){
+      var on=k===name;
+      panels[k].hidden=!on;
+      tabs[k].setAttribute('aria-selected',on?'true':'false');
+    }
+    if(name==='app' && !frame.src) frame.src=frame.dataset.src;
+    if(name==='app') document.querySelectorAll('video').forEach(function(v){v.pause()});
+    window.scrollTo(0,0);
+  }
+  function go(name){
+    var h=name==='app'?'#app':'#apresentacao';
+    if(location.hash!==h) history.replaceState(null,'',h);
+    show(name);
+  }
+  tabs.apres.onclick=function(){go('apres')};
+  tabs.app.onclick=function(){go('app')};
+  document.querySelectorAll('[data-ir]').forEach(function(b){b.onclick=function(){go(b.dataset.ir)}});
+  show(location.hash==='#app'?'app':'apres');
+})();
+</script>
 </body>
 </html>
