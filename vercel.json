@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/amortiza/app/index.html" }
+    { "source": "/", "destination": "/amortiza/app/index.html" },
+    { "source": "/apresentacao", "destination": "/amortiza/apresentacao/index.html" }
   ]
 }
