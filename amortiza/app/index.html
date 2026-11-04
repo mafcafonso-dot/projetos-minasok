@@ -164,6 +164,8 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
 body.logado .faixa-row .rm,body.logado #add-faixa{display:none!important}
 body.logado #view-entrada input[readonly]{background:var(--bg);color:var(--ink,inherit)}
 body.precisa-ult #view-entrada .stats,body.precisa-ult #atraso,body.precisa-ult .hero-num,body.precisa-ult #view-entrada>section~section,body.precisa-ult .cta,body.precisa-ult #c-conf{display:none!important}
+#falta-ult{display:none}
+body.precisa-ult #falta-ult{display:block;background:#FFF3C4;border:2px solid #F7BC0A;border-radius:10px;padding:12px 14px;font-weight:600;margin:0}
 body.precisa-ult .f-ult{outline:3px solid #F7BC0A;outline-offset:4px;border-radius:10px}
 .btn-sec{font:600 .92rem var(--f-body);background:transparent;color:var(--blue);border:1px dashed var(--blue);border-radius:8px;padding:9px 14px;cursor:pointer}
 .conf{font-size:.88rem;border-radius:6px;padding:10px 12px;margin:0}
@@ -356,6 +358,7 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--bad)}
       <div class="field"><label for="c-jaad-n">Quantas parcelas do fim você já adiantou</label><input id="c-jaad-n" type="number" min="1" step="1" value="6"><small class="hint" id="c-jaad-hint"></small></div>
     </div>
 
+    <p id="falta-ult">Para ver a sua simulação, preencha acima a <a href="#c-ult" onclick="document.getElementById('c-ult').focus()">data da última parcela paga</a>.</p>
     <div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))">
       <div class="stat"><span>Parcelas pagas</span><b id="c-pagas">–</b></div>
       <div class="stat"><span>Parcelas que faltam</span><b id="c-faltam">–</b></div>
@@ -794,6 +797,10 @@ route(); entrada();
     $('c-jaad').checked=d.ja>0; if(d.ja>0)$('c-jaad-n').value=d.ja;
     $('c-ult').value='';
     document.body.classList.add('logado','precisa-ult');
+    if(d.demo){ // demonstração: já vem em dia, com o último vencimento antes de hoje
+      const h=new Date(),ini=new Date(d.ini+'T00:00:00');let u=new Date(h.getFullYear(),h.getMonth(),ini.getDate());if(u>h)u=new Date(h.getFullYear(),h.getMonth()-1,ini.getDate());
+      $('c-ult').value=`${u.getFullYear()}-${String(u.getMonth()+1).padStart(2,'0')}-${String(u.getDate()).padStart(2,'0')}`;
+      document.body.classList.remove('precisa-ult');}
     // trava os dados do contrato; o cliente só preenche a última parcela paga
     document.querySelectorAll('#view-entrada section:first-of-type .card:not(.login):not(.bemvindo) input, #view-entrada section:first-of-type .card:not(.login):not(.bemvindo) select').forEach(el=>{
       if(el.id==='c-ult')return; if(el.type==='checkbox'||el.type==='radio'||el.tagName==='SELECT')el.disabled=true; else el.readOnly=true;});
@@ -806,7 +813,7 @@ route(); entrada();
       <ul><li>Imóvel: ${d.emp} — ${d.un}</li>
       <li>Total da confissão de dívida: <b>${brl(d.tot)}</b></li>${u}
       <li>Parcelado com a construtora: <b>${d.q} parcelas ${d.per==='anual'?'anuais':'mensais'}</b> a partir de ${fmtISO(d.ini)} (${fx}), com juros de ${String(d.tx).replace('.',',')}% ao mês.</li>${ad}${ja}</ul>
-      <p class="falta" id="bv-falta">Agora só falta uma coisa: coloque abaixo a <b>data da última parcela que você pagou</b>.</p>
+      <p class="falta" id="bv-falta"${d.demo?' hidden':''}>Agora só falta uma coisa: coloque abaixo a <b>data da última parcela que você pagou</b>.</p>
       <p class="lg-alt">Esses dados vêm do seu contrato e foram atualizados em ${fmtISO(d.at)}. Se algo estiver diferente, fale com a Minas Ok.</p>
       <button type="button" class="btn-sec sair" id="lg-sair">Sair</button>`;
     bv.hidden=false; $('login').hidden=true;
@@ -814,7 +821,8 @@ route(); entrada();
     entrada();
     $('c-ult').scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{try{$('c-ult').focus({preventScroll:true});}catch(e){}},500);
   }
-  $('c-ult').addEventListener('change',()=>{if(document.body.classList.contains('logado')&&$('c-ult').value){document.body.classList.remove('precisa-ult');const f=$('bv-falta');if(f)f.hidden=true;}});
+  const liberaUlt=()=>{if(document.body.classList.contains('logado')&&$('c-ult').value){document.body.classList.remove('precisa-ult');const f=$('bv-falta');if(f)f.hidden=true;}};
+  $('c-ult').addEventListener('change',liberaUlt); $('c-ult').addEventListener('input',liberaUlt);
 })();
 })();
 </script>
