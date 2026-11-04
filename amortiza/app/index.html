@@ -143,6 +143,28 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
 .faixa-row .tag-f{font:600 .8rem var(--f-body);color:var(--muted);padding-bottom:12px;white-space:nowrap}
 .faixa-row .rm{background:transparent;border:1px solid var(--line);border-radius:6px;color:var(--muted);width:38px;height:38px;cursor:pointer;font-size:1.1rem}
 @media (max-width:480px){.faixa-row{grid-template-columns:1fr 1fr}.faixa-row .tag-f{grid-column:1/-1;padding:0}.faixa-row .rm{grid-column:2;justify-self:end}}
+
+/* login por CPF + código */
+.login{border:2px solid var(--blue);gap:12px}
+.login h3{margin:0;font:600 1.15rem var(--f-title,inherit);color:var(--blue)}
+.login p{margin:0;color:var(--muted);font-size:.92rem}
+.login .lg-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.login input{text-transform:none}
+#lg-cod{text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+.lg-msg{font-size:.9rem;min-height:1.2em}
+.lg-msg.err{color:var(--bad)}
+.lg-alt{font-size:.88rem;color:var(--muted)}
+.lg-alt button{background:none;border:0;color:var(--blue);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.bemvindo{border:2px solid var(--blue);background:var(--paper)}
+.bemvindo h3{margin:0;font:600 1.25rem var(--f-title,inherit);color:var(--blue)}
+.bemvindo ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+.bemvindo .ok{color:var(--good,#1B7F45);font-weight:700}
+.bemvindo .falta{background:#FFF3C4;border-radius:8px;padding:10px 12px;font-weight:600}
+.bemvindo .sair{align-self:flex-start}
+body.logado .faixa-row .rm,body.logado #add-faixa{display:none!important}
+body.logado #view-entrada input[readonly]{background:var(--bg);color:var(--ink,inherit)}
+body.precisa-ult #view-entrada .stats,body.precisa-ult #atraso,body.precisa-ult .hero-num,body.precisa-ult #view-entrada>section~section,body.precisa-ult .cta,body.precisa-ult #c-conf{display:none!important}
+body.precisa-ult .f-ult{outline:3px solid #F7BC0A;outline-offset:4px;border-radius:10px}
 .btn-sec{font:600 .92rem var(--f-body);background:transparent;color:var(--blue);border:1px dashed var(--blue);border-radius:8px;padding:9px 14px;cursor:pointer}
 .conf{font-size:.88rem;border-radius:6px;padding:10px 12px;margin:0}
 .conf.ok{background:var(--good-soft);color:var(--good)}
@@ -280,13 +302,25 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--bad)}
     <h2>Seu parcelamento com a Minas Ok</h2>
     <p>Os dados estão na sua confissão de dívida (cláusula terceira) e nos seus boletos.</p>
   </div>
+  <div class="card login" id="login">
+    <h3>Entrar com meu CPF</h3>
+    <p>Recebeu da Minas Ok o seu código? Coloque o CPF e o código e o app já mostra o seu contrato.</p>
+    <div class="lg-row">
+      <div class="field"><label for="lg-cpf">CPF</label><input id="lg-cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14"></div>
+      <div class="field"><label for="lg-cod">Código</label><input id="lg-cod" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX" maxlength="9"></div>
+    </div>
+    <button type="button" class="btn" id="lg-btn">Entrar</button>
+    <p class="lg-msg" id="lg-msg" aria-live="polite"></p>
+    <p class="lg-alt">Não tem código? Preencha os dados abaixo com o seu contrato. Para receber o seu código, fale com a Minas Ok.</p>
+  </div>
+  <div class="card bemvindo" id="bemvindo" hidden></div>
   <div class="card">
     <div class="fields" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
       <div class="field"><label for="c-valor">Valor parcelado com a construtora (R$)</label><input id="c-valor" type="number" min="0" step="100" value="60000"></div>
       <div class="field"><label for="c-qtd">Quantidade de parcelas</label><input id="c-qtd" type="number" min="1" step="1" value="60"></div>
       <div class="field"><label for="c-per">Parcelas</label><select id="c-per"><option value="mensal" selected>Mensais</option><option value="anual">Anuais</option></select></div>
       <div class="field"><label for="c-ini">Data da primeira parcela</label><input id="c-ini" type="date" value="2026-04-20"></div>
-      <div class="field"><label for="c-ult">Data da última parcela paga</label><input id="c-ult" type="date" value="2026-10-20"></div>
+      <div class="field f-ult"><label for="c-ult">Data da última parcela paga</label><input id="c-ult" type="date" value="2026-10-20"></div>
       <div class="field"><label for="c-taxa">Juros ao mês (%)</label><input id="c-taxa" type="number" min="0" step="0.01" value="1"></div>
     </div>
     <p class="obs" id="obs-anual" hidden><b>Parcelas anuais:</b> para quem paga uma parcela por ano, e não por mês. No contrato, a cláusula terceira fala em "parcelas anuais e sucessivas". Os juros continuam sendo de 1% ao mês.</p>
@@ -357,6 +391,12 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--bad)}
   <div class="plan">
     <div class="field"><label for="x-tenho">Quanto você tem para adiantar (R$)</label><input id="x-tenho" type="number" min="0" step="100" value="5000"></div>
     <div class="field"><label for="x-data">Data em que vai pagar</label><input id="x-data" type="date"></div>
+  </div>
+  <div class="card unica-card" id="unica-card" hidden>
+    <h3 style="margin:0">Adiantar a parcela única</h3>
+    <p id="unica-p" style="margin:0"></p>
+    <p class="obs" style="margin:0">A parcela única tem os mesmos juros de 1% ao mês das outras parcelas. Adiantando, você paga só o valor de hoje. Ela é separada das parcelas mensais: adiantar a parcela única não muda as suas parcelas do mês.</p>
+    <a class="btn wa" id="unica-wa" target="_blank" rel="noopener" style="align-self:flex-start;text-decoration:none">QUERO ADIANTAR A PARCELA ÚNICA</a>
   </div>
   <div class="card casa-card" id="casa-card">
     <span class="selo" id="casa-selo" hidden>Regularize suas parcelas para continuar avançando</span>
@@ -465,6 +505,7 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--bad)}
 <footer>Construtora Minas Ok · Simulação educativa. Não substitui o boleto nem o extrato oficial do contrato.</footer>
 </div>
 
+<script type="application/json" id="contratos">{"v": 1, "salt": "vUtV+bW4htBg6I5mYAczlg==", "iter": 310000, "gerado": "2026-11-04", "r": [{"id": "9d5d552f14be9cae5c560e8ce8a3d80d", "iv": "qpxLw3D8gCq+quZE", "ct": "e9G7z7DVah80N5sza/rAcNJYiDActd9PpTGqiLRk6UIhjoUcu33g83v0t85jkHfMui1gC7TDLCv/NVarJxgfDLcQ1y7snjUlACF0ndesDNcYOhZ4ilrpxDicNJ9aPK/LmNXGZigYP1x1NbcMEwcdmqulacwDcSaJHJwdrDE7bZiGniH4eF5bJYY/EXMKfpmGp51pzCdWdWrahH/koNbjorkA0eRpKVtKgLpfk+fNU+VMMIcTZHcsc216dI/CPw/Ur0nJL7jWiktv1FPjR3JnHFOG5FIbXeRorgR70tSkYwtR/IW9SY3PkAOUaYV64Ei34mz0UTZHXVzmEN1miiMAyu/AoTc2W4KtJj3XJr7zpl9gwO//TUnOE42ErXlOWljKNiZsTgsvZiVs1QELY3PE50YElHHH7t+6prqWa9Xj8QjEmS5+J/Q0JRr3tFiZFXfntjgIaaI6jzLnBYGJ5yFpRmV+BDoPoNdlIrUFjvnZhHqPNjzZ/SCSlx4X+GcjYENbZn3RAfQdxrmIvX56UkWRdCZjGOGKGjrB/Q40"}]}</script><!--/CONTRATOS-->
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -550,6 +591,11 @@ function entrada(){
   const jaAd=jaOn?Math.min(Math.max(0,Math.round(num('c-jaad-n'))),n-pagas.length):0;
   $('c-jaad-hint').textContent=jaOn&&jaAd?`Parcelas ${n-jaAd+1}ª a ${n}ª já adiantadas.`:'';
   const abertas=cron.slice(pagas.length,n-jaAd), vencidas=abertas.filter(x=>x.venc<hoje), aVencer=abertas.filter(x=>x.venc>=hoje);
+  // parcela única (balão) do contrato: tem juros embutidos como as demais (1% a.m.).
+  // Se a data do último pagamento informada pelo cliente é igual ou depois do vencimento do balão, ele é considerado pago.
+  const U=window.__cliente&&window.__cliente.unica, uD=U?(([y,m,d])=>new Date(y,m-1,d))(U.vencimento.split('-').map(Number)):null;
+  const uP=U&&!(ult&&uD<=ult)?{unica:true,num:'U',valor:U.valor,venc:uD}:null;
+  if(uP&&uP.venc<hoje){vencidas.push(uP);vencidas.sort((a,b)=>a.venc-b.venc);}
   $('c-pagas').textContent=(pagas.length+jaAd)+' de '+n+(jaAd?` (${jaAd} adiantadas)`:''); $('c-faltam').textContent=abertas.length;
   $('c-prox').textContent=abertas.length?fmtD(abertas[0].venc):'quitado'; $('c-ultima').textContent=abertas.length?fmtM(abertas[abertas.length-1].venc):'quitado';
 
@@ -560,11 +606,11 @@ function entrada(){
     const nv=vencidas.length;
     $('atraso-t').textContent=nv===1?'Você tem 1 parcela em atraso':`Você tem ${nv} parcelas em atraso`;
     $('atraso-body').innerHTML=vencidas.map(x=>{const d=diasEntre(x.venc,hoje),mu=x.valor*0.02,ju=x.valor*0.01*d/30,t=x.valor+mu+ju;tot+=t;
-      return `<div class="parc"><span class="t">${x.num}ª parcela · venceu em ${fmtD(x.venc)}</span><span class="v">${brl(t)}</span><span class="d">${brl(x.valor)} + multa ${brl(mu)} + juros de mora ${brl(ju)} (${d} ${d===1?'dia':'dias'} de atraso)</span></div>`;}).join('');
+      return `<div class="parc"><span class="t">${x.unica?'Parcela única':x.num+'ª parcela'} · venceu em ${fmtD(x.venc)}</span><span class="v">${brl(t)}</span><span class="d">${brl(x.valor)} + multa ${brl(mu)} + juros de mora ${brl(ju)} (${d} ${d===1?'dia':'dias'} de atraso)</span></div>`;}).join('');
     $('atraso-total').textContent=brl(tot);
     $('atraso-n').textContent=nv===1?'1 parcela com multa e juros':`${nv} parcelas com multa e juros`;
     // vencimento antecipado (cláusula 4ª): todas as parcelas em aberto pelo valor cheio + multa de 10% + honorários de 20%
-    const aberto=abertas.reduce((s,x)=>s+x.valor,0), cobr=aberto*1.10*1.20;
+    const aberto=abertas.reduce((s,x)=>s+x.valor,0)+(uP?uP.valor:0), cobr=aberto*1.10*1.20;
     $('cobr-total').textContent=brl(cobr);
     $('cobr-n').textContent=`${abertas.length} parcelas em aberto + multa de 10% + honorários de 20%`;
     if(nv>=3){
@@ -581,7 +627,12 @@ function entrada(){
   const dx=$('x-data'); if(!dx.value){const h=hoje;dx.value=`${h.getFullYear()}-${String(h.getMonth()+1).padStart(2,'0')}-${String(h.getDate()).padStart(2,'0')}`;}
   let pag=parseD('x-data')||hoje; if(pag<hoje)pag=hoje;
   const fut=aVencer.filter(x=>x.venc>pag);
-  const total=fut.reduce((s,x)=>s+x.valor,0), qHoje=fut.reduce((s,x)=>s+vp(x,pag),0);
+  const uFut=uP&&uP.venc>pag?uP:null;
+  const total=fut.reduce((s,x)=>s+x.valor,0)+(uFut?uFut.valor:0), qHoje=fut.reduce((s,x)=>s+vp(x,pag),0)+(uFut?vp(uFut,pag):0);
+  const uc=$('unica-card'); uc.hidden=!uFut||vencidas.length>0;
+  if(uFut){const uv=vp(uFut,pag);
+    $('unica-p').innerHTML=`A sua parcela única de <b>${brl(uFut.valor)}</b> vence em <b>${fmtD(uFut.venc)}</b>. Pagando em ${fmtD(pag)}, ela sai por <b>${brl(uv)}</b>, com desconto de <b class="save">${brl(uFut.valor-uv)}</b>.`;
+    $('unica-wa').href='https://wa.me/553438313999?text='+encodeURIComponent(`Olá, Minas Ok!${window.__cliente?` Sou ${window.__cliente.n} (${window.__cliente.un}, ${window.__cliente.emp}).`:''} Quero adiantar a minha parcela única de ${brl(uFut.valor)} (vencimento ${fmtD(uFut.venc)}), pagando ${brl(uv)} em ${fmtD(pag)}.`);}
   $('c-total').textContent=brl(total); $('c-hoje').textContent=brl(qHoje); $('c-desc-hoje').textContent=brl(total-qHoje);
 
   // quantas parcelas cabem no valor disponível (sempre parcelas inteiras, do fim para o começo)
@@ -621,6 +672,7 @@ function entrada(){
     msg=`Olá, Minas Ok! QUERO AMORTIZAR!\nQuero adiantar ${faixa}, pagando ${brl(av)} em ${fmtD(pag)}.\nValor nos boletos: ${brl(an)}. Desconto: ${brl(an-av)}.\nÚltima parcela paga: ${ult?fmtD(ult):'-'}. Parcelas que faltam: ${abertas.length} de ${n}.${jaAd?`\nJá adiantei antes: ${jaAd} parcelas.`:''}\nMeu nome e lote: `;
     $('wa-t').textContent='Quer adiantar essas parcelas?'; $('wa-p').textContent='Toque no botão e mande sua simulação para a Minas Ok pelo WhatsApp. A gente confere e envia o boleto com o valor exato.';
   } else msg='Olá, Minas Ok! Tenho uma dúvida sobre meu parcelamento.\nMeu nome e lote: ';
+  if(window.__cliente)msg=msg.replace('Olá, Minas Ok!',`Olá, Minas Ok! Sou ${window.__cliente.n} (${window.__cliente.un}, ${window.__cliente.emp}).`).replace('\nMeu nome e lote: ','');
   $('wa').href='https://wa.me/553438313999?text='+encodeURIComponent(msg);
   // antes e depois + alívio
   const okAd=R>0&&!vencidas.length;
@@ -700,6 +752,68 @@ $('add-faixa').addEventListener('click',()=>{addFaixa('','');entrada();});
 window.__tenhoMudou=true;
 $('casa-share').addEventListener('click',compartilharCasa);
 route(); entrada();
+
+/* ---------- entrar com CPF + código ---------- */
+(function(){
+  const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+  const hex=a=>[...a].map(x=>x.toString(16).padStart(2,'0')).join('');
+  const fmtISO=s=>{const [y,m,d]=s.split('-');return `${d}/${m}/${y}`;};
+  const cpfEl=$('lg-cpf'), codEl=$('lg-cod'), msgEl=$('lg-msg');
+  cpfEl.addEventListener('input',()=>{const d=cpfEl.value.replace(/\D/g,'').slice(0,11);
+    cpfEl.value=d.replace(/^(\d{3})(\d)/,'$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d{1,2})$/,'.$1-$2');});
+  codEl.addEventListener('input',()=>{const c=codEl.value.toUpperCase().replace(/[^0-9A-Z]/g,'').slice(0,8);codEl.value=c.length>4?c.slice(0,4)+'-'+c.slice(4):c;});
+  [cpfEl,codEl].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter')entrar();}));
+  $('lg-btn').addEventListener('click',entrar);
+  function erro(t){msgEl.textContent=t;msgEl.className='lg-msg err';$('lg-btn').disabled=false;}
+  async function entrar(){
+    const cpf=cpfEl.value.replace(/\D/g,''), cod=codEl.value.toUpperCase().replace(/[^0-9A-Z]/g,'');
+    if(cpf.length!==11)return erro('Confira o CPF: são 11 números.');
+    if(cod.length!==8)return erro('Confira o código: são 8 letras e números.');
+    if(!(window.crypto&&crypto.subtle))return erro('Este navegador não consegue abrir o seu contrato. Tente pelo Chrome ou Safari atualizado.');
+    $('lg-btn').disabled=true; msgEl.className='lg-msg'; msgEl.textContent='Procurando o seu contrato…';
+    try{
+      const P=JSON.parse($('contratos').textContent), enc=new TextEncoder();
+      if(!P.r||!P.r.length)return erro('O acesso por CPF ainda não está disponível. Preencha os dados abaixo.');
+      const base=await crypto.subtle.importKey('raw',enc.encode(cpf+':'+cod),'PBKDF2',false,['deriveBits']);
+      const bits=new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:b64(P.salt),iterations:P.iter},base,384));
+      const r=P.r.find(x=>x.id===hex(bits.slice(0,16)));
+      if(!r)return erro('CPF ou código não conferem. Confira e tente de novo, ou fale com a Minas Ok.');
+      const k=await crypto.subtle.importKey('raw',bits.slice(16),'AES-GCM',false,['decrypt']);
+      const d=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(r.iv)},k,b64(r.ct))));
+      aplicar(d);
+    }catch(e){erro('Não deu para abrir agora. Tente de novo em instantes.');}
+  }
+  function aplicar(d){
+    window.__cliente=d;
+    $('c-valor').value=d.vp; $('c-qtd').value=d.q; $('c-per').value=d.per; $('c-ini').value=d.ini; $('c-taxa').value=d.tx;
+    if(d.fx.length>1){$('c-tipo-faixas').checked=true;$('faixas-list').innerHTML='';d.fx.forEach(([q,v])=>addFaixa(q,v.toFixed(2)));}
+    else{$('c-tipo-uma').checked=true;$('c-parc').value=d.fx[0][1].toFixed(2);parcEditada=true;}
+    $('c-adit').checked=!!d.ad; if(d.ad){$('c-s-ini').value=d.ad.primeira_pausada;$('c-s-fim').value=d.ad.ultima_pausada;}
+    $('c-jaad').checked=d.ja>0; if(d.ja>0)$('c-jaad-n').value=d.ja;
+    $('c-ult').value='';
+    document.body.classList.add('logado','precisa-ult');
+    // trava os dados do contrato; o cliente só preenche a última parcela paga
+    document.querySelectorAll('#view-entrada section:first-of-type .card:not(.login):not(.bemvindo) input, #view-entrada section:first-of-type .card:not(.login):not(.bemvindo) select').forEach(el=>{
+      if(el.id==='c-ult')return; if(el.type==='checkbox'||el.type==='radio'||el.tagName==='SELECT')el.disabled=true; else el.readOnly=true;});
+    const fx=d.fx.map(([q,v])=>`${q} de ${brl(v)}`).join(' e ');
+    const u=d.unica?`<li>Parcela única de ${brl(d.unica.valor)} em ${fmtISO(d.unica.vencimento)}</li>`:'';
+    const ad=d.ad?`<li>Aditivo: as parcelas de ${fmtISO(d.ad.primeira_pausada)} a ${fmtISO(d.ad.ultima_pausada)} foram pausadas e passaram para o fim do contrato.</li>`:'';
+    const ja=d.ja>0?`<li>Você já adiantou ${d.ja} ${d.ja===1?'parcela':'parcelas'} do fim do contrato.</li>`:'';
+    const bv=$('bemvindo');
+    bv.innerHTML=`<h3>Olá, ${d.pn}! Encontramos o seu contrato.</h3>
+      <ul><li>Imóvel: ${d.emp} — ${d.un}</li>
+      <li>Total da confissão de dívida: <b>${brl(d.tot)}</b></li>${u}
+      <li>Parcelado com a construtora: <b>${d.q} parcelas ${d.per==='anual'?'anuais':'mensais'}</b> a partir de ${fmtISO(d.ini)} (${fx}), com juros de ${String(d.tx).replace('.',',')}% ao mês.</li>${ad}${ja}</ul>
+      <p class="falta" id="bv-falta">Agora só falta uma coisa: coloque abaixo a <b>data da última parcela que você pagou</b>.</p>
+      <p class="lg-alt">Esses dados vêm do seu contrato e foram atualizados em ${fmtISO(d.at)}. Se algo estiver diferente, fale com a Minas Ok.</p>
+      <button type="button" class="btn-sec sair" id="lg-sair">Sair</button>`;
+    bv.hidden=false; $('login').hidden=true;
+    $('lg-sair').addEventListener('click',()=>location.reload());
+    entrada();
+    $('c-ult').scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{try{$('c-ult').focus({preventScroll:true});}catch(e){}},500);
+  }
+  $('c-ult').addEventListener('change',()=>{if(document.body.classList.contains('logado')&&$('c-ult').value){document.body.classList.remove('precisa-ult');const f=$('bv-falta');if(f)f.hidden=true;}});
+})();
 })();
 </script>
 
