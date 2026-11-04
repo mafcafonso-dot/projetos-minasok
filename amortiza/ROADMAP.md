@@ -8,7 +8,7 @@
 - Regras de cálculo e decisões: [docs/regras.md](docs/regras.md)
 - Contratos dos clientes: repositório **privado** `mafcafonso-dot/amortiza-contratos`
 
-Atualizado em 04/11/2026.
+Atualizado em 04/11/2026. Para continuar o trabalho em outra sessão, veja **Regras para o Claude** abaixo.
 
 ---
 
@@ -69,6 +69,73 @@ Atualizado em 04/11/2026.
 - [ ] Avaliar o plano **Vercel Pro** (o plano gratuito é para uso não comercial).
 - [ ] Decidir: o "Compartilhar minha casa" mostra a situação de hoje ou a simulada?
 - [ ] **Apresentação final do curso Fique Foda em IA** (Felipe — prêmio de R$ 10.000).
+
+## 🤖 Regras para o Claude (executar o roadmap)
+
+Quando o Matheus disser **"segue o roadmap"**, executar os itens que não dependem dele, marcar ✅ aqui e publicar.
+Sempre responder **somente em português**.
+
+### Onde está cada coisa
+| O quê | Onde |
+|---|---|
+| App de trabalho (versão para aprovar) | Artefato no Claude: https://claude.ai/artifact/WvT4HYVfGXoyhsYrhuo5te — ler com a ferramenta Artifact (`read`), editar e publicar no mesmo link |
+| App publicado | `amortiza/app/index.html` neste repositório (Vercel publica a cada push na `main`) |
+| Copiar o app de trabalho para cá | `python3 amortiza/fonte/sincronizar-app.py` (ajustar os caminhos de origem e destino no topo do script) |
+| Contratos, códigos e lista de acesso | Repositório **privado** `mafcafonso-dot/amortiza-contratos` (`dados/clientes.json`, `acesso-clientes.md`) |
+| Incluir/alterar contrato | Editar `dados/clientes.json` → `python3 gerar.py <app de trabalho .html>` → publicar o artefato → sincronizar → push |
+| Controle dos envios de WhatsApp | `amortiza-contratos/envio/` (`progresso.json`, planilhas com "Enviado?") |
+| Regras de cálculo | `amortiza/docs/regras.md` |
+
+### Fluxo de mudança no app
+1. Editar o app de trabalho (artefato) e testar (Playwright: entrar com CPF + código, conferir conferência, atraso e simulação).
+2. Mostrar ao Matheus. **Só publicar no Vercel depois da aprovação** (ou quando ele pedir a mudança explicitamente).
+3. Sincronizar, `git fetch` + `rebase` (outras sessões também publicam aqui) e push.
+
+### Envio de mensagens pelo WhatsApp Web (Chrome do Matheus, extensão Claude)
+- Precisa do computador ligado com o Chrome e a extensão conectados; se não estiver, avisar e parar.
+- Abrir uma aba própria: `https://web.whatsapp.com/send?phone=55DDDNUMERO`; esperar a conversa carregar.
+- **Conferir o cabeçalho** (nome ou final do número) antes de enviar; se o número estiver salvo com outro nome, parar e perguntar.
+- Colar o texto (evento de colar no campo da mensagem) e clicar em Enviar. Vídeo: colar o arquivo, enviar e esperar aparecer "0:26"/"1:12" antes do texto.
+- Ritmo: ~1 mensagem por minuto, lotes de até 25. Fechar a aba no fim.
+- Registrar o envio (`codigo_enviado` em `clientes.json` ou `envio/progresso.json` + planilha).
+- O Matheus não deve usar o WhatsApp Web enquanto o envio estiver rodando.
+
+**Pode enviar sem perguntar de novo:** os modelos abaixo, sem mudar o texto, para clientes cujo contrato já está carregado e
+cujo número está confirmado. **Sempre perguntar antes:** texto novo ou alterado, número com 9 acrescentado sem confirmação,
+número salvo com outro nome, cliente do grupo "Atenção", qualquer pedido de pagamento ou cobrança.
+
+**Modelo aprovado — código de acesso** (trocar {nome} e {código}):
+```
+Oi, {nome}! Tudo bem? Aqui é o Matheus, da Construtora Minas Ok.
+
+Agora o amortiza já mostra o seu contrato prontinho, sem precisar procurar nada no papel. É só abrir o link e entrar com o seu CPF e este código:
+
+Seu código: {código}
+
+https://projetos-minasok.vercel.app
+
+Lá você confere as suas parcelas, coloca a data do último pagamento e vê quanto economiza adiantando.
+
+Esse código é só seu, não passe para ninguém. Qualquer dúvida, me chama aqui!
+```
+
+**Modelo aprovado — vídeo tutorial** (enviar o vídeo `amortiza/divulgacao/amortiza-como-usar.mp4` antes; pode trocar "Oi!" por "Oi, {nome}!"):
+```
+Oi! Tudo bem? Aqui é o Matheus, da Construtora Minas Ok.
+
+Esses dias te mandei o link do amortiza, o app pra você simular quanto economiza adiantando as parcelas da entrada. Conseguiu dar uma olhada?
+
+Gravei esse vídeo rapidinho mostrando como preencher, passo a passo. É só assistir e depois abrir o app:
+https://projetos-minasok.vercel.app
+
+Qualquer dúvida, me chama aqui que eu te ajudo!
+```
+
+### Ao ler um contrato novo
+- Extrair: CPF, nome, empreendimento, lote/quadra, total confessado, parcela única (valor e vencimento), nº de parcelas,
+  1ª parcela, faixas de valor, aditivo (1ª e última pausada), devedores e telefone.
+- Conferir a matemática (valor presente a 1% a.m. das parcelas + balão = total confessado) e avisar diferenças.
+- A situação do balão **não** vem do Matheus: o app decide pela data do último pagamento informada pelo cliente.
 
 ## 💡 Futuro
 
