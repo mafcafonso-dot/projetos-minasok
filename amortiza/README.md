@@ -5,6 +5,7 @@ A marca é uma casa que se completa conforme o cliente paga.
 
 - App publicado: https://amortiza-minasok.lovable.app
 - Regras de cálculo e decisões: [docs/regras.md](docs/regras.md)
+- Roadmap do projeto: [ROADMAP.md](ROADMAP.md)
 
 ## Pastas
 
