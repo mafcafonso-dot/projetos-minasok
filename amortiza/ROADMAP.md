@@ -141,6 +141,7 @@ Qualquer dúvida, me chama aqui que eu te ajudo!
 - Conferir a matemática (valor presente a 1% a.m. das parcelas + balão = total confessado) e avisar diferenças.
 - Aditivo com mais de um período pausado: em `aditivo`, `periodos` = lista de [início, fim]; `reescalona_em` quando o aditivo
   marca uma data de recomeço diferente de logo depois da última parcela.
+- Faixas com datas próprias (intervalo combinado no contrato, não é pausa): terceiro elemento na faixa, ex. `[8, 1409.89, "2026-06-15"]`.
 - A situação do balão **não** vem do Matheus: o app decide pela data do último pagamento informada pelo cliente.
 
 ## 💡 Futuro
