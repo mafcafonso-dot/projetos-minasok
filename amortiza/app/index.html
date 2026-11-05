@@ -222,8 +222,11 @@ header .logo{height:auto;width:120px;align-self:flex-start}
 .casa .sua{font:600 clamp(2.4rem,10.5vw,3.5rem)/1 var(--f-display);color:#06449D}
 .casa.won .cn{top:39%}
 @media (prefers-reduced-motion:no-preference){.wrap>section{animation:sobe .4s var(--ease) both}.wrap>section:nth-child(2){animation-delay:.05s}.wrap>section:nth-child(3){animation-delay:.1s}@keyframes sobe{from{opacity:0;transform:translateY(8px)}}}
-.casa .jan{opacity:0;transition:opacity .5s var(--ease) .5s}
-.casa.won .jan{opacity:1}
+.casa .jan rect{opacity:0;transition:opacity .35s var(--ease)}
+.casa.won .jan rect:first-child{opacity:1;transition-delay:.35s}
+.casa.won .jan rect:last-child{opacity:1;transition-delay:.6s}
+.casa .sua{display:inline-block}
+@media (prefers-reduced-motion:no-preference){.casa .sua{animation:carimbo .45s var(--ease) .15s both}@keyframes carimbo{from{opacity:0;transform:scale(1.25)}}}
 .casa-cmp{font-size:1rem;color:var(--ink-2);font-variant-numeric:tabular-nums} .casa-cmp b{color:var(--ink);font-weight:600}
 .casa-won{font:500 1.25rem var(--f-display);color:var(--ink)}
 .selo{background:var(--yellow-soft);color:#7A4B00;border-radius:8px;padding:8px 12px;font-weight:500;font-size:.875rem}
@@ -415,7 +418,8 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
     <div class="casa" id="casa" role="img" aria-label="Casa de progresso">
       <svg viewBox="0 0 300 300" aria-hidden="true"><defs><clipPath id="cp-casa"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
         <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="#F7BC0A" fill-opacity=".15"/>
-        <rect id="casa-nivel" x="0" y="263" width="300" height="300" fill="#F7BC0A" clip-path="url(#cp-casa)"/>
+        <path id="casa-nivel" d="M0 263H300V320H0Z" fill="#F7BC0A" clip-path="url(#cp-casa)"/>
+        <line id="casa-hoje" x1="0" x2="300" y1="263" y2="263" stroke="var(--ink-2)" stroke-opacity=".55" stroke-width="2.5" stroke-dasharray="7 7" clip-path="url(#cp-casa)" visibility="hidden"/>
         <g class="jan"><rect x="54" y="214" width="34" height="34" rx="5" fill="#fff"/><rect x="212" y="214" width="34" height="34" rx="5" fill="#fff"/></g>
         <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="var(--house)" stroke-width="40" stroke-linejoin="round"/></svg>
       <div class="cn" id="casa-cn"><b id="casa-num">–</b><span id="casa-lbl">parcelas para ser sua</span></div>
@@ -700,6 +704,7 @@ function entrada(){
   // mascote do resultado
   const vm=$('vd-masc'), quita=okAd&&N>=R;
   vm.classList.toggle('preocupado',!!vencidas.length); vm.classList.toggle('festa',quita);
+  pularMascote(okAd?Math.round((an-av)*100):null,quita,!!vencidas.length);
   $('vd-balao').textContent=vencidas.length?'Vamos regularizar primeiro?':quita?'Casa quitada':R?'Olha quanto sobra pra você':'Tudo certo por aqui';
   // casa de progresso
   const hojeF=abertas.length, depoisF=vencidas.length?hojeF:Math.max(0,hojeF-N);
@@ -710,25 +715,48 @@ function entrada(){
 }
 
 /* ---------- casa de progresso ---------- */
-const casa={total:1,hoje:0,alvo:0,mostrado:null,atraso:false,raf:0};
+const casa={total:1,hoje:0,alvo:0,mostrado:null,atraso:false,raf:0,cn:''};
 const yNivel=f=>263-209*((casa.total-f)/casa.total);
-function pintarCasa(f){
+function ondaPath(y,amp,fase){ // superfície do amarelo: onda baixa que corre para o lado
+  if(amp<0.05)return `M0 ${y.toFixed(1)}H300V320H0Z`;
+  let d=`M0 ${(y+amp*Math.sin(fase)).toFixed(1)}`;
+  for(let x=25;x<=300;x+=25)d+=`L${x} ${(y+amp*Math.sin(fase+x/300*Math.PI*3)).toFixed(1)}`;
+  return d+'V320H0Z';
+}
+function pintarCasa(f,amp=0,fase=0){
   const won=f<=0&&!casa.atraso, fr=Math.round(f);
-  $('casa-nivel').setAttribute('y',won?0:yNivel(f).toFixed(1));
+  $('casa-nivel').setAttribute('d',ondaPath(won?-30:yNivel(f),won?0:amp,fase));
   $('casa').classList.toggle('won',won); $('casa-won').hidden=!won;
-  $('casa-cn').innerHTML=won?'<b class="sua">SUA.</b>':`<b>${fr}</b><span>${fr===1?'parcela para ser sua':'parcelas para ser sua'}</span>`;
+  const cn=won?'<b class="sua">SUA.</b>':`<b>${fr}</b><span>${fr===1?'parcela para ser sua':'parcelas para ser sua'}</span>`;
+  if(casa.cn!==cn){casa.cn=cn;$('casa-cn').innerHTML=cn;}
   $('casa').setAttribute('aria-label',won?'Casa quitada':`Faltam ${fr} parcelas para a casa ser sua`);
 }
+function linhaHoje(){ // marca onde a casa está hoje enquanto a simulação mostra o depois
+  const l=$('casa-hoje'), on=!casa.atraso&&casa.alvo!==casa.hoje&&casa.hoje>0;
+  l.setAttribute('visibility',on?'visible':'hidden'); if(on){const y=yNivel(casa.hoje).toFixed(1);l.setAttribute('y1',y);l.setAttribute('y2',y);}
+}
 function animarCasa(){
-  cancelAnimationFrame(casa.raf);
+  cancelAnimationFrame(casa.raf); linhaHoje();
   const de=casa.mostrado==null?casa.hoje:casa.mostrado, para=casa.alvo;
   const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduz||de===para){casa.mostrado=para;pintarCasa(para);return;}
-  const t0=performance.now()+(casa.mostrado==null?450:0), dur=1000;
+  const t0=performance.now()+(casa.mostrado==null?450:0), dur=1000, assenta=600;
   pintarCasa(de);
-  const passo=t=>{const k=Math.max(0,Math.min(1,(t-t0)/dur)), e=1-Math.pow(1-k,3), v=de+(para-de)*e;
-    casa.mostrado=v; pintarCasa(k<1?v:para); if(k<1)casa.raf=requestAnimationFrame(passo); else casa.mostrado=para;};
+  const passo=t=>{const el=t-t0, k=Math.max(0,Math.min(1,el/dur)), e=1-Math.pow(1-k,3), v=de+(para-de)*e;
+    const amp=el<0?0:6*Math.max(0,1-el/(dur+assenta)), fase=Math.max(0,el)/170;
+    casa.mostrado=k<1?v:para; pintarCasa(casa.mostrado,amp,fase);
+    if(el<dur+assenta)casa.raf=requestAnimationFrame(passo); else pintarCasa(para);};
   casa.raf=requestAnimationFrame(passo);
+}
+/* ---------- mascote: um saltinho quando a economia muda ---------- */
+const masc={eco:null,t:0};
+function pularMascote(eco,festa,atraso){
+  if(masc.eco===null){masc.eco=eco;return;}
+  if(eco===masc.eco||atraso){masc.eco=eco;return;}
+  masc.eco=eco; clearTimeout(masc.t);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  masc.t=setTimeout(()=>{const n=festa?3:1, d=festa?'.8s':'1.1s';
+    [['vd-corpo','vd-pulo'],['vd-sombra','vd-sombra'],['vd-pe-e','vd-pe-e'],['vd-pe-d','vd-pe-d']].forEach(([id,a])=>{const el=$(id);el.style.animation='none';void el.getBoundingClientRect();el.style.animation=`${a} ${d} ${n}`;});},250);
 }
 async function compartilharCasa(){
   try{await document.fonts.ready;}catch(e){}

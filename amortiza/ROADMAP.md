@@ -24,6 +24,7 @@ Atualizado em 04/11/2026. Para continuar o trabalho em outra sessão, veja **Reg
 - Parcela única (balão): tem juros embutidos como as demais; paga, vencida ou a vencer conforme a data do
   último pagamento; pode ser adiantada com 1% a.m. (conferido num contrato real: total confessado = parcelas + balão a valor presente).
 - Botão "QUERO AMORTIZAR!" manda a simulação pronta para o WhatsApp da Minas Ok.
+- 04/11/2026: casa de progresso enche como água e mascote salta quando a economia muda (briefs em `docs/animacoes.md`, skill blank-page).
 - 04/11/2026: redesign com a skill unslop (fundo sem ícones, cores calmas, vermelho só para atraso, amarelo só na casinha) no app e na apresentação.
 
 ### 2. Marca e identidade
