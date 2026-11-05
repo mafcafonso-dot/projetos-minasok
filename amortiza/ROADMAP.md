@@ -139,6 +139,8 @@ Qualquer dúvida, me chama aqui que eu te ajudo!
 - Extrair: CPF, nome, empreendimento, lote/quadra, total confessado, parcela única (valor e vencimento), nº de parcelas,
   1ª parcela, faixas de valor, aditivo (1ª e última pausada), devedores e telefone.
 - Conferir a matemática (valor presente a 1% a.m. das parcelas + balão = total confessado) e avisar diferenças.
+- Aditivo com mais de um período pausado: em `aditivo`, `periodos` = lista de [início, fim]; `reescalona_em` quando o aditivo
+  marca uma data de recomeço diferente de logo depois da última parcela.
 - A situação do balão **não** vem do Matheus: o app decide pela data do último pagamento informada pelo cliente.
 
 ## 💡 Futuro
