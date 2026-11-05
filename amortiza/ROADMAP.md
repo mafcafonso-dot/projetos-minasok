@@ -25,6 +25,7 @@ Atualizado em 04/11/2026. Para continuar o trabalho em outra sessão, veja **Reg
   último pagamento; pode ser adiantada com 1% a.m. (conferido num contrato real: total confessado = parcelas + balão a valor presente).
 - Botão "QUERO AMORTIZAR!" manda a simulação pronta para o WhatsApp da Minas Ok.
 - 04/11/2026: casa de progresso enche como água e mascote salta quando a economia muda (briefs em `docs/animacoes.md`, skill blank-page).
+- 05/11/2026: apresentação reescrita para o cliente (o que é amortizar, exemplo em números, como funciona, vídeos e Simular). `/apresentacao` abre o app de verdade; `/apresentacao?demo` abre com o contrato de exemplo (usar na apresentação do curso).
 - 04/11/2026: redesign com a skill unslop (fundo sem ícones, cores calmas, vermelho só para atraso, amarelo só na casinha) no app e na apresentação.
 
 ### 2. Marca e identidade
@@ -107,7 +108,7 @@ Sempre responder **somente em português**.
 cujo número está confirmado. **Sempre perguntar antes:** texto novo ou alterado, número com 9 acrescentado sem confirmação,
 número salvo com outro nome, cliente do grupo "Atenção", qualquer pedido de pagamento ou cobrança.
 
-**Modelo aprovado — código de acesso** (trocar {nome} e {código}):
+**Modelo aprovado — código de acesso** (trocar {nome} e {código}; desde 05/11/2026 o link é o da apresentação, que tem os vídeos e o botão Simular):
 ```
 Oi, {nome}! Tudo bem? Aqui é o Matheus, da Construtora Minas Ok.
 
@@ -115,7 +116,7 @@ Agora o amortiza já mostra o seu contrato prontinho, sem precisar procurar nada
 
 Seu código: {código}
 
-https://projetos-minasok.vercel.app
+https://projetos-minasok.vercel.app/apresentacao
 
 Lá você confere as suas parcelas, coloca a data do último pagamento e vê quanto economiza adiantando.
 

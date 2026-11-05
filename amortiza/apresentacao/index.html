@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Amortiza Minas Ok</title>
-<meta name="description" content="Amortiza: o app da Construtora Minas Ok para adiantar as parcelas da entrada da casa e economizar.">
+<title>amortiza | Minas Ok</title>
+<meta name="description" content="Entenda o que é amortizar e veja, com o seu contrato, quanto você economiza adiantando as parcelas da entrada da sua casa com a Minas Ok.">
 <meta property="og:title" content="Amortiza · Construtora Minas Ok">
 <meta property="og:description" content="Adiante as parcelas da sua casa e economize. Antecipe e conquiste.">
 <meta property="og:image" content="https://projetos-minasok.vercel.app/amortiza/divulgacao/amortiza-video-capa.jpg">
@@ -50,7 +50,6 @@ header .in{max-width:1080px;margin:0 auto;height:var(--barra);display:flex;align
 .fatos{display:grid;gap:0;border-top:1px solid var(--linha)}
 .fato{border-bottom:1px solid var(--linha);padding:20px 0;display:grid;gap:4px}
 .fato b{display:block;font-family:var(--display);font-size:28px;font-weight:500;color:var(--tinta);line-height:1.1;font-variant-numeric:tabular-nums}
-.fato:first-child b{font-size:48px;color:var(--azul);letter-spacing:-.02em}
 .fato span{font-size:15px;color:var(--cinza)}
 .irapp{display:inline-flex;align-items:center;gap:8px;justify-self:start;background:var(--azul);color:var(--branco);font:600 16px var(--body);border:0;border-radius:12px;height:52px;padding:0 24px;cursor:pointer;transition:background-color .15s var(--ease),transform .12s var(--ease)}
 .irapp:hover{background:#053A86}
@@ -83,6 +82,27 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
 .convite:hover #m-corpo,.convite:hover #m-sombra,.convite:hover #m-pe-e,.convite:hover #m-pe-d{animation-iteration-count:infinite}
 .mascote{width:120px;height:auto;display:block;cursor:pointer}
 
+/* ações, amortizar, passos */
+.acoes{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.exemplo{font:500 15px var(--body);background:transparent;border:0;color:var(--azul);text-decoration:underline;text-underline-offset:4px;cursor:pointer;height:52px;padding:0 8px}
+.exemplo:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px;border-radius:8px}
+.amortizar{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:64px;align-items:center}
+.amortizar h2,.passos h2{font-size:32px;font-weight:500;letter-spacing:-.01em;margin-bottom:4px}
+.exemplo-conta{background:var(--branco);border:1px solid var(--linha);border-radius:20px;padding:28px;display:grid;gap:12px;box-shadow:0 8px 24px rgba(20,33,58,.06)}
+.exemplo-conta .rot{font-size:13px;color:var(--suave)}
+.exemplo-conta p{color:var(--cinza)}
+.linha{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--linha);padding-top:12px;font-variant-numeric:tabular-nums}
+.linha span{color:var(--cinza)}
+.linha b{font:500 24px var(--display)}
+.riscado{text-decoration:line-through;text-decoration-thickness:2px;color:var(--suave)}
+.linha.eco b{color:#16794A;font-size:30px}
+.exemplo-conta small{color:var(--suave);font-size:13px}
+.passos ol{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:p}
+.passos li{counter-increment:p;display:grid;gap:8px;align-content:start;border-top:1px solid var(--linha);padding-top:16px}
+.passos li::before{content:counter(p);font:500 28px/1 var(--display);color:var(--azul)}
+.passos li b{font:500 19px var(--display)}
+.passos li span{color:var(--cinza);font-size:15px}
+
 /* aba app */
 .app{height:calc(100dvh - var(--barra) - env(safe-area-inset-top));background:var(--branco)}
 .app iframe{display:block;width:100%;height:100%;border:0}
@@ -91,8 +111,11 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
   .intro{grid-template-columns:1fr;gap:40px}
   .apres .in{padding-block:40px 64px;gap:64px}
   .vgrid,.rgrid{grid-template-columns:1fr}
+  .amortizar{grid-template-columns:1fr;gap:32px}
+  .passos ol{grid-template-columns:1fr 1fr}
   .vgrid{max-width:440px}
 }
+@media (max-width:480px){.passos ol{grid-template-columns:1fr}}
 @media (max-width:420px){
   .nome{font-size:22px}
   .nome small{display:none}
@@ -105,8 +128,8 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
   <div class="in gutter">
     <div class="nome">amortiza<small>ANTECIPE E CONQUISTE</small></div>
     <div class="abas" role="tablist" aria-label="Seções">
-      <button id="tab-apres" role="tab" aria-controls="apres" aria-selected="true">Apresentação</button>
-      <button id="tab-app" role="tab" aria-controls="app" aria-selected="false">Abrir o app</button>
+      <button id="tab-apres" role="tab" aria-controls="apres" aria-selected="true">Conheça</button>
+      <button id="tab-app" role="tab" aria-controls="app" aria-selected="false">Simular</button>
     </div>
   </div>
 </header>
@@ -117,15 +140,15 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
       <div class="intro">
         <div class="texto">
           <span class="minasok"><img src="/amortiza/marca/logo-construtora-minasok.png" alt="Construtora Minas Ok"></span>
-          <h1>Um app feito para uma demanda real da <em>minha empresa</em></h1>
-          <p>Na Construtora Minas Ok vendemos casas no <strong>Minha Casa, Minha Vida</strong>. O banco financia a maior parte, e a entrada o cliente parcela direto com a construtora. Isso formou uma carteira grande na praça: hoje são <strong>mais de 400 clientes</strong> pagando essas parcelas.</p>
-          <p>O <strong>Amortiza</strong> nasceu para adiantar esse dinheiro. O cliente coloca os dados do próprio contrato, vê quanto economiza adiantando as últimas parcelas e manda a simulação para o WhatsApp da construtora com um toque. A empresa recebe antes e o risco de atraso diminui. Para o cliente, cada parcela adiantada enche um pouco mais a casinha amarela.</p>
-          <button class="irapp" type="button" data-ir="app">Testar o app →</button>
+          <h1>Feito para você <em>pagar menos</em> pela sua casa</h1>
+          <p>O <strong>amortiza</strong> é o app da Construtora Minas Ok para quem parcelou a entrada da casa com a gente. Com o seu próprio contrato, ele mostra quanto você economiza adiantando parcelas e quando a sua casa fica quitada.</p>
+          <p>Queremos que você tenha a informação clara para decidir: entender o que paga, gastar menos com juros e conquistar a sua casa mais cedo. Cada parcela adiantada enche um pouco mais a casinha amarela.</p>
+          <div class="acoes"><button class="irapp" type="button" data-ir="app">Simular com o meu contrato →</button><button class="exemplo" type="button" data-ir="app" data-demo="1">Ver um exemplo</button></div>
         </div>
         <div class="fatos">
-          <div class="fato"><b>+400</b><span>clientes com a entrada parcelada na construtora</span></div>
-          <div class="fato"><b>Paga menos</b><span>Quem adianta a parcela ganha desconto. Quanto mais cedo, maior o desconto.</span></div>
-          <div class="fato"><b>Termina antes</b><span>O contrato acaba mais cedo e a casa fica quitada antes.</span></div>
+          <div class="fato"><b>Paga menos</b><span>Cada parcela adiantada sai sem os juros dos meses que faltavam.</span></div>
+          <div class="fato"><b>Termina antes</b><span>As parcelas adiantadas são as do fim: o contrato acaba mais cedo.</span></div>
+          <div class="fato"><b>Você decide</b><span>Simular é grátis e não obriga a nada. Adianta quando e quanto quiser.</span></div>
         <div class="convite">
           <button class="balao" type="button" data-ir="app"><b>Vamos fazer uma simulação?</b><span>Toque aqui para abrir o app →</span></button>
           <svg class="mascote" data-ir="app" viewBox="-10 -100 320 490" role="img" aria-label="Mascote do Amortiza dando saltinhos">
@@ -157,20 +180,46 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
         </div>
       </div>
 
+      <div class="amortizar">
+        <div class="texto">
+          <h2>O que é amortizar</h2>
+          <p>Amortizar é pagar antes uma parte da dívida. As parcelas da entrada que você parcelou com a Minas Ok têm juros de <strong>1% ao mês</strong>. Quando você adianta uma parcela do fim do contrato, paga só o valor de hoje, sem os juros dos meses que ainda faltavam.</p>
+          <p>Quanto mais longe está a parcela, maior o desconto. A parcela do mês continua igual; o que muda é que o contrato termina antes.</p>
+        </div>
+        <div class="exemplo-conta" aria-label="Exemplo de conta">
+          <span class="rot">Exemplo</span>
+          <p>Uma parcela de <strong>R$ 1.000,00</strong> que vence daqui a <strong>5 anos</strong> (60 meses), paga hoje:</p>
+          <div class="linha"><span>No boleto</span><b class="riscado">R$ 1.000,00</b></div>
+          <div class="linha"><span>Pagando hoje</span><b>R$ 550,45</b></div>
+          <div class="linha eco"><span>Você economiza</span><b>R$ 449,55</b></div>
+          <small>Juros de 1% ao mês. O valor exato do seu contrato aparece no app.</small>
+        </div>
+      </div>
+
+      <div class="passos">
+        <h2>Como funciona</h2>
+        <ol>
+          <li><b>Receba o seu código</b><span>A Minas Ok manda pelo WhatsApp. Ainda não tem? É só pedir no (34) 3831-3999.</span></li>
+          <li><b>Entre com CPF e código</b><span>O seu contrato já aparece pronto, sem procurar nada no papel.</span></li>
+          <li><b>Simule</b><span>Coloque a data do último pagamento e quanto quer adiantar. O app mostra o valor exato e quanto você economiza.</span></li>
+          <li><b>Toque em "Quero amortizar"</b><span>A simulação vai para o WhatsApp da Minas Ok, que confere e manda o boleto.</span></li>
+        </ol>
+      </div>
+
       <div class="videos">
-        <h2>Os vídeos</h2>
+        <h2>Veja em vídeo</h2>
         <div class="vgrid">
           <figure>
             <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-video-capa.jpg">
               <source src="/amortiza/divulgacao/amortiza-video.mp4" type="video/mp4">
             </video>
-            <figcaption><b>Apresentação</b><span>O vídeo curto que vai junto com o link para os clientes.</span></figcaption>
+            <figcaption><b>O que é o amortiza</b><span>Em 26 segundos.</span></figcaption>
           </figure>
           <figure>
             <video controls playsinline preload="metadata">
               <source src="/amortiza/divulgacao/amortiza-como-usar.mp4#t=4" type="video/mp4">
             </video>
-            <figcaption><b>Como usar</b><span>Preencher o contrato, simular a antecipação e pedir o boleto.</span></figcaption>
+            <figcaption><b>Como usar</b><span>Passo a passo: entrar, simular e pedir o boleto.</span></figcaption>
           </figure>
         </div>
       </div>
@@ -183,11 +232,11 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
         </div>
       </div>
     </div>
-    <footer class="gutter">Matheus · Construtora Minas Ok · (34) 3831-3999</footer>
+    <footer class="gutter">Construtora Minas Ok · WhatsApp (34) 3831-3999 · Simulação educativa: o valor oficial é o do boleto emitido pela Minas Ok.</footer>
   </section>
 
   <section id="app" class="app" role="tabpanel" aria-labelledby="tab-app" hidden>
-    <iframe id="frame" title="App Amortiza" data-src="/amortiza/app/index.html?demo"></iframe>
+    <iframe id="frame" title="App Amortiza" data-src="/amortiza/app/index.html"></iframe>
   </section>
 </main>
 
@@ -196,6 +245,7 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
   var tabs={apres:document.getElementById('tab-apres'),app:document.getElementById('tab-app')};
   var panels={apres:document.getElementById('apres'),app:document.getElementById('app')};
   var frame=document.getElementById('frame');
+  var demo=/[?&]demo\b/.test(location.search);
   function show(name){
     if(!panels[name]) name='apres';
     for(var k in panels){
@@ -203,7 +253,8 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
       panels[k].hidden=!on;
       tabs[k].setAttribute('aria-selected',on?'true':'false');
     }
-    if(name==='app' && !frame.src) frame.src=frame.dataset.src;
+    var alvo=frame.dataset.src+(demo?'?demo':'');
+    if(name==='app' && frame.getAttribute('src')!==alvo) frame.src=alvo;
     if(name==='app') document.querySelectorAll('video').forEach(function(v){v.pause()});
     window.scrollTo(0,0);
   }
@@ -214,7 +265,7 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
   }
   tabs.apres.onclick=function(){go('apres')};
   tabs.app.onclick=function(){go('app')};
-  document.querySelectorAll('[data-ir]').forEach(function(b){b.onclick=function(){go(b.dataset.ir)}});
+  document.querySelectorAll('[data-ir]').forEach(function(b){b.onclick=function(){if(b.dataset.demo)demo=true;go(b.dataset.ir)}});
   show(location.hash==='#app'?'app':'apres');
 })();
 </script>
