@@ -1,0 +1,10 @@
+# O site publica só o que o cliente e a apresentação usam.
+# Documentos, roadmap, scripts e skills ficam fora do ar (o repositório é público, o site não precisa deles).
+/*
+!vercel.json
+!amortiza
+amortiza/*
+!amortiza/app
+!amortiza/apresentacao
+!amortiza/marca
+!amortiza/divulgacao

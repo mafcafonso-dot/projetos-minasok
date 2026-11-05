@@ -22,8 +22,9 @@ Atualizado em 04/11/2026. Para continuar o trabalho em outra sessão, veja **Reg
 - "Já adiantei parcelas antes" para quem antecipa mais de uma vez.
 - Atraso: multa de 2% + juros de mora, aviso de vencimento antecipado (3 parcelas) e pedido para regularizar.
 - Parcela única (balão): tem juros embutidos como as demais; paga, vencida ou a vencer conforme a data do
-  último pagamento; pode ser adiantada com 1% a.m. (conferido no contrato do Thiago: R$ 81.933 = parcelas + balão a valor presente).
+  último pagamento; pode ser adiantada com 1% a.m. (conferido num contrato real: total confessado = parcelas + balão a valor presente).
 - Botão "QUERO AMORTIZAR!" manda a simulação pronta para o WhatsApp da Minas Ok.
+- 04/11/2026: redesign com a skill unslop (fundo sem ícones, cores calmas, vermelho só para atraso, amarelo só na casinha) no app e na apresentação.
 
 ### 2. Marca e identidade
 - Logo, ícone, casa-símbolo que se enche de amarelo conforme o cliente paga.
@@ -32,6 +33,8 @@ Atualizado em 04/11/2026. Para continuar o trabalho em outra sessão, veja **Reg
 
 ### 3. Publicação
 - Código no GitHub (`projetos-minasok`) com publicação automática no Vercel.
+- `.vercelignore`: o site publica só `amortiza/app`, `apresentacao`, `marca` e `divulgacao`; docs, roadmap, scripts e skills ficam fora do ar.
+- Cabeçalhos de segurança no `vercel.json` (nosniff, referrer, o app só abre dentro do próprio site).
 - Página de apresentação com o app aberto em modo demonstração (contrato fictício).
 
 ### 4. Divulgação
@@ -40,30 +43,26 @@ Atualizado em 04/11/2026. Para continuar o trabalho em outra sessão, veja **Reg
 - Vídeo tutorial "como usar" (1min12s) enviado por lista de transmissão.
 
 ### 5. Contrato do cliente já carregado (CPF + código)
-- Cliente entra com CPF + código de 8 caracteres e vê o próprio contrato; preenche só a data do último pagamento.
+- Cliente entra com CPF + código de 8 ou 10 caracteres e vê o próprio contrato; preenche só a data do último pagamento.
 - Contratos ficam no repositório privado; no app público vai só o pacote **criptografado** (AES-GCM + PBKDF2).
 - Quem não tem código continua preenchendo à mão (o app de antes continua igual).
 - Lista de acesso (CPF + código por cliente) para a Minas Ok simular pelo cliente.
-- Contratos carregados: Thiago Nathan Martins, Murilo Magalhães, Keveny Resende Fiuza (+ contrato de demonstração).
-- Códigos enviados: Murilo e Thiago (04/11/2026).
+- Primeiros contratos carregados e códigos enviados em 04/11/2026 (nomes e situação de cada cliente: só no repositório privado).
+- Códigos novos com 10 caracteres (os de 8 já enviados continuam valendo).
 
 ---
 
 ## 🔄 Em andamento
 
-- [ ] Enviar o código do Keveny (WhatsApp 38 99855-3958).
-- [ ] Conferir o PDF do aditivo do Keveny (datas informadas: 20/02/2026 a 20/06/2026).
-- [ ] Acompanhar o retorno do Murilo e do Thiago (conseguiram entrar? dúvidas?) e ajustar o app.
+- [ ] Pendências por cliente (envio de código, aditivos a conferir, retorno dos primeiros clientes): ver `ROADMAP.md` no repositório privado `amortiza-contratos`.
 - [ ] Reenviar o vídeo tutorial, direto na conversa, para quem ficou com 1 setinha na lista de transmissão.
 
 ## ⏭️ Próximos passos
 
 - [ ] **Carregar todos os contratos** (Jardim Amaral e Jardim dos Jatobás): confissão + aditivos de cada cliente.
 - [ ] **Enviar o código de cada cliente** pelo WhatsApp, em lotes, com o texto aprovado.
-- [ ] Código para o segundo devedor quando houver (ex.: Maria Liliane, contrato do Murilo).
-- [ ] Decidir sobre os clientes do grupo **"Atenção"** (8 na lista principal e Francielle no Jatobás).
-- [ ] Confirmar os números em que foi incluído o 9: Dalila, Josiele, Denner, Gustavo, Marianne e Thiago (Jatobás).
-- [ ] Conferir Osmar (número salvo como "Carlos Jatobas") e Lais (número digitado errado).
+- [ ] Código para o segundo devedor quando houver.
+- [ ] Pendências da lista de envio (grupo "Atenção", números a confirmar): ver o repositório privado.
 - [ ] Endereço próprio **amortiza.minasok.com.br** (pedir o registro CNAME a quem cuida do domínio).
 - [ ] Aviso de privacidade (LGPD) no app e validação com o jurídico da Minas Ok.
 - [ ] Avaliar o plano **Vercel Pro** (o plano gratuito é para uso não comercial).
@@ -71,6 +70,9 @@ Atualizado em 04/11/2026. Para continuar o trabalho em outra sessão, veja **Reg
 - [ ] **Apresentação final do curso Fique Foda em IA** (Felipe — prêmio de R$ 10.000).
 
 ## 🤖 Regras para o Claude (executar o roadmap)
+
+**Privacidade:** este repositório e o site são públicos. Nunca escrever aqui nome, CPF, telefone ou valores de
+cliente; isso vai só no repositório privado `amortiza-contratos` (inclusive o roadmap com pendências por cliente).
 
 Quando o Matheus disser **"segue o roadmap"**, executar os itens que não dependem dele, marcar ✅ aqui e publicar.
 Sempre responder **somente em português**.

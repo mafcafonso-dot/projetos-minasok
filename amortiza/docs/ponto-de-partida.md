@@ -14,12 +14,8 @@ Escrito em 04/11/2026, ao encerrar uma sessão longa. **Responder sempre em port
 ## Estado em 04/11/2026
 - App no ar com login por CPF + código (contrato criptografado), faixas, aditivo por datas, parcela única (balão),
   "já adiantei", modo demonstração (`?demo`, CPF 111.111.111-11, código DEMO-2026) e página `/apresentacao`.
-- Contratos carregados: Thiago Nathan Martins (com aditivo e balão pago), Murilo Magalhães, Keveny Resende Fiuza (aditivo
-  20/02–20/06/2026 informado pelo Matheus; PDF do aditivo não recebido).
-- Códigos enviados: Murilo e Thiago (04/11). **Pendente: Keveny, WhatsApp 38 99855-3958 (com o 9, confirmado pelo Matheus)** —
-  a extensão do Chrome estava desconectada; texto já aprovado (modelo "código de acesso").
-- Thiago comentou que poderia adiantar ~R$ 1.000 em 21/12/2026; recebeu simulação: 1 parcela (R$ 529,48, economia R$ 545,46)
-  ou 2 parcelas com R$ 1.064,25 (economia R$ 1.085,63).
+- Situação de cada cliente (contratos carregados, códigos enviados, pendências): `docs/ponto-de-partida.md` e
+  `ROADMAP.md` no repositório privado `amortiza-contratos`.
 
 ## Próximo passo combinado
 O Matheus vai mandar os contratos dos demais clientes (confissão + aditivos). Para cada lote: ler, conferir a matemática,
