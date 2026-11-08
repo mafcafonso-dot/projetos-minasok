@@ -337,7 +337,7 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
       <div class="field f-ult"><label for="c-ult">Data da última parcela paga</label><input id="c-ult" type="date" value="2026-10-20"></div>
       <div class="field"><label for="c-taxa">Juros ao mês (%)</label><input id="c-taxa" type="number" min="0" step="0.01" value="1"></div>
     </div>
-    <p class="obs" id="obs-anual" hidden><b>Parcelas anuais:</b> para quem paga uma parcela por ano, e não por mês. No contrato, a cláusula terceira fala em "parcelas anuais e sucessivas". Os juros continuam sendo de 1% ao mês.</p>
+    <p class="obs" id="obs-anual" hidden><b>Parcelas anuais:</b> para quem paga uma parcela por ano, e não por mês. No contrato, a cláusula terceira fala em "parcelas anuais e sucessivas". Os juros continuam sendo os do seu contrato, calculados ao mês.</p>
 
     <fieldset class="tipo">
       <legend>Como são as suas parcelas?</legend>
@@ -410,7 +410,7 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
   <div class="card unica-card" id="unica-card" hidden>
     <h3 style="margin:0">Adiantar a parcela única</h3>
     <p id="unica-p" style="margin:0"></p>
-    <p class="obs" style="margin:0">A parcela única tem os mesmos juros de 1% ao mês das outras parcelas. Adiantando, você paga só o valor de hoje. Ela é separada das parcelas mensais: adiantar a parcela única não muda as suas parcelas do mês.</p>
+    <p class="obs" style="margin:0">A parcela única tem os mesmos juros das outras parcelas. Adiantando, você paga só o valor de hoje. Ela é separada das parcelas mensais: adiantar a parcela única não muda as suas parcelas do mês.</p>
     <a class="btn wa" id="unica-wa" target="_blank" rel="noopener" style="align-self:flex-start;text-decoration:none">Quero adiantar a parcela única</a>
   </div>
   <div class="card casa-card" id="casa-card">
@@ -534,7 +534,7 @@ function anosMeses(m){const a=Math.floor(m/12),r=m%12;const pa=a?a+(a===1?' ano'
 function emMeses(m){return m<=0?'hoje':'daqui a '+anosMeses(m);}
 
 /* ---------- topo ---------- */
-function route(){ $('lead').textContent='A parte da entrada que você parcelou com a Minas Ok tem juros de 1% ao mês. Cada parcela que você adianta sai com desconto desses juros, e o contrato termina antes.'; }
+function route(){ $('lead').textContent='A parte da entrada que você parcelou com a Minas Ok tem juros. Cada parcela que você adianta sai com desconto desses juros, e o contrato termina antes.'; }
 
 /* ---------- entrada (construtora) ---------- */
 const MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
