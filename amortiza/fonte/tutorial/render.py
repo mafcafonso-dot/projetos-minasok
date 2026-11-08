@@ -6,7 +6,7 @@ srv=subprocess.Popen(['python3','-m','http.server','8766','--bind','127.0.0.1'],
 time.sleep(1)
 try:
   with sync_playwright() as p:
-    br=p.chromium.launch(); ctx=br.new_context(viewport={'width':1080,'height':1920},locale='pt-BR',timezone_id='America/Sao_Paulo')
+    br=p.chromium.launch(args=['--lang=pt-BR']); ctx=br.new_context(viewport={'width':1080,'height':1920},locale='pt-BR',timezone_id='America/Sao_Paulo')
     pg=ctx.new_page(); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
     pg.clock.install(time='2026-11-08T10:00:00-03:00')
     pg.goto('http://127.0.0.1:8766/comp.html'); pg.clock.run_for(1500)
