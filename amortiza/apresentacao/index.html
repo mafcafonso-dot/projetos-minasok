@@ -50,15 +50,9 @@ header .in{max-width:1080px;margin:0 auto;height:var(--barra);display:flex;align
 .minasok{display:inline-flex;align-items:center;justify-self:start;background:var(--azul);border-radius:8px;padding:8px 12px}
 .minasok img{height:28px;width:auto;display:block}
 
-.redes h2{font-size:32px;font-weight:500;letter-spacing:-.01em;margin-bottom:24px}
 figure{margin:0;display:grid;gap:8px;min-width:0}
 video{width:100%;aspect-ratio:9/16;max-height:78vh;background:#000;border-radius:16px;display:block;object-fit:contain}
 
-.rgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:760px}
-.rgrid a{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;text-decoration:none;color:var(--tinta);background:var(--branco);border:1px solid var(--linha);border-radius:16px;padding:20px 24px;transition:border-color .15s var(--ease)}
-.rgrid a:hover,.rgrid a:focus-visible{border-color:var(--azul)}
-.rgrid b{font-family:var(--display);font-size:20px;font-weight:500}
-.rgrid span{font-weight:500;color:var(--azul);font-size:15px}
 footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080px;margin:0 auto;border-top:1px solid var(--linha)}
 
 
@@ -89,14 +83,42 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
 .linha.eco b{color:#16794A;font-size:30px}
 .exemplo-conta small{color:var(--suave);font-size:13px}
 
+/* como funciona + vitrine (site e Instagram em miniatura) */
+.passos{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px;align-items:center}
+.vitrine{display:grid;gap:20px}
+.vitrine h2{font-size:32px;font-weight:500;letter-spacing:-.01em}
+.vit-cena{position:relative;aspect-ratio:1/0.82;width:100%}
+.vit-site{position:absolute;left:0;top:0;width:84%;display:block;border-radius:14px;overflow:hidden;background:var(--branco);border:1px solid var(--linha);box-shadow:0 18px 40px rgba(20,33,58,.14);transition:transform .25s var(--ease)}
+.vit-barra{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;background:#ECEAE4}
+.vit-barra i{width:9px;height:9px;border-radius:50%;background:#D3CFC6}
+.vit-barra span{margin-left:10px;flex:1;max-width:220px;height:18px;border-radius:9px;background:var(--branco);font:500 11px/18px var(--body);color:var(--suave);padding:0 10px;white-space:nowrap;overflow:hidden}
+.vit-slides{position:relative;display:block;aspect-ratio:720/370}
+.vit-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:vit-fade 12s infinite}
+.vit-slides img:nth-child(1){animation-delay:0s}
+.vit-slides img:nth-child(2){animation-delay:4s}
+.vit-slides img:nth-child(3){animation-delay:8s}
+@keyframes vit-fade{0%{opacity:0;transform:scale(1.04)}6%{opacity:1}33%{opacity:1}40%{opacity:0;transform:scale(1)}100%{opacity:0}}
+.vit-insta{position:absolute;right:0;bottom:0;width:36%;aspect-ratio:9/18.5;display:block;border-radius:28px;background:#0B0E13;padding:7px;box-shadow:0 22px 44px rgba(20,33,58,.28);transition:transform .25s var(--ease)}
+.vit-tela{display:block;width:100%;height:100%;border-radius:22px;overflow:hidden;position:relative;background:#0C0F14}
+.vit-tela img{position:absolute;left:0;top:0;width:100%;height:auto;animation:vit-rola 16s ease-in-out infinite alternate}
+@keyframes vit-rola{0%,12%{transform:translateY(0)}88%,100%{transform:translateY(calc(-100% + var(--alt,360px)))}}
+.vit-site:hover,.vit-insta:hover{transform:translateY(-4px)}
+.vit-site:focus-visible,.vit-insta:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
+.vit-links{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vit-links a{display:grid;gap:2px;text-decoration:none;color:var(--tinta);background:var(--branco);border:1px solid var(--linha);border-radius:14px;padding:14px 18px;transition:border-color .15s var(--ease)}
+.vit-links a:hover,.vit-links a:focus-visible{border-color:var(--azul)}
+.vit-links b{font:500 18px var(--display)}
+.vit-links span{font-weight:500;color:var(--azul);font-size:14px}
+@media (prefers-reduced-motion:reduce){.vit-slides img{animation:none}.vit-slides img:first-child{opacity:1}.vit-tela img{animation:none}}
+
 /* aba app */
 .app{height:calc(100dvh - var(--barra) - env(safe-area-inset-top));background:var(--branco)}
 .app iframe{display:block;width:100%;height:100%;border:0}
 
 @media (max-width:760px){
+  .passos{grid-template-columns:1fr;gap:48px}
   .intro{grid-template-columns:1fr;gap:40px}
   .apres .in{padding-block:40px 64px;gap:64px}
-  .rgrid{grid-template-columns:1fr}
   .amortizar{grid-template-columns:1fr;gap:32px}
 }
 @media (max-width:420px){
@@ -179,20 +201,30 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
       </div>
 
       <div class="passos">
-        <h2>Como funciona</h2>
-        <p class="passos-sub">A casinha mostra em 4 passos: receber o código, entrar com CPF e código, informar a data da última parcela paga e pedir o boleto.</p>
-        <figure class="passos-video">
-          <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-como-usar-capa.jpg" aria-label="Vídeo: como usar o amortiza em 4 passos">
-            <source src="/amortiza/divulgacao/amortiza-como-usar.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-
-      <div class="redes">
-        <h2>Construtora Minas Ok</h2>
-        <div class="rgrid">
-          <a href="https://www.minasok.com.br/" target="_blank" rel="noopener"><b>Site</b><span>minasok.com.br →</span></a>
-          <a href="https://www.instagram.com/construtoraminasok/" target="_blank" rel="noopener"><b>Instagram</b><span>@construtoraminasok →</span></a>
+        <div class="passos-txt">
+          <h2>Como funciona</h2>
+          <p class="passos-sub">A casinha mostra em 4 passos: receber o código, entrar com CPF e código, informar a data da última parcela paga e pedir o boleto.</p>
+          <figure class="passos-video">
+            <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-como-usar-capa.jpg" aria-label="Vídeo: como usar o amortiza em 4 passos">
+              <source src="/amortiza/divulgacao/amortiza-como-usar.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+        <div class="vitrine">
+          <h2>Acompanhe a Minas Ok</h2>
+          <div class="vit-cena">
+            <a class="vit-site" href="https://www.minasok.com.br/" target="_blank" rel="noopener" aria-label="Abrir o site da Minas Ok, minasok.com.br">
+              <span class="vit-barra" aria-hidden="true"><i></i><i></i><i></i><span>minasok.com.br</span></span>
+              <span class="vit-slides" aria-hidden="true"><img src="/amortiza/apresentacao/previa/site-1.jpg" alt="" loading="lazy"><img src="/amortiza/apresentacao/previa/site-2.jpg" alt="" loading="lazy"><img src="/amortiza/apresentacao/previa/site-3.jpg" alt="" loading="lazy"></span>
+            </a>
+            <a class="vit-insta" href="https://www.instagram.com/construtoraminasok/" target="_blank" rel="noopener" aria-label="Abrir o Instagram da Minas Ok, @construtoraminasok">
+              <span class="vit-tela" aria-hidden="true"><img src="/amortiza/apresentacao/previa/insta.jpg" alt="" loading="lazy"></span>
+            </a>
+          </div>
+          <div class="vit-links">
+            <a href="https://www.minasok.com.br/" target="_blank" rel="noopener"><b>Site</b><span>minasok.com.br →</span></a>
+            <a href="https://www.instagram.com/construtoraminasok/" target="_blank" rel="noopener"><b>Instagram</b><span>@construtoraminasok →</span></a>
+          </div>
         </div>
       </div>
     </div>
@@ -232,6 +264,10 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
   document.querySelectorAll('[data-ir]').forEach(function(b){b.onclick=function(){if(b.dataset.demo)demo=true;go(b.dataset.ir)}});
   show(location.hash==='#app'?'app':'apres');
 })();
+
+// miniatura do Instagram: rola até o fim da imagem, qualquer que seja o tamanho da tela
+(function(){var t=document.querySelector('.vit-tela');if(!t||!window.ResizeObserver)return;
+  new ResizeObserver(function(){t.querySelector('img').style.setProperty('--alt',t.clientHeight+'px')}).observe(t);})();
 </script>
 </body>
 </html>
