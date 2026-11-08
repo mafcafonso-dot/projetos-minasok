@@ -49,21 +49,10 @@ header .in{max-width:1080px;margin:0 auto;height:var(--barra);display:flex;align
 .mini-mascote{display:inline-block;height:2.6em;width:auto;vertical-align:-.35em;margin-left:2px}
 .minasok{display:inline-flex;align-items:center;justify-self:start;background:var(--azul);border-radius:8px;padding:8px 12px}
 .minasok img{height:28px;width:auto;display:block}
-.fatos{display:grid;gap:0;border-top:1px solid var(--linha)}
-.fato{border-bottom:1px solid var(--linha);padding:20px 0;display:grid;gap:4px}
-.fato b{display:block;font-family:var(--display);font-size:28px;font-weight:500;color:var(--tinta);line-height:1.1;font-variant-numeric:tabular-nums}
-.fato span{font-size:15px;color:var(--cinza)}
-.irapp{display:inline-flex;align-items:center;gap:8px;justify-self:start;background:var(--azul);color:var(--branco);font:600 16px var(--body);border:0;border-radius:12px;height:52px;padding:0 24px;cursor:pointer;transition:background-color .15s var(--ease),transform .12s var(--ease)}
-.irapp:hover{background:#053A86}
-.irapp:active{transform:scale(.98)}
-.irapp:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
 
-.videos h2,.redes h2{font-size:32px;font-weight:500;letter-spacing:-.01em;margin-bottom:24px}
-.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:760px}
+.redes h2{font-size:32px;font-weight:500;letter-spacing:-.01em;margin-bottom:24px}
 figure{margin:0;display:grid;gap:8px;min-width:0}
 video{width:100%;aspect-ratio:9/16;max-height:78vh;background:#000;border-radius:16px;display:block;object-fit:contain}
-figcaption b{font-family:var(--display);font-size:20px;font-weight:500}
-figcaption span{display:block;font-size:15px;color:var(--cinza)}
 
 .rgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:760px}
 .rgrid a{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;text-decoration:none;color:var(--tinta);background:var(--branco);border:1px solid var(--linha);border-radius:16px;padding:20px 24px;transition:border-color .15s var(--ease)}
@@ -74,18 +63,20 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
 
 
 /* mascote convidando para simular */
-.convite{display:grid;grid-template-columns:minmax(0,1fr) 120px;align-items:end;gap:4px;margin-top:24px}
-.balao{position:relative;justify-self:end;margin-bottom:96px;text-align:left;border:0;cursor:pointer;font-family:var(--body);background:var(--amarelo);color:var(--tinta);border-radius:20px;padding:16px 20px;display:grid;gap:4px;transition:transform .15s var(--ease)}
+.convite{display:flex;align-items:flex-end;gap:4px;justify-self:start;margin-top:4px}
+.balao{position:relative;flex:0 1 auto;margin-bottom:96px;text-align:left;border:0;cursor:pointer;font-family:var(--body);background:var(--amarelo);color:var(--tinta);border-radius:20px;padding:16px 20px;display:grid;gap:4px;transition:transform .15s var(--ease)}
 .balao::after{content:"";position:absolute;right:-16px;bottom:18px;border:14px solid transparent;border-left:22px solid var(--amarelo);border-right:0;transform:rotate(18deg)}
 .balao b{font-family:var(--display);font-size:22px;font-weight:500;line-height:1.15}
 .balao span{font-weight:500;font-size:15px;color:var(--azul)}
 .balao:hover{transform:translateY(-2px)}
 .balao:focus-visible{outline:3px solid var(--azul);outline-offset:3px}
 .convite:hover #m-corpo,.convite:hover #m-sombra,.convite:hover #m-pe-e,.convite:hover #m-pe-d{animation-iteration-count:infinite}
-.mascote{width:120px;height:auto;display:block;cursor:pointer}
+.mascote{width:120px;flex:none;height:auto;display:block;cursor:pointer}
+.hero-video{justify-self:center;width:100%;max-width:360px}
+.passos-sub{color:var(--cinza);font-size:17px;max-width:56ch;margin-bottom:24px}
+.passos-video{max-width:360px}
 
 /* ações, amortizar, passos */
-.acoes{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .amortizar{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:64px;align-items:center}
 .amortizar h2,.passos h2{font-size:32px;font-weight:500;letter-spacing:-.01em;margin-bottom:4px}
 .exemplo-conta{background:var(--branco);border:1px solid var(--linha);border-radius:20px;padding:28px;display:grid;gap:12px;box-shadow:0 8px 24px rgba(20,33,58,.06)}
@@ -97,11 +88,6 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
 .riscado{text-decoration:line-through;text-decoration-thickness:2px;color:var(--suave)}
 .linha.eco b{color:#16794A;font-size:30px}
 .exemplo-conta small{color:var(--suave);font-size:13px}
-.passos ol{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:p}
-.passos li{counter-increment:p;display:grid;gap:8px;align-content:start;border-top:1px solid var(--linha);padding-top:16px}
-.passos li::before{content:counter(p);font:500 28px/1 var(--display);color:var(--azul)}
-.passos li b{font:500 19px var(--display)}
-.passos li span{color:var(--cinza);font-size:15px}
 
 /* aba app */
 .app{height:calc(100dvh - var(--barra) - env(safe-area-inset-top));background:var(--branco)}
@@ -110,12 +96,9 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
 @media (max-width:760px){
   .intro{grid-template-columns:1fr;gap:40px}
   .apres .in{padding-block:40px 64px;gap:64px}
-  .vgrid,.rgrid{grid-template-columns:1fr}
+  .rgrid{grid-template-columns:1fr}
   .amortizar{grid-template-columns:1fr;gap:32px}
-  .passos ol{grid-template-columns:1fr 1fr}
-  .vgrid{max-width:440px}
 }
-@media (max-width:480px){.passos ol{grid-template-columns:1fr}}
 @media (max-width:420px){
   .nome{font-size:22px}
   .nome small{display:none}
@@ -143,41 +126,40 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
           <h1>Feito para você <em>pagar menos</em> pela sua casa</h1>
           <p>O <strong>amortiza</strong> é o app da Construtora Minas Ok para quem parcelou a entrada da casa com a gente. Você entra com o seu CPF e o seu código, visualiza os dados do seu contrato e descobre, em reais, quanto deixa de pagar adiantando parcelas.</p>
           <p>Queremos que você tenha a informação clara para decidir: entender o que paga, gastar menos com juros e conquistar a sua casa mais cedo. Cada parcela adiantada enche um pouco mais a casinha <span class="nowrap">amarela <img class="mini-mascote" src="/amortiza/marca/mascote-amortiza-animado.svg" alt="mascote do amortiza, a casinha amarela" width="40" height="61"></span></p>
-          <div class="acoes"><button class="irapp" type="button" data-ir="app">Simular com o meu contrato →</button></div>
+          <div class="convite">
+            <button class="balao" type="button" data-ir="app"><b>Vamos fazer uma simulação?</b><span>Toque aqui para abrir o app →</span></button>
+            <svg class="mascote" data-ir="app" viewBox="-10 -100 320 490" role="img" aria-label="Mascote do Amortiza dando saltinhos">
+              <style>
+              #m-corpo{transform-box:view-box;transform-origin:150px 362px;animation:m-pulo 1.5s 2}
+              #m-sombra{transform-box:view-box;transform-origin:150px 366px;animation:m-sombra 1.5s 2}
+              #m-olhos{transform-box:view-box;transform-origin:150px 128px;animation:m-pisca 4.5s infinite}
+              #m-pe-e{transform-box:view-box;transform-origin:108px 300px;animation:m-pe-e 1.5s 2}
+              #m-pe-d{transform-box:view-box;transform-origin:192px 300px;animation:m-pe-d 1.5s 2}
+              @keyframes m-pulo{0%{transform:translateY(0) scale(1.07,.9);animation-timing-function:ease-out}14%{transform:translateY(-8px) scale(.95,1.07);animation-timing-function:ease-out}45%{transform:translateY(-82px) scale(1,1);animation-timing-function:ease-in}80%{transform:translateY(0) scale(.97,1.04);animation-timing-function:ease-out}88%{transform:translateY(0) scale(1.09,.88);animation-timing-function:ease-in-out}100%{transform:translateY(0) scale(1.07,.9)}}
+              @keyframes m-sombra{0%,88%,100%{transform:scale(1.1,1);opacity:.25}45%{transform:scale(.6,.7);opacity:.1}}
+              @keyframes m-pe-e{0%,14%,80%,100%{transform:rotate(0)}45%{transform:rotate(14deg)}}
+              @keyframes m-pe-d{0%,14%,80%,100%{transform:rotate(0)}45%{transform:rotate(-14deg)}}
+              @keyframes m-pisca{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+              @media (prefers-reduced-motion:reduce){#m-corpo,#m-sombra,#m-olhos,#m-pe-e,#m-pe-d{animation:none}}
+              </style>
+              <ellipse id="m-sombra" cx="150" cy="368" rx="95" ry="11" fill="#0B1F45" opacity=".22"/>
+              <g id="m-corpo">
+                <g id="m-pe-e"><rect x="96" y="296" width="24" height="52" rx="12" fill="#06449D"/><ellipse cx="98" cy="352" rx="27" ry="13" fill="#06449D"/></g>
+                <g id="m-pe-d"><rect x="180" y="296" width="24" height="52" rx="12" fill="#06449D"/><ellipse cx="202" cy="352" rx="27" ry="13" fill="#06449D"/></g>
+                <defs><clipPath id="m-clip"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
+                <rect x="0" y="178" width="300" height="300" fill="#F7BC0A" clip-path="url(#m-clip)"/>
+                <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#06449D" stroke-width="40" stroke-linejoin="round"/>
+                <g id="m-olhos"><ellipse cx="116" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#06449D" stroke-width="7"/><circle cx="120" cy="134" r="12" fill="#06449D"/><circle cx="124" cy="129" r="4" fill="#FFFFFF"/><ellipse cx="184" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#06449D" stroke-width="7"/><circle cx="188" cy="134" r="12" fill="#06449D"/><circle cx="192" cy="129" r="4" fill="#FFFFFF"/></g>
+                <path d="M126 200 Q150 232 174 200 Z" fill="#06449D" stroke="#06449D" stroke-width="6" stroke-linejoin="round"/>
+              </g>
+            </svg>
+          </div>
         </div>
-        <div class="fatos">
-          <div class="fato"><b>Paga menos</b><span>Cada parcela adiantada sai sem os juros dos meses que faltavam.</span></div>
-          <div class="fato"><b>Termina antes</b><span>As parcelas adiantadas são as do fim: o contrato acaba mais cedo.</span></div>
-          <div class="fato"><b>Você decide</b><span>Simular é grátis e não obriga a nada. Adianta quando e quanto quiser.</span></div>
-        <div class="convite">
-          <button class="balao" type="button" data-ir="app"><b>Vamos fazer uma simulação?</b><span>Toque aqui para abrir o app →</span></button>
-          <svg class="mascote" data-ir="app" viewBox="-10 -100 320 490" role="img" aria-label="Mascote do Amortiza dando saltinhos">
-            <style>
-            #m-corpo{transform-box:view-box;transform-origin:150px 362px;animation:m-pulo 1.5s 2}
-            #m-sombra{transform-box:view-box;transform-origin:150px 366px;animation:m-sombra 1.5s 2}
-            #m-olhos{transform-box:view-box;transform-origin:150px 128px;animation:m-pisca 4.5s infinite}
-            #m-pe-e{transform-box:view-box;transform-origin:108px 300px;animation:m-pe-e 1.5s 2}
-            #m-pe-d{transform-box:view-box;transform-origin:192px 300px;animation:m-pe-d 1.5s 2}
-            @keyframes m-pulo{0%{transform:translateY(0) scale(1.07,.9);animation-timing-function:ease-out}14%{transform:translateY(-8px) scale(.95,1.07);animation-timing-function:ease-out}45%{transform:translateY(-82px) scale(1,1);animation-timing-function:ease-in}80%{transform:translateY(0) scale(.97,1.04);animation-timing-function:ease-out}88%{transform:translateY(0) scale(1.09,.88);animation-timing-function:ease-in-out}100%{transform:translateY(0) scale(1.07,.9)}}
-            @keyframes m-sombra{0%,88%,100%{transform:scale(1.1,1);opacity:.25}45%{transform:scale(.6,.7);opacity:.1}}
-            @keyframes m-pe-e{0%,14%,80%,100%{transform:rotate(0)}45%{transform:rotate(14deg)}}
-            @keyframes m-pe-d{0%,14%,80%,100%{transform:rotate(0)}45%{transform:rotate(-14deg)}}
-            @keyframes m-pisca{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
-            @media (prefers-reduced-motion:reduce){#m-corpo,#m-sombra,#m-olhos,#m-pe-e,#m-pe-d{animation:none}}
-            </style>
-            <ellipse id="m-sombra" cx="150" cy="368" rx="95" ry="11" fill="#0B1F45" opacity=".22"/>
-            <g id="m-corpo">
-              <g id="m-pe-e"><rect x="96" y="296" width="24" height="52" rx="12" fill="#06449D"/><ellipse cx="98" cy="352" rx="27" ry="13" fill="#06449D"/></g>
-              <g id="m-pe-d"><rect x="180" y="296" width="24" height="52" rx="12" fill="#06449D"/><ellipse cx="202" cy="352" rx="27" ry="13" fill="#06449D"/></g>
-              <defs><clipPath id="m-clip"><path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z"/></clipPath></defs>
-              <rect x="0" y="178" width="300" height="300" fill="#F7BC0A" clip-path="url(#m-clip)"/>
-              <path d="M17 150 L150 27 L283 150 L283 283 L17 283 Z" fill="none" stroke="#06449D" stroke-width="40" stroke-linejoin="round"/>
-              <g id="m-olhos"><ellipse cx="116" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#06449D" stroke-width="7"/><circle cx="120" cy="134" r="12" fill="#06449D"/><circle cx="124" cy="129" r="4" fill="#FFFFFF"/><ellipse cx="184" cy="128" rx="22" ry="27" fill="#FFFFFF" stroke="#06449D" stroke-width="7"/><circle cx="188" cy="134" r="12" fill="#06449D"/><circle cx="192" cy="129" r="4" fill="#FFFFFF"/></g>
-              <path d="M126 200 Q150 232 174 200 Z" fill="#06449D" stroke="#06449D" stroke-width="6" stroke-linejoin="round"/>
-            </g>
-          </svg>
-        </div>
-        </div>
+        <figure class="hero-video">
+          <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-video-capa.jpg" aria-label="Vídeo: o que é o amortiza, em 26 segundos">
+            <source src="/amortiza/divulgacao/amortiza-video.mp4" type="video/mp4">
+          </video>
+        </figure>
       </div>
 
       <div class="amortizar">
@@ -198,30 +180,12 @@ footer{color:var(--suave);font-size:13px;padding-block:24px 40px;max-width:1080p
 
       <div class="passos">
         <h2>Como funciona</h2>
-        <ol>
-          <li><b>Receba o seu código</b><span>A Minas Ok manda pelo WhatsApp. Ainda não tem? É só pedir no (34) 3831-3999.</span></li>
-          <li><b>Entre com CPF e código</b><span>O seu contrato já aparece pronto, sem procurar nada no papel.</span></li>
-          <li><b>Simule</b><span>Coloque a data do último pagamento e quanto quer adiantar. O app mostra o valor exato e quanto você economiza.</span></li>
-          <li><b>Toque em "Quero amortizar"</b><span>A simulação vai para o WhatsApp da Minas Ok, que confere e manda o boleto.</span></li>
-        </ol>
-      </div>
-
-      <div class="videos">
-        <h2>Veja em vídeo</h2>
-        <div class="vgrid">
-          <figure>
-            <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-video-capa.jpg">
-              <source src="/amortiza/divulgacao/amortiza-video.mp4" type="video/mp4">
-            </video>
-            <figcaption><b>O que é o amortiza</b><span>Em 26 segundos.</span></figcaption>
-          </figure>
-          <figure>
-            <video controls playsinline preload="metadata">
-              <source src="/amortiza/divulgacao/amortiza-como-usar.mp4#t=4" type="video/mp4">
-            </video>
-            <figcaption><b>Como usar</b><span>Passo a passo: entrar, simular e pedir o boleto.</span></figcaption>
-          </figure>
-        </div>
+        <p class="passos-sub">A casinha mostra em 4 passos: receber o código, entrar com CPF e código, simular e pedir o boleto.</p>
+        <figure class="passos-video">
+          <video controls playsinline preload="metadata" poster="/amortiza/divulgacao/amortiza-como-usar-capa.jpg" aria-label="Vídeo: como usar o amortiza em 4 passos">
+            <source src="/amortiza/divulgacao/amortiza-como-usar.mp4" type="video/mp4">
+          </video>
+        </figure>
       </div>
 
       <div class="redes">

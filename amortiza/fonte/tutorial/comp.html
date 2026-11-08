@@ -1,173 +1,143 @@
 <!doctype html><html><head><meta charset="utf-8">
 <style>
-@font-face{font-family:Fredoka;font-weight:600;src:url(/video/fonts/fredoka-latin-600-normal.woff2)}
-@font-face{font-family:Fredoka;font-weight:700;src:url(/video/fonts/fredoka-latin-700-normal.woff2)}
-@font-face{font-family:Montserrat;font-weight:700;src:url(/video/fonts/montserrat-latin-700-normal.woff2)}
-@font-face{font-family:Montserrat;font-weight:800;src:url(/video/fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:Fredoka;font-weight:600;src:url(node_modules/@fontsource/fredoka/files/fredoka-latin-600-normal.woff2)}
+@font-face{font-family:Fredoka;font-weight:700;src:url(node_modules/@fontsource/fredoka/files/fredoka-latin-700-normal.woff2)}
+@font-face{font-family:Montserrat;font-weight:700;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:Montserrat;font-weight:800;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)}
 html,body{margin:0;background:#06449D;overflow:hidden;width:1080px;height:1920px}
 #stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#06449D}
 #bg,#ov{position:absolute;inset:0}
-#phone{position:absolute;left:120px;top:300px;width:840px;height:1340px;border-radius:72px;background:#0B2547;box-shadow:0 30px 70px rgba(0,0,0,.35);will-change:transform}
-#screen{position:absolute;left:18px;top:18px;width:804px;height:1304px;border-radius:56px;overflow:hidden;background:#fff}
-#app{border:0;width:402px;height:652px;transform:scale(2);transform-origin:0 0;display:block}
-#notch{position:absolute;left:50%;top:30px;width:150px;height:34px;margin-left:-75px;border-radius:20px;background:#0B2547;z-index:2}
+#phone{position:absolute;left:150px;top:300px;width:780px;height:1180px;border-radius:70px;background:#0B2547;box-shadow:0 30px 70px rgba(0,0,0,.35);will-change:transform}
+#screen{position:absolute;left:18px;top:18px;width:744px;height:1144px;border-radius:54px;overflow:hidden;background:#fff}
+#app{border:0;width:372px;height:572px;transform:scale(2);transform-origin:0 0;display:block}
+#notch{position:absolute;left:50%;top:26px;width:140px;height:32px;margin-left:-70px;border-radius:20px;background:#0B2547;z-index:3}
+/* conversa do WhatsApp (passo 1) */
+#wa{position:absolute;inset:0;z-index:2;background:#EFE7DD;font-family:Montserrat;will-change:opacity}
+#wa .top{height:170px;background:#0B5E54;display:flex;align-items:flex-end;gap:22px;padding:0 34px 26px;box-sizing:border-box;color:#fff}
+#wa .av{width:78px;height:78px;border-radius:50%;background:#06449D;display:grid;place-items:center;overflow:hidden}
+#wa .av img{width:66px}
+#wa .nm{font-weight:800;font-size:34px}
+#wa .st{font-weight:700;font-size:24px;opacity:.8;margin-top:4px}
+#wa .msg{position:absolute;left:34px;top:250px;width:600px;background:#fff;border-radius:6px 30px 30px 30px;padding:30px 34px 22px;box-sizing:border-box;box-shadow:0 2px 0 rgba(0,0,0,.08);font-weight:700;font-size:31px;line-height:1.4;color:#1d2733;transform-origin:0 0}
+#wa .cod{display:inline-block;margin-top:14px;background:#FFF4CC;border:3px dashed #F7BC0A;border-radius:14px;padding:8px 18px;font-weight:800;font-size:40px;letter-spacing:3px;color:#0B2547}
+#wa .hr{text-align:right;font-size:22px;color:#8a949e;margin-top:10px}
 </style></head><body>
 <div id="stage">
   <svg id="bg" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-  <div id="phone"><div id="screen"><div id="notch"></div><iframe id="app" src="/artefato/amortiza-minas-ok.html"></iframe></div></div>
+  <div id="phone"><div id="screen"><div id="notch"></div>
+    <div id="wa"><div class="top"><div class="av"><img src="logo.png"></div><div><div class="nm">Construtora Minas Ok</div><div class="st">online</div></div></div>
+      <div class="msg" id="wamsg">Olá, Maria! Este é o seu código para entrar no amortiza:<br><span class="cod">DEMO-2026</span><div class="hr">10:02</div></div></div>
+    <iframe id="app" src="app.html"></iframe></div></div>
   <svg id="ov" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
 </div>
-<script src="/tutorial/masc.js"></script>
+<script src="masc.js"></script>
 <script>
-// W,H vêm de masc.js
-// ---------- fundo ----------
-(function(){let g='';for(let i=0;i<46;i++){const x=rnd(i)*W,y=rnd(i+50)*H,r=14+rnd(i+90)*30;g+=`<path d="${HOUSE}" transform="translate(${x} ${y}) scale(${r/150}) rotate(${(rnd(i+7)-.5)*30} 150 150)" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="30" stroke-linejoin="round"/>`;}
- document.getElementById('bg').innerHTML=`<rect width="${W}" height="${H}" fill="${AZ}"/>${g}`;})();
-
-// ---------- segmentos (início de cada fala, em s) — substituído pelo tempo real da voz ----------
-let SEG=window.SEG||[0,4.2,9.6,17.6,22.0,28.6,38.2,46.0,53.6,59.6,65.4];
-const TITLES=['', '1. Valor parcelado','2. Parcelas e datas','3. Confira a parcela','4. A parcela muda de valor?','5. Aditivo e adiantamento','6. Quanto você pagaria','7. Quanto você tem','8. O seu resultado','Quero amortizar!'];
-let SUBS=window.SUBS||[]; const ENDF=window.ENDF||.44;   // [t0,t1,texto]
-
-// ---------- app ----------
+// tempos (s)
+const S=[0,4.2,9.6,15.6,23.2,28.0], DUR=32;
+const TITLES=['','1. Receba o seu código','2. Entre com CPF e código','3. Simule','4. Quero amortizar'];
+const FALAS=[
+ [0.5,'Oi! Eu sou a casinha do amortiza. Usar o app é rapidinho: são 4 passos.'],
+ [S[1]+.3,'A Minas Ok manda o seu código pelo WhatsApp. Ainda não tem? Peça no (34) 3831-3999.'],
+ [S[2]+.2,'Entre com o seu CPF e o código. O seu contrato já aparece pronto.'],
+ [S[3]+.2,'Coloque quanto quer adiantar e a data. O app mostra o valor exato e quanto você economiza.'],
+ [S[4]+.2,'Toque em "Quero amortizar". A Minas Ok confere e manda o boleto.'],
+];
+const CPS=34; // letras por segundo
 let D,WIN; const app=document.getElementById('app');
-function $a(id){return D.getElementById(id);}
+const $a=id=>D.getElementById(id);
 function setVal(el,v){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}
-function click(el){el.click();}
-function topOf(el){return el.getBoundingClientRect().top+WIN.scrollY;}
-function setScroll(y){WIN.scrollTo(0,Math.max(0,y));}
-let HL=[];
-function hl(...els){HL.forEach(e=>e.classList.remove('cl-hl'));HL=els.filter(Boolean);HL.forEach(e=>e.classList.add('cl-hl'));}
-function fieldOf(id){return $a(id).closest('.field')||$a(id);}
-function checkOf(id){return $a(id).closest('label');}
-
-// eventos: [tempo, função]; tweens de rolagem: {a,b,to:()=>y}
+const topOf=el=>el.getBoundingClientRect().top+WIN.scrollY;
+const setScroll=y=>WIN.scrollTo(0,Math.max(0,y));
+let HL=[]; function hl(...els){HL.forEach(e=>e.classList.remove('cl-hl'));HL=els.filter(Boolean);HL.forEach(e=>e.classList.add('cl-hl'));}
+const fieldOf=id=>$a(id).closest('.field')||$a(id).parentElement;
 let EV=[],TW=[],TAPS=[],TYPES=[];
-function at(t,fn){EV.push({t,fn,done:false});}
-function scrollTo(a,b,elFn,off=150){TW.push({a,b,elFn,off,from:null,to:null});}
-function typeIn(a,b,id,text){TYPES.push({a,b,id,text,done:false});}
-function tap(t,elFn){TAPS.push({t,elFn,x:0,y:0,ok:false});at(t,()=>{});}
-
+const at=(t,fn)=>EV.push({t,fn,done:false});
+const scrollTo=(a,b,elFn,off=150)=>TW.push({a,b,elFn,off,from:null,to:null});
+const typeIn=(a,b,id,text)=>TYPES.push({a,b,id,text,done:false});
+const tap=(t,elFn)=>TAPS.push({t,elFn,x:0,y:0,ok:false});
 function build(){
-  const S=SEG, d=k=>S[k+1]-S[k], T=(k,f)=>S[k]+d(k)*f;
-  // estado inicial
-  at(0,()=>{setVal($a('c-valor'),'');setVal($a('c-qtd'),'');$a('c-ini').value='';$a('c-ult').value='';setVal($a('c-ini'),'');setVal($a('c-ult'),'');setScroll(0);hl();});
-  // 1 valor
-  scrollTo(T(1,.05),T(1,.25),()=>fieldOf('c-valor'),330);
-  at(T(1,.3),()=>hl(fieldOf('c-valor')));
-  typeIn(T(1,.8),T(1,.93),'c-valor','30000');
-  // 2 parcelas e datas
-  at(T(2,0),()=>hl(fieldOf('c-qtd')));
-  typeIn(T(2,.06),T(2,.16),'c-qtd','60');
-  at(T(2,.2),()=>hl(fieldOf('c-ini')));  at(T(2,.3),()=>setVal($a('c-ini'),'2025-03-20'));
-  scrollTo(T(2,.32),T(2,.45),()=>fieldOf('c-ini'),120);
-  at(T(2,.4),()=>hl(fieldOf('c-ult')));  at(T(2,.52),()=>setVal($a('c-ult'),'2026-10-20'));
-  scrollTo(T(2,.6),T(2,.72),()=>fieldOf('c-taxa'),260);
-  at(T(2,.66),()=>hl(fieldOf('c-taxa')));
-  // 3 confira a parcela
-  scrollTo(T(3,0),T(3,.2),()=>fieldOf('c-parc'),330);
-  at(T(3,.15),()=>hl(fieldOf('c-parc')));
-  // 4 faixas
-  scrollTo(T(4,0),T(4,.15),()=>D.querySelector('fieldset.tipo'),150);
-  at(T(4,.1),()=>hl(D.querySelector('fieldset.tipo')));
-  tap(T(4,.38),()=>checkOf('c-tipo-faixas'));
-  at(T(4,.4),()=>{click($a('c-tipo-faixas'));const r=$a('faixas-list').querySelectorAll('.faixa-row');if(r[0]){setVal(r[0].querySelector('.fq'),'12');setVal(r[0].querySelector('.fv'),'600.00');}if(r[1]){setVal(r[1].querySelector('.fq'),'48');setVal(r[1].querySelector('.fv'),'689.82');}});
-  at(T(4,.45),()=>hl(checkOf('c-tipo-faixas'),$a('faixas-list')));
-  scrollTo(T(4,.5),T(4,.7),()=>$a('faixas-list'),330);
-  // 5 aditivo + já adiantei
-  at(T(5,0),()=>{click($a('c-tipo-uma'));});
-  scrollTo(T(5,0),T(5,.1),()=>checkOf('c-adit'),180);
-  at(T(5,.04),()=>hl(checkOf('c-adit')));
-  tap(T(5,.2),()=>checkOf('c-adit'));
-  at(T(5,.22),()=>{click($a('c-adit'));setVal($a('c-s-ini'),'');setVal($a('c-s-fim'),'');});
-  scrollTo(T(5,.24),T(5,.32),()=>$a('f-adit'),330);
-  at(T(5,.27),()=>hl($a('f-adit')));
-  at(T(5,.36),()=>setVal($a('c-s-ini'),'2025-07-20'));
-  at(T(5,.45),()=>{setVal($a('c-s-fim'),'2025-09-20');hl($a('f-adit'),$a('s-info'));});
-  scrollTo(T(5,.55),T(5,.65),()=>checkOf('c-jaad'),330);
-  at(T(5,.6),()=>hl(checkOf('c-jaad')));
-  tap(T(5,.74),()=>checkOf('c-jaad'));
-  at(T(5,.76),()=>{click($a('c-jaad'));setVal($a('c-jaad-n'),'3');hl(checkOf('c-jaad'),$a('f-jaad'));});
-  // 6 quanto pagaria — volta o exemplo ao simples
-  at(T(6,0),()=>{click($a('c-adit'));click($a('c-jaad'));hl();});
-  scrollTo(T(6,0),T(6,.15),()=>D.querySelector('.hero-num'),200);
-  at(T(6,.12),()=>hl(D.querySelector('.hero-num .k')));
-  at(T(6,.5),()=>{const k=D.querySelectorAll('.hero-num .k');hl(k[1],k[2]);});
-  // 7 quanto você tem
-  scrollTo(T(7,0),T(7,.15),()=>D.querySelector('.plan'),260);
-  at(T(7,.1),()=>hl(fieldOf('x-tenho')));
-  at(T(7,.46),()=>setVal($a('x-tenho'),'2000'));
-  at(T(7,.56),()=>setVal($a('x-tenho'),'3000'));
-  at(T(7,.66),()=>setVal($a('x-tenho'),'5000'));
-  at(T(7,.8),()=>{hl(fieldOf('x-data'));setVal($a('x-data'),'2026-11-20');});
-  // 8 resultado
-  scrollTo(T(8,0),T(8,.15),()=>$a('casa-card'),110);
-  at(T(8,.08),()=>hl($a('casa-card')));
-  scrollTo(T(8,.45),T(8,.6),()=>$a('ad').hidden?D.querySelector('.verdict'):$a('ad'),200);
-  at(T(8,.5),()=>hl($a('ad').hidden?D.querySelector('.verdict'):$a('ad')));
-  // 9 quero amortizar
-  scrollTo(T(9,0),T(9,.15),()=>$a('wa'),520);
-  at(T(9,.12),()=>hl($a('wa')));
-  tap(T(9,.25),()=>$a('wa'));
+  const T=(k,f)=>S[k]+(S[k+1]-S[k])*f;
+  at(0,()=>{setScroll(topOf($a('lg-cpf'))-250);setVal($a('lg-cpf'),'');setVal($a('lg-cod'),'');});
+  // 2: login
+  at(T(2,.05),()=>hl(fieldOf('lg-cpf')));
+  typeIn(T(2,.1),T(2,.3),'lg-cpf','111.111.111-11');
+  at(T(2,.33),()=>hl(fieldOf('lg-cod')));
+  typeIn(T(2,.36),T(2,.5),'lg-cod','DEMO-2026');
+  at(T(2,.55),()=>hl($a('lg-btn')));
+  tap(T(2,.58),()=>$a('lg-btn'));
+  at(T(2,.6),()=>{$a('lg-btn').click();hl();});
+  at(T(2,.66),()=>{D.activeElement&&D.activeElement.blur();});
+  scrollTo(T(2,.67),T(2,.82),()=>$a('bemvindo'),24);
+  at(T(2,.8),()=>hl($a('bemvindo')));
+  // 3: simule
+  at(T(3,0),()=>hl());
+  scrollTo(T(3,0),T(3,.14),()=>$a('x-tenho'),120);
+  at(T(3,.12),()=>{hl(fieldOf('x-tenho'));setVal($a('x-tenho'),'');});
+  typeIn(T(3,.16),T(3,.26),'x-tenho','5000');
+  at(T(3,.3),()=>hl(fieldOf('x-data')));
+  scrollTo(T(3,.4),T(3,.55),()=>$a('casa-card'),20);
+  at(T(3,.52),()=>hl($a('casa-card')));
+  scrollTo(T(3,.74),T(3,.86),()=>$a('ad'),40);
+  at(T(3,.8),()=>hl($a('ad')));
+  // 4: quero amortizar
+  at(T(4,0),()=>hl());
+  scrollTo(T(4,0),T(4,.2),()=>$a('wa'),330);
+  at(T(4,.18),()=>hl($a('wa')));
+  tap(T(4,.38),()=>$a('wa'));
   EV.sort((a,b)=>a.t-b.t);
 }
-
-// ---------- desenho ----------
-const eoc=x=>1-Math.pow(1-x,3);
-function pill(text,t){const k=back(seg(t,0,.35));if(!text)return'';
-  const fs=58,w=text.length*fs*.56+90;
-  return `<g transform="translate(540 190) scale(${k})"><rect x="${-w/2}" y="-58" width="${w}" height="116" rx="58" fill="${AM}" stroke="${NV}" stroke-width="8"/><text y="20" text-anchor="middle" style="${FB}" font-size="${fs}" fill="${NV}">${text}</text></g>`;}
+// desenho
 function wrap(txt,max){const ws=txt.split(' ');const L=[];let c='';for(const w of ws){if((c+' '+w).trim().length>max){L.push(c.trim());c=w;}else c+=' '+w;}if(c.trim())L.push(c.trim());return L;}
-function subtitle(t){const s=SUBS.find(x=>t>=x[0]&&t<x[1]);if(!s)return'';
-  const lines=wrap(s[2],28),fs=44,lh=56,h=lines.length*lh+44,y0=1790-h/2,k=eoc(seg(t,s[0],s[0]+.18));
-  return `<g opacity="${k}"><rect x="40" y="${y0}" width="740" height="${h}" rx="30" fill="#fff" stroke="${NV}" stroke-width="7"/>`+
-   lines.map((l,i)=>`<text x="410" y="${y0+22+lh*(i+.78)}" text-anchor="middle" style="font-family:Montserrat;font-weight:800" font-size="${fs}" fill="${NV}">${l}</text>`).join('')+`</g>`;}
+function pill(text,t){if(!text)return'';const k=back(seg(t,0,.35)),fs=56,w=text.length*fs*.55+90;
+  return `<g transform="translate(540 175) scale(${k})"><rect x="${-w/2}" y="-56" width="${w}" height="112" rx="56" fill="${AM}" stroke="${NV}" stroke-width="8"/><text y="20" text-anchor="middle" style="${FB}" font-size="${fs}" fill="${NV}">${text}</text></g>`;}
+function fala(t){let f=null;for(const x of FALAS)if(t>=x[0])f=x;if(!f)return{g:'',talk:0};
+  const n=Math.floor((t-f[0])*CPS), full=f[1], shown=full.slice(0,n), talk=n<full.length;
+  return {shown,full,talk,k:eo(seg(t,f[0],f[0]+.2))};}
+function balloon(b,x,y,w,tail){ // x,y = canto sup. esq.
+  if(!b.full)return'';const fs=44,lh=58,lines=wrap(b.full,24),h=lines.length*lh+56;
+  let left=b.shown.length,out='';
+  lines.forEach((l,i)=>{const s=l.slice(0,Math.max(0,left));left-=l.length+1;out+=`<text x="${x+34}" y="${y+28+lh*(i+.8)}" style="font-family:Montserrat;font-weight:800" font-size="${fs}" fill="${NV}">${s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>`;});
+  const ty=y+h-70;
+  return `<g opacity="${b.k}" transform="translate(${x} ${y+h}) scale(${.85+.15*b.k}) translate(${-x} ${-(y+h)})"><path d="M${x+28} ${y} H${x+w-28} Q${x+w} ${y} ${x+w} ${y+28} V${y+h-28} Q${x+w} ${y+h} ${x+w-28} ${y+h} H${x+28} Q${x} ${y+h} ${x} ${y+h-28} V${ty+40} L${tail[0]} ${tail[1]} L${x} ${ty} V${y+28} Q${x} ${y} ${x+28} ${y} Z" fill="#fff" stroke="${NV}" stroke-width="8" stroke-linejoin="round"/>${out}</g>`;}
 function tapFx(t){let g='';for(const p of TAPS){const d=t-p.t;if(d<-.35||d>.6)continue;
-  if(!p.ok){const r=p.elFn().getBoundingClientRect();p.x=120+18+(r.left+Math.min(r.width,60)/2+14)*2;p.y=300+18+(r.top+r.height/2)*2;p.ok=true;}
+  if(!p.ok){const r=p.elFn().getBoundingClientRect();p.x=168+(r.left+Math.min(r.width,80)/2+10)*2;p.y=318+(r.top+r.height/2)*2;p.ok=true;}
   const k=d<0?0:d/.6; g+=`<circle cx="${p.x}" cy="${p.y}" r="${40+90*k}" fill="none" stroke="${AM}" stroke-width="10" opacity="${d<0?0:1-k}"/>`;
   const fy=p.y+60+(d<0?-d*120:0); g+=`<g transform="translate(${p.x+20} ${fy})" opacity="${clamp((d+.35)/.15)*clamp(1-(d-.35)/.25)}"><path d="M0 0 C-6 -10 -2 -60 14 -60 C26 -60 26 -40 26 -24 L44 -28 C60 -30 66 -10 64 10 L58 60 L8 60 Z" fill="#fff" stroke="${NV}" stroke-width="7" stroke-linejoin="round"/></g>`;}
   return g;}
-let lastAmp=0;
-function frame(t,amp){
-  AMP=amp||0; UID=0;
-  // eventos
+window.frame=function(t){
+  UID=0;
   for(const e of EV){if(!e.done&&t>=e.t){e.fn();e.done=true;}}
   for(const y of TYPES){if(t>=y.a&&!y.done){const n=Math.round(clamp((t-y.a)/(y.b-y.a))*y.text.length);const el=$a(y.id);const v=y.text.slice(0,n);if(el.value!==v)setVal(el,v);if(n>=y.text.length)y.done=true;}}
   for(const w of TW){if(t>=w.a&&t<=w.b+.05){if(w.from===null){w.from=WIN.scrollY;w.to=topOf(w.elFn())-w.off;}setScroll(lerp(w.from,w.to,eio(seg(t,w.a,w.b))));}}
-  // layout: intro (seg 0) -> celular; fim (cartão)
-  const S=SEG, intro=1-eio(seg(t,S[1]-.5,S[1]+.15)), endK=eio(seg(t,S[9]+(S[10]-S[9])*ENDF,S[9]+(S[10]-S[9])*ENDF+.5));
-  const ph=document.getElementById('phone');
-  const py=intro*1900+endK*1700; ph.style.transform=`translateY(${py}px)`;
+  const intro=1-eio(seg(t,S[1]-.5,S[1]+.2)), endK=eio(seg(t,S[5],S[5]+.5));
+  document.getElementById('phone').style.transform=`translateY(${intro*1800+endK*1800}px)`;
+  const waK=1-seg(t,S[2]-.1,S[2]+.25);document.getElementById('wa').style.opacity=waK;
+  const mk=back(seg(t,S[1]+.6,S[1]+1.1));document.getElementById('wamsg').style.transform=`scale(${mk})`;
+  let k=0;for(let i=1;i<5;i++)if(t>=S[i])k=i;
+  const b=fala(t); AMP=b.talk?(.25+.25*Math.sin(t*28)):0;
   let g='';
-  // intro
-  if(intro>0){const b=Math.abs(Math.sin(t*Math.PI/.6))*40*intro;
-    g+=`<g opacity="${intro}"><text x="540" y="430" text-anchor="middle" style="${FB}" font-size="96" fill="#fff">Como usar o</text><text x="540" y="590" text-anchor="middle" style="${F}" font-size="170" fill="${AM}" letter-spacing="-2">amortiza</text></g>`;}
-  // título do passo
-  let k=0;for(let i=1;i<10;i++)if(t>=S[i])k=i;
+  if(intro>0)g+=`<g opacity="${intro}"><text x="540" y="400" text-anchor="middle" style="${FB}" font-size="96" fill="#fff">Como usar o</text><text x="540" y="560" text-anchor="middle" style="${F}" font-size="170" fill="${AM}" letter-spacing="-2">amortiza</text></g>`;
   if(k>0&&endK<1)g+=`<g opacity="${1-endK}">${pill(TITLES[k],t-S[k])}</g>`;
-  // mascote: grande no centro na intro, pequeno no canto depois
-  const cornerX=950,cornerY=1890,cs=.58, bigX=540,bigY=1380,bs=1.25;
-  const m=1-intro, mx=lerp(bigX,cornerX,eio(m)), my0=lerp(bigY,cornerY,eio(m)), ms=lerp(bs,cs,eio(m));
-  const hop=Math.abs(Math.sin(t*Math.PI/.75))*(intro>0?26:10);
-  const talking=AMP>.05, pointing=k>0&&HL.length>0;
-  const blink=((t%3.7)<.12);
+  const m=1-intro, mx=lerp(540,165,eio(m)), my=lerp(1560,1880,eio(m)), ms=lerp(1.2,.6,eio(m));
+  const hop=Math.abs(Math.sin(t*Math.PI/.75))*(intro>0?22:8);
   if(endK<1){
-    g+=`<ellipse cx="${mx}" cy="${my0+4}" rx="${112*ms}" ry="${15*ms}" fill="${NV}" opacity=".25"/>`;
-    g+=masc({x:mx,y:my0-hop,s:ms,fill:.34,blink,look:k>0?-1:0,armL:intro>0?140+20*Math.sin(t*9):(pointing?120:20),armR:intro>0?20:15,mouth:'smile'});}
-  g+=tapFx(t);
-  if(endK<1)g+=`<g opacity="${1-endK}">${subtitle(t)}</g>`;
-  // cartão final
-  if(endK>0){const jt=t-(S[9]+(S[10]-S[9])*ENDF), b=Math.abs(Math.sin(jt*Math.PI/.6)), y=930-b*70;
-    g+=`<g opacity="${endK}"><rect width="${W}" height="${H}" fill="${AZ}" opacity=".0"/>`;
-    g+=`<ellipse cx="540" cy="934" rx="105" ry="14" fill="${NV}" opacity=".25"/>`+masc({x:540,y,s:.95,fill:1,win:1,eyes:'happy',mouth:AMP>.16?'open':'grin',lip:false,armL:150,armR:150});
+    g+=`<ellipse cx="${mx}" cy="${my+4}" rx="${112*ms}" ry="${15*ms}" fill="${NV}" opacity=".25"/>`;
+    g+=masc({x:mx,y:my-hop,s:ms,fill:.34+.16*seg(t,S[3]+2,S[3]+4)+.2*seg(t,S[4]+2,S[4]+3),blink:(t%3.7)<.12,look:k>0?1:0,armL:intro>0?20:15,armR:intro>0?140+20*Math.sin(t*9):(HL.length?120:20),mouth:'smile'});
+    g+=tapFx(t);
+    // balão: na intro acima do mascote grande, depois ao lado do mascote pequeno
+    g+=`<g opacity="${1-endK}">`+(intro>.5?balloon(b,150,700,780,[540,1100]):balloon(b,320,1500,730,[265,1790]))+`</g>`;
+  }
+  if(endK>0){const jt=t-S[5], bb=Math.abs(Math.sin(jt*Math.PI/.6)), y=930-bb*70;
+    g+=`<g opacity="${endK}"><ellipse cx="540" cy="934" rx="105" ry="14" fill="${NV}" opacity=".25"/>`+masc({x:540,y,s:.95,fill:1,win:1,eyes:'happy',mouth:'grin',lip:false,armL:150,armR:150});
     g+=`<text x="540" y="1140" text-anchor="middle" style="${F}" font-size="176" fill="#fff" letter-spacing="-2">amortiza</text>`;
     g+=`<text x="540" y="1210" text-anchor="middle" style="font-family:Montserrat;font-weight:800" font-size="34" fill="${AM}" letter-spacing="9">ANTECIPE E CONQUISTE</text>`;
-    g+=`<g transform="translate(540 1360)"><rect x="-380" y="-62" width="760" height="124" rx="62" fill="${AM}" stroke="${NV}" stroke-width="9"/><text y="22" text-anchor="middle" style="${FB}" font-size="58" fill="${NV}">projetos-minasok.vercel.app</text></g>`;
-    g+=`<image href="/video/logo.png" x="330" y="1600" width="420" height="120" preserveAspectRatio="xMidYMid meet"/></g>`;}
+    g+=`<image href="logo.png" x="330" y="1520" width="420" height="120" preserveAspectRatio="xMidYMid meet"/></g>`;}
   document.getElementById('ov').innerHTML=g;
-}
+};
+(function(){let g='';for(let i=0;i<46;i++){const x=rnd(i)*W,y=rnd(i+50)*H,r=14+rnd(i+90)*30;g+=`<path d="${HOUSE}" transform="translate(${x} ${y}) scale(${r/150}) rotate(${(rnd(i+7)-.5)*30} 150 150)" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="30" stroke-linejoin="round"/>`;}
+ document.getElementById('bg').innerHTML=`<rect width="${W}" height="${H}" fill="${AZ}"/>${g}`;})();
+window.DUR=DUR;window.SEGS=S;window.TAPT=()=>TAPS.map(p=>p.t);
 window.ready=new Promise(res=>{app.addEventListener('load',()=>{D=app.contentDocument;WIN=app.contentWindow;
-  const st=D.createElement('style');st.textContent=`.cl-hl{outline:4px solid #F7BC0A!important;outline-offset:4px;border-radius:14px;box-shadow:0 0 0 10px rgba(247,188,10,.38)!important;transition:none!important}
-  html{scroll-behavior:auto!important} *{animation-play-state:running}`;D.head.appendChild(st);
+  const st=D.createElement('style');st.textContent=`.cl-hl{outline:4px solid #F7BC0A!important;outline-offset:4px;border-radius:14px;box-shadow:0 0 0 10px rgba(247,188,10,.38)!important;transition:none!important} html{scroll-behavior:auto!important}`;D.head.appendChild(st);
   build();res();});});
 </script></body></html>
