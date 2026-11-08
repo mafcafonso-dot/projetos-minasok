@@ -33,9 +33,9 @@ html,body{margin:0;background:#06449D;overflow:hidden;width:1080px;height:1920px
 <script src="masc.js"></script>
 <script>
 // tempos (s)
-const S=[0, 6.18, 13.020000000000001, 20.060000000000002, 27.98, 33.35999999999999], DUR=37.2;
-const TITLES=['','1. Receba o seu código','2. Entre com CPF e código','3. Simule','4. Quero amortizar'];
-const FALAS=[[0.25, "Oi! Eu sou a casinha do amortiza."], [2.79, "Vou te mostrar como usar o app em quatro passos."], [6.33, "Primeiro: a Minas Ok manda o seu código pelo WhatsApp."], [10.33, "Ainda não recebeu? É só pedir pra gente."], [13.17, "Depois, entre no app com o seu CPF e o código."], [17.33, "O seu contrato já aparece prontinho."], [20.21, "Agora, simule: coloque quanto quer adiantar e a data."], [24.27, "O app mostra o valor exato e quanto você economiza."], [28.13, "Gostou? Toque em \"Quero amortizar\"."], [30.81, "A Minas Ok confere e te manda o boleto."]];
+const S=[0, 6.18, 12.84, 19.68, 34.26, 39.94], DUR=43.7;
+const TITLES=['','1. Receba o seu código','2. Entre com CPF e código','3. Último pagamento','4. Quero amortizar'];
+const FALAS=[[0.25, "Oi! Eu sou a casinha do amortiza."], [2.81, "Vou te mostrar como usar o app em quatro passos."], [6.33, "Primeiro: a Minas Ok manda o seu código pelo WhatsApp."], [10.19, "Ainda não recebeu? É só pedir pra gente."], [12.99, "Depois, entre no app com o seu CPF e o código."], [17.05, "O seu contrato já aparece prontinho."], [19.83, "Agora, coloque a data da última parcela que você pagou."], [23.51, "O app confere se você está em dia."], [25.91, "Se tiver atraso, ele mostra o valor para regularizar, como está no seu contrato."], [30.71, "Se estiver em dia, é só escolher quanto quer adiantar."], [34.41, "Gostou? Toque em \"Quero amortizar\"."], [37.27, "A Minas Ok confere e te manda o boleto."]];
 const CPS=999;
 let D,WIN; const app=document.getElementById('app');
 const $a=id=>D.getElementById(id);
@@ -63,21 +63,27 @@ function build(){
   at(T(2,.66),()=>{D.activeElement&&D.activeElement.blur();});
   scrollTo(T(2,.67),T(2,.82),()=>$a('bemvindo'),24);
   at(T(2,.8),()=>hl($a('bemvindo')));
-  // 3: simule
-  at(T(3,0),()=>hl());
-  scrollTo(T(3,0),T(3,.14),()=>$a('x-tenho'),120);
-  at(T(3,.12),()=>{hl(fieldOf('x-tenho'));setVal($a('x-tenho'),'');});
-  typeIn(T(3,.16),T(3,.26),'x-tenho','5000');
-  at(T(3,.3),()=>hl(fieldOf('x-data')));
-  scrollTo(T(3,.4),T(3,.55),()=>$a('casa-card'),20);
-  at(T(3,.52),()=>hl($a('casa-card')));
-  scrollTo(T(3,.74),T(3,.86),()=>$a('ad'),40);
-  at(T(3,.8),()=>hl($a('ad')));
+  // 3: data do último pagamento -> em dia / atraso -> quanto adiantar
+  at(19.7,()=>{hl();setVal($a('c-ult'),'');});
+  scrollTo(19.75,20.6,()=>$a('c-ult'),200);
+  at(20.6,()=>hl(fieldOf('c-ult')));
+  at(21.9,()=>setVal($a('c-ult'),'2026-10-25'));
+  scrollTo(23.5,24.3,()=>$a('c-verdict'),180);
+  at(24.2,()=>hl($a('c-verdict').closest('.verdict')||$a('c-verdict')));
+  at(25.8,()=>{hl();setVal($a('c-ult'),'2026-08-25');});
+  scrollTo(25.85,26.7,()=>$a('atraso'),30);
+  at(26.6,()=>hl($a('atraso')));
+  at(30.6,()=>{hl();setVal($a('c-ult'),'2026-10-25');});
+  scrollTo(30.65,31.5,()=>$a('x-tenho'),140);
+  at(31.5,()=>{hl(fieldOf('x-tenho'));setVal($a('x-tenho'),'');});
+  typeIn(31.8,32.6,'x-tenho','5000');
+  scrollTo(33.0,33.8,()=>$a('casa-card'),20);
+  at(33.7,()=>hl($a('casa-card')));
   // 4: quero amortizar
-  at(T(4,0),()=>hl());
-  scrollTo(T(4,0),T(4,.2),()=>$a('wa'),330);
-  at(T(4,.18),()=>hl($a('wa')));
-  tap(T(4,.38),()=>$a('wa'));
+  at(34.4,()=>hl());
+  scrollTo(34.4,35.3,()=>$a('wa'),330);
+  at(35.3,()=>hl($a('wa')));
+  tap(36.2,()=>$a('wa'));
   EV.sort((a,b)=>a.t-b.t);
 }
 // desenho
@@ -100,6 +106,7 @@ function tapFx(t){let g='';for(const p of TAPS){const d=t-p.t;if(d<-.35||d>.6)co
   return g;}
 window.frame=function(t,amp){
   UID=0;
+  for(const o of (window.DBR||[])){const cs=WIN.getComputedStyle(o.inp),v=o.inp.value;o.d.style.cssText=`left:${o.inp.offsetLeft+parseFloat(cs.paddingLeft)+parseFloat(cs.borderLeftWidth)}px;top:${o.inp.offsetTop}px;height:${o.inp.offsetHeight}px;font-size:${cs.fontSize};font-family:${cs.fontFamily};color:${v?'#14213A':'#8a8f98'}`;o.d.textContent=v?v.split('-').reverse().join('/'):'dd/mm/aaaa';}
   for(const e of EV){if(!e.done&&t>=e.t){e.fn();e.done=true;}}
   for(const y of TYPES){if(t>=y.a&&!y.done){const n=Math.round(clamp((t-y.a)/(y.b-y.a))*y.text.length);const el=$a(y.id);const v=y.text.slice(0,n);if(el.value!==v)setVal(el,v);if(n>=y.text.length)y.done=true;}}
   for(const w of TW){if(t>=w.a&&t<=w.b+.05){if(w.from===null){w.from=WIN.scrollY;w.to=topOf(w.elFn())-w.off;}setScroll(lerp(w.from,w.to,eio(seg(t,w.a,w.b))));}}
@@ -133,5 +140,8 @@ window.frame=function(t,amp){
 window.DUR=DUR;window.SEGS=S;window.TAPT=()=>TAPS.map(p=>p.t);
 window.ready=new Promise(res=>{app.addEventListener('load',()=>{D=app.contentDocument;WIN=app.contentWindow;
   const st=D.createElement('style');st.textContent=`.cl-hl{outline:4px solid #F7BC0A!important;outline-offset:4px;border-radius:14px;box-shadow:0 0 0 10px rgba(247,188,10,.38)!important;transition:none!important} html{scroll-behavior:auto!important}`;D.head.appendChild(st);
+  // datas no formato brasileiro (o Chromium sem interface só mostra mm/dd/yyyy)
+  const st2=D.createElement('style');st2.textContent=`input[type=date]{color:transparent!important}input[type=date]::-webkit-datetime-edit{color:transparent!important}input[type=date]::-webkit-datetime-edit-day-field,input[type=date]::-webkit-datetime-edit-month-field,input[type=date]::-webkit-datetime-edit-year-field{background:transparent!important;color:transparent!important}.dbr{position:absolute;pointer-events:none;display:flex;align-items:center;font:inherit}`;D.head.appendChild(st2);
+  window.DBR=[...D.querySelectorAll('input[type=date]')].map(inp=>{const d=D.createElement('div');d.className='dbr';inp.parentElement.style.position='relative';inp.parentElement.appendChild(d);return {inp,d};});
   build();res();});});
 </script></body></html>
