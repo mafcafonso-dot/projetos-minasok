@@ -33,16 +33,10 @@ html,body{margin:0;background:#06449D;overflow:hidden;width:1080px;height:1920px
 <script src="masc.js"></script>
 <script>
 // tempos (s)
-const S=[0,4.2,9.6,15.6,23.2,28.0], DUR=32;
+const S=[0, 6.18, 13.020000000000001, 20.060000000000002, 27.98, 33.35999999999999], DUR=37.2;
 const TITLES=['','1. Receba o seu código','2. Entre com CPF e código','3. Simule','4. Quero amortizar'];
-const FALAS=[
- [0.5,'Oi! Eu sou a casinha do amortiza. Usar o app é rapidinho: são 4 passos.'],
- [S[1]+.3,'A Minas Ok manda o seu código pelo WhatsApp. Ainda não tem? Peça no (34) 3831-3999.'],
- [S[2]+.2,'Entre com o seu CPF e o código. O seu contrato já aparece pronto.'],
- [S[3]+.2,'Coloque quanto quer adiantar e a data. O app mostra o valor exato e quanto você economiza.'],
- [S[4]+.2,'Toque em "Quero amortizar". A Minas Ok confere e manda o boleto.'],
-];
-const CPS=34; // letras por segundo
+const FALAS=[[0.25, "Oi! Eu sou a casinha do amortiza."], [2.79, "Vou te mostrar como usar o app em quatro passos."], [6.33, "Primeiro: a Minas Ok manda o seu código pelo WhatsApp."], [10.33, "Ainda não recebeu? É só pedir pra gente."], [13.17, "Depois, entre no app com o seu CPF e o código."], [17.33, "O seu contrato já aparece prontinho."], [20.21, "Agora, simule: coloque quanto quer adiantar e a data."], [24.27, "O app mostra o valor exato e quanto você economiza."], [28.13, "Gostou? Toque em \"Quero amortizar\"."], [30.81, "A Minas Ok confere e te manda o boleto."]];
+const CPS=999;
 let D,WIN; const app=document.getElementById('app');
 const $a=id=>D.getElementById(id);
 function setVal(el,v){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}
@@ -104,7 +98,7 @@ function tapFx(t){let g='';for(const p of TAPS){const d=t-p.t;if(d<-.35||d>.6)co
   const k=d<0?0:d/.6; g+=`<circle cx="${p.x}" cy="${p.y}" r="${40+90*k}" fill="none" stroke="${AM}" stroke-width="10" opacity="${d<0?0:1-k}"/>`;
   const fy=p.y+60+(d<0?-d*120:0); g+=`<g transform="translate(${p.x+20} ${fy})" opacity="${clamp((d+.35)/.15)*clamp(1-(d-.35)/.25)}"><path d="M0 0 C-6 -10 -2 -60 14 -60 C26 -60 26 -40 26 -24 L44 -28 C60 -30 66 -10 64 10 L58 60 L8 60 Z" fill="#fff" stroke="${NV}" stroke-width="7" stroke-linejoin="round"/></g>`;}
   return g;}
-window.frame=function(t){
+window.frame=function(t,amp){
   UID=0;
   for(const e of EV){if(!e.done&&t>=e.t){e.fn();e.done=true;}}
   for(const y of TYPES){if(t>=y.a&&!y.done){const n=Math.round(clamp((t-y.a)/(y.b-y.a))*y.text.length);const el=$a(y.id);const v=y.text.slice(0,n);if(el.value!==v)setVal(el,v);if(n>=y.text.length)y.done=true;}}
@@ -114,7 +108,7 @@ window.frame=function(t){
   const waK=1-seg(t,S[2]-.1,S[2]+.25);document.getElementById('wa').style.opacity=waK;
   const mk=back(seg(t,S[1]+.6,S[1]+1.1));document.getElementById('wamsg').style.transform=`scale(${mk})`;
   let k=0;for(let i=1;i<5;i++)if(t>=S[i])k=i;
-  const b=fala(t); AMP=b.talk?(.25+.25*Math.sin(t*28)):0;
+  const b=fala(t); AMP=amp||0;
   let g='';
   if(intro>0)g+=`<g opacity="${intro}"><text x="540" y="400" text-anchor="middle" style="${FB}" font-size="96" fill="#fff">Como usar o</text><text x="540" y="560" text-anchor="middle" style="${F}" font-size="170" fill="${AM}" letter-spacing="-2">amortiza</text></g>`;
   if(k>0&&endK<1)g+=`<g opacity="${1-endK}">${pill(TITLES[k],t-S[k])}</g>`;
@@ -128,7 +122,7 @@ window.frame=function(t){
     g+=`<g opacity="${1-endK}">`+(intro>.5?balloon(b,150,700,780,[540,1100]):balloon(b,320,1500,730,[265,1790]))+`</g>`;
   }
   if(endK>0){const jt=t-S[5], bb=Math.abs(Math.sin(jt*Math.PI/.6)), y=930-bb*70;
-    g+=`<g opacity="${endK}"><ellipse cx="540" cy="934" rx="105" ry="14" fill="${NV}" opacity=".25"/>`+masc({x:540,y,s:.95,fill:1,win:1,eyes:'happy',mouth:'grin',lip:false,armL:150,armR:150});
+    g+=`<g opacity="${endK}"><ellipse cx="540" cy="934" rx="105" ry="14" fill="${NV}" opacity=".25"/>`+masc({x:540,y,s:.95,fill:1,win:1,eyes:'happy',mouth:AMP>.16?'open':'grin',lip:false,armL:150,armR:150});
     g+=`<text x="540" y="1140" text-anchor="middle" style="${F}" font-size="176" fill="#fff" letter-spacing="-2">amortiza</text>`;
     g+=`<text x="540" y="1210" text-anchor="middle" style="font-family:Montserrat;font-weight:800" font-size="34" fill="${AM}" letter-spacing="9">ANTECIPE E CONQUISTE</text>`;
     g+=`<image href="logo.png" x="330" y="1520" width="420" height="120" preserveAspectRatio="xMidYMid meet"/></g>`;}
