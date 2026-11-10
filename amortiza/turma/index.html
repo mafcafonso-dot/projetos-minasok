@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>amortiza | Projeto final · Fique Foda em IA</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Vídeo do projeto final do Matheus (Construtora Minas Ok) e o app amortiza para testar com um contrato de exemplo.">
+<meta property="og:title" content="amortiza · Projeto final do Matheus">
+<meta property="og:description" content="Assista ao vídeo e teste o app com um contrato de exemplo.">
+<meta property="og:image" content="https://projetos-minasok.vercel.app/amortiza/turma/capa.jpg">
+<meta name="theme-color" content="#06449D">
+<link rel="icon" href="/amortiza/marca/amortiza-icone.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+:root{--azul:#06449D;--amarelo:#F7BC0A;--tinta:#14213A;--cinza:#4F5868;--fundo:#F7F5F0;--linha:rgba(20,33,58,.1);--branco:#fff;
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;--body:"Montserrat","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--fundo);color:var(--tinta);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.gutter{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+header{background:var(--azul);color:var(--branco);padding-top:env(safe-area-inset-top)}
+header .in{max-width:960px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nome{font-family:var(--display);font-weight:600;font-size:26px;line-height:1}
+.nome small{display:block;font-family:var(--body);font-size:10px;font-weight:600;letter-spacing:.2em;color:var(--amarelo);margin-top:4px}
+.tag{font-size:13px;font-weight:500;color:rgba(255,255,255,.85);text-align:right}
+main .in{max-width:960px;margin:0 auto;padding-block:40px 64px;display:grid;gap:28px}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(28px,4.5vw,44px);line-height:1.08;letter-spacing:-.01em;margin:0;color:var(--azul);text-wrap:balance}
+.lead{margin:0;color:var(--cinza);font-size:17px;max-width:62ch}
+video{width:100%;aspect-ratio:16/9;background:#0E2340;border-radius:16px;display:block}
+.teste{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;background:var(--branco);border:1px solid var(--linha);border-radius:16px;padding:24px}
+.teste h2{font-family:var(--display);font-weight:500;font-size:24px;line-height:1.15;margin:0 0 8px}
+.teste ol{margin:0;padding-left:20px;color:var(--cinza)}
+.teste li+li{margin-top:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:12px;background:var(--amarelo);color:var(--tinta);font:600 17px var(--body);text-decoration:none;white-space:nowrap;transition:transform .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:3px solid var(--azul);outline-offset:3px}
+.obs{margin:0;font-size:14px;color:var(--cinza)}
+footer{max-width:960px;margin:0 auto;padding-block:20px 40px;border-top:1px solid var(--linha);font-size:13px;color:var(--cinza)}
+@media (max-width:640px){.teste{grid-template-columns:1fr}.btn{width:100%}.tag{display:none}}
+</style>
+</head>
+<body>
+<header class="gutter"><div class="in">
+  <div class="nome">amortiza<small>ANTECIPE E CONQUISTE</small></div>
+  <div class="tag">Projeto final · Fique Foda em IA</div>
+</div></header>
+<main class="gutter"><div class="in">
+  <h1>Como a IA ajudou a Minas Ok a receber antes e prevenir a inadimplência</h1>
+  <p class="lead">Sou o Matheus, engenheiro da Construtora Minas Ok. No vídeo mostro o problema, o app que os nossos clientes já usam e como eu construí tudo com IA.</p>
+  <video controls playsinline preload="metadata" poster="/amortiza/turma/capa.jpg">
+    <source src="/amortiza/turma/amortiza-projeto-final.mp4?v=2" type="video/mp4">
+  </video>
+  <section class="teste" aria-labelledby="t-teste">
+    <div>
+      <h2 id="t-teste">Teste o amortiza agora</h2>
+      <ol>
+        <li>Toque em <strong>Testar o app</strong>.</li>
+        <li>Toque em <strong>Simular</strong> e depois em <strong>Entrar</strong>. O CPF e o código de exemplo já vêm preenchidos.</li>
+        <li>Escolha quantas parcelas adiantar e veja a casinha encher.</li>
+      </ol>
+    </div>
+    <a class="btn" href="/apresentacao?demo">Testar o app</a>
+  </section>
+  <p class="obs">É um contrato fictício, sem dados de nenhum cliente. Se precisar digitar: <span style="white-space:nowrap">CPF 111.111.111-11</span> · <span style="white-space:nowrap">código DEMO-2026</span>.</p>
+</div></main>
+<footer class="gutter">Construtora Minas Ok · Feito com Lovable, Claude, GitHub, Vercel e ElevenLabs.</footer>
+</body>
+</html>
