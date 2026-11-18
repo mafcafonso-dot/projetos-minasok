@@ -265,6 +265,39 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
 .carimbo span{color:var(--good);font-weight:600;font-variant-numeric:tabular-nums}
 .regua{grid-column:1/-1;text-align:center;font-size:.9375rem;color:var(--ink-2)} .regua b{color:var(--ink);font-weight:600}
 @media (max-width:480px){.ad{grid-template-columns:1fr}}
+
+/* feedback 16/11: mais enxuto, simulação no alto */
+.band{padding-block:16px 28px}
+h1{font-size:clamp(1.75rem,5vw,2.75rem)}
+header .lead{font-size:1rem}
+body.logado #view-entrada>section:first-child>.sec-head{display:none}
+.bemvindo{gap:12px}
+.bv-imovel{margin:0;color:var(--ink-2)}
+.bemvindo .f-ult{max-width:320px}
+details>summary{cursor:pointer;font-weight:600;color:var(--blue);padding:4px 0;list-style-position:inside}
+.bv-det[open]>summary{margin-bottom:12px}
+.bv-det ul{margin:0 0 12px}
+.card.dentro{border:0;box-shadow:none;padding:0;margin-bottom:12px}
+details.tabela[open]>summary{margin-bottom:12px}
+details.como{border-top:1px solid var(--line);padding-top:20px}
+details.como[open]>summary{margin-bottom:20px}
+#sim .cta{padding:24px}
+/* em atraso: só os avisos de regularização, sem a opção de amortizar */
+body.atrasado #sim>:not(.cta),body.atrasado .quitar,body.atrasado details.como,body.atrasado .hero-num{display:none!important}
+/* só com CPF + código: sem login, aparece apenas o cartão de entrada */
+body:not(.logado) #view-entrada>:not(section:first-child):not(footer),body:not(.logado) #view-entrada>section:first-child>:not(.login){display:none!important}
+body.logado header h1,body.logado header .lead{display:none}
+body.logado .band{padding-block:16px 20px}
+body.precisa-ult .bv-det,body.precisa-ult details.como{display:none!important}
+.bv-det>summary{display:inline-flex;align-items:center;gap:8px;list-style:none;border:1px solid var(--blue);border-radius:999px;padding:10px 18px;color:var(--blue);background:var(--paper)}
+.bv-det>summary::-webkit-details-marker{display:none}
+.bv-det>summary::after{content:"▾";font-size:.9em;transition:transform .2s}
+.bv-det[open]>summary::after{transform:rotate(180deg)}
+.compare .k.destaque{grid-column:1/-1;background:var(--yellow-soft);padding:20px}
+.compare .k.destaque span{font-size:.9375rem;font-weight:600;color:var(--ink)}
+.compare .k.destaque b{font-size:clamp(2rem,8vw,2.5rem);line-height:1.1}
+
+@media (max-width:480px){.wrap{gap:36px;padding-block:24px 56px}}
 </style>
 
 <div class="band">
@@ -314,18 +347,18 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
 <section>
   <div class="sec-head">
     <h2>Seu parcelamento com a Minas Ok</h2>
-    <p>Os dados estão na sua confissão de dívida (cláusula terceira) e nos seus boletos.</p>
+    <p>Os dados estão na sua confissão de dívida (cláusula terceira).</p>
   </div>
   <div class="card login" id="login">
     <h3>Entrar com meu CPF</h3>
-    <p>Recebeu da Minas Ok o seu código? Coloque o CPF e o código e o app já mostra o seu contrato.</p>
+    <p>Coloque o CPF e o código que a Minas Ok te mandou.</p>
     <div class="lg-row">
       <div class="field"><label for="lg-cpf">CPF</label><input id="lg-cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14"></div>
       <div class="field"><label for="lg-cod">Código</label><input id="lg-cod" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX" maxlength="12"></div>
     </div>
     <button type="button" class="btn" id="lg-btn">Entrar</button>
     <p class="lg-msg" id="lg-msg" aria-live="polite"></p>
-    <p class="lg-alt">Não tem código? Preencha os dados abaixo com o seu contrato. Para receber o seu código, fale com a Minas Ok.</p>
+    <p class="lg-alt">Não tem código? Peça o seu à Minas Ok pelo <a href="https://wa.me/553438313999?text=Ol%C3%A1%2C%20Minas%20Ok!%20Quero%20o%20meu%20c%C3%B3digo%20do%20amortiza." target="_blank" rel="noopener">WhatsApp (34) 3831-3999</a>.</p>
   </div>
   <div class="card bemvindo" id="bemvindo" hidden></div>
   <div class="card">
@@ -349,7 +382,7 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
       <div class="field"><label for="c-parc">Valor da parcela (R$)</label><input id="c-parc" type="number" min="0" step="0.01" value="1334.66"><small id="c-parc-hint" class="hint"></small></div>
     </div>
     <div id="f-faixas" hidden style="display:flex;flex-direction:column;gap:12px">
-      <p class="obs"><b>Para quem é:</b> contratos em que o valor da parcela muda. Exemplo: R$ 48.200,00 em 80 parcelas, sendo 27 de R$ 828,25 e 53 de R$ 915,67. Preencha uma faixa para cada valor, na mesma ordem do contrato (cláusula terceira). Se houver mais de dois valores, toque em "Adicionar faixa".</p>
+      <p class="obs">Preencha uma faixa para cada valor de parcela, na ordem do contrato. Ex.: 27 de R$ 828,25 e 53 de R$ 915,67.</p>
       <div id="faixas-list" style="display:flex;flex-direction:column;gap:10px"></div>
       <div><button type="button" class="btn-sec" id="add-faixa">+ Adicionar faixa</button></div>
       <p class="hint" id="faixas-soma"></p>
@@ -357,7 +390,7 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
     <p class="conf" id="c-conf" hidden></p>
 
     <label class="check"><input id="c-adit" type="checkbox"> Meu contrato teve aditivo que pausou parcelas</label>
-    <p class="obs"><b>Para quem é:</b> clientes que assinaram com a Minas Ok um aditivo de "suspensão temporária de exigibilidade de parcelas". As parcelas desse período ficaram pausadas, sem juros nem multa, e passaram para o fim do contrato, pelo mesmo valor. Se você não assinou aditivo, deixe desmarcado.</p>
+    <p class="obs" id="obs-adit" hidden>As parcelas pausadas pelo aditivo passam para o fim do contrato, sem juros.</p>
     <div class="fields" id="f-adit" hidden style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
       <div class="field"><label for="c-s-ini">Vencimento da 1ª parcela pausada</label><input id="c-s-ini" type="date" value="2026-05-20"></div>
       <div class="field"><label for="c-s-fim">Vencimento da última parcela pausada</label><input id="c-s-fim" type="date" value="2026-08-20"></div>
@@ -365,7 +398,7 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
     <p class="hint" id="s-info" hidden></p>
 
     <label class="check"><input id="c-jaad" type="checkbox"> Já adiantei parcelas antes</label>
-    <p class="obs"><b>Para quem é:</b> quem já adiantou parcelas do fim do contrato com a Minas Ok. Coloque quantas parcelas você já adiantou no total. Esse número vem na mensagem de confirmação que a Minas Ok manda junto com o boleto.</p>
+    <p class="obs" id="obs-jaad" hidden>O número está na mensagem que a Minas Ok mandou com o boleto de antecipação.</p>
     <div class="fields" id="f-jaad" hidden style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
       <div class="field"><label for="c-jaad-n">Quantas parcelas do fim você já adiantou</label><input id="c-jaad-n" type="number" min="1" step="1" value="6"><small class="hint" id="c-jaad-hint"></small></div>
     </div>
@@ -391,26 +424,54 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
     <p class="obs">Pelo contrato, cada parcela em atraso tem multa de 2% e juros de mora de 1% ao mês, contados por dia. Para antecipar parcelas com desconto, é preciso estar em dia.</p>
   </div>
 
-  <div class="hero-num">
-    <div class="k"><span>Pagando as parcelas a vencer até o fim</span><b id="c-total">–</b></div>
-    <div class="k hl"><span>Para quitar tudo na data do pagamento</span><b id="c-hoje">–</b></div>
-    <div class="k"><span>Desconto na quitação</span><b class="save" id="c-desc-hoje">–</b></div>
-  </div>
 </section>
 
-<section>
+<section id="sim">
   <div class="sec-head">
     <h2>Adiantar parcelas com desconto</h2>
-    <p>Para quem está com as parcelas da construtora em dia. Você escolhe quantas parcelas do fim do contrato quer adiantar e paga um valor exato, com desconto dos juros. A Minas Ok emite um boleto com esse valor e cancela os boletos das parcelas adiantadas. A parcela do mês continua igual e o contrato termina antes.</p>
+    <p>Diga quanto você tem e quando vai pagar. O app mostra o valor exato, já com desconto.</p>
   </div>
   <div class="plan">
     <div class="field"><label for="x-tenho">Quanto você tem para adiantar (R$)</label><input id="x-tenho" type="number" min="0" step="100" value="5000"></div>
     <div class="field"><label for="x-data">Data em que vai pagar</label><input id="x-data" type="date"></div>
   </div>
+  <div class="card">
+    <div class="slider-row">
+      <label for="n-ant" style="font-weight:500">Parcelas do fim a adiantar</label>
+      <input id="n-ant" type="range" min="1" max="60" value="6">
+      <output id="n-ant-o" for="n-ant">6</output>
+    </div>
+    <div class="compare">
+      <div class="k destaque"><span>Seu desconto</span><b class="save" id="a-desc">–</b></div>
+      <div class="k"><span>Valor exato para pagar</span><b id="a-vp">–</b></div>
+      <div class="k"><span>Valor nos boletos</span><b id="a-nom">–</b></div>
+      <div class="k"><span>Contrato termina</span><b id="a-fim">–</b></div>
+    </div>
+    <details class="tabela"><summary>Ver parcela por parcela</summary>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parcela</th><th>Vence em</th><th>No boleto</th><th>Pagando adiantado</th><th>Desconto</th></tr></thead>
+        <tbody id="a-body"></tbody>
+        <tfoot><tr><td>Total</td><td></td><td id="a-t-nom"></td><td id="a-t-vp"></td><td id="a-t-desc"></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="hint" id="a-resc" hidden>* Parcela que foi pausada pelo aditivo e passou para o fim do contrato.</p>
+    </details>
+  </div>
+  <div class="cta">
+    <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+      <h3 id="wa-t" style="font-size:1.5rem">Quer adiantar essas parcelas?</h3>
+      <p style="color:var(--muted)" id="wa-p">Toque no botão e mande sua simulação para a Minas Ok pelo WhatsApp. A gente confere e envia o boleto com o valor exato.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <a class="btn wa" id="wa" href="https://wa.me/553438313999" target="_blank" rel="noopener">QUERO AMORTIZAR!</a>
+      <span class="hint">WhatsApp Minas Ok: <span class="num" style="user-select:all">(34) 3831-3999</span></span>
+    </div>
+  </div>
   <div class="card unica-card" id="unica-card" hidden>
     <h3 style="margin:0">Adiantar a parcela única</h3>
     <p id="unica-p" style="margin:0"></p>
-    <p class="obs" style="margin:0">A parcela única tem os mesmos juros das outras parcelas. Adiantando, você paga só o valor de hoje. Ela é separada das parcelas mensais: adiantar a parcela única não muda as suas parcelas do mês.</p>
+    <p class="obs" style="margin:0">Adiantando a parcela única, você paga só o valor de hoje. As parcelas do mês não mudam.</p>
     <a class="btn wa" id="unica-wa" target="_blank" rel="noopener" style="align-self:flex-start;text-decoration:none">Quero adiantar a parcela única</a>
   </div>
   <div class="card casa-card" id="casa-card">
@@ -473,51 +534,30 @@ tbody td:nth-child(3),tfoot td:nth-child(3){color:var(--ink-2)}
     <div class="carimbo">Você economiza <span id="ad-eco">–</span></div>
     <p class="regua" id="ad-regua"></p>
   </div>
-  <div class="card">
-    <div class="slider-row">
-      <label for="n-ant" style="font-weight:500">Parcelas do fim a adiantar</label>
-      <input id="n-ant" type="range" min="1" max="60" value="6">
-      <output id="n-ant-o" for="n-ant">6</output>
-    </div>
-    <div class="compare">
-      <div class="k"><span>Valor nos boletos</span><b id="a-nom">–</b></div>
-      <div class="k"><span>Valor exato para pagar</span><b id="a-vp">–</b></div>
-      <div class="k"><span>Desconto</span><b class="save" id="a-desc">–</b></div>
-      <div class="k"><span>Contrato termina</span><b id="a-fim">–</b></div>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Parcela</th><th>Vence em</th><th>No boleto</th><th>Pagando adiantado</th><th>Desconto</th></tr></thead>
-        <tbody id="a-body"></tbody>
-        <tfoot><tr><td>Total</td><td></td><td id="a-t-nom"></td><td id="a-t-vp"></td><td id="a-t-desc"></td></tr></tfoot>
-      </table>
-    </div>
-    <p class="hint" id="a-resc" hidden>* Parcela que foi pausada pelo aditivo e passou para o fim do contrato.</p>
-    <p class="obs">O desconto é calculado até a data do pagamento. Se você pagar em outra data, o valor muda um pouco. Quando tiver mais dinheiro no futuro, é só simular de novo e adiantar mais parcelas.</p>
+</section>
+
+
+
+
+<section class="quitar">
+  <div class="sec-head"><h2>Quitar tudo de uma vez</h2></div>
+  <div class="hero-num">
+    <div class="k"><span>Pagando as parcelas a vencer até o fim</span><b id="c-total">–</b></div>
+    <div class="k hl"><span>Para quitar tudo na data do pagamento</span><b id="c-hoje">–</b></div>
+    <div class="k"><span>Desconto na quitação</span><b class="save" id="c-desc-hoje">–</b></div>
   </div>
 </section>
 
-<section>
-  <div class="sec-head"><h2>Antes de adiantar, saiba disso</h2></div>
+<details class="como">
+  <summary>Como funciona a antecipação</summary>
   <div class="notes">
     <p class="note"><b>Parcelas em dia</b> A antecipação com desconto é só para quem está com as parcelas da construtora em dia. Se houver parcela vencida, regularize primeiro com a Minas Ok.</p>
     <p class="note"><b>Parcelas inteiras</b> A antecipação é feita sempre em parcelas inteiras, a partir da última do contrato. Os boletos das parcelas adiantadas são cancelados.</p>
     <p class="note"><b>Data do pagamento</b> O valor com desconto vale para a data escolhida na simulação. O boleto de antecipação sai com essa mesma data.</p>
     <p class="note"><b>É uma simulação</b> O valor oficial é o do boleto emitido pela Minas Ok.</p>
+    <p class="note"><b>Outra data, outro valor</b> O desconto é calculado até a data do pagamento. Se você pagar em outra data, o valor muda um pouco. Quando tiver mais dinheiro no futuro, é só simular de novo e adiantar mais parcelas.</p>
   </div>
-</section>
-
-
-<div class="cta">
-  <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
-    <h3 id="wa-t" style="font-size:1.5rem">Quer adiantar essas parcelas?</h3>
-    <p style="color:var(--muted)" id="wa-p">Toque no botão e mande sua simulação para a Minas Ok pelo WhatsApp. A gente confere e envia o boleto com o valor exato.</p>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
-    <a class="btn wa" id="wa" href="https://wa.me/553438313999" target="_blank" rel="noopener">QUERO AMORTIZAR!</a>
-    <span class="hint">WhatsApp Minas Ok: <span class="num" style="user-select:all">(34) 3831-3999</span></span>
-  </div>
-</div>
+</details>
 <footer>Construtora Minas Ok · Simulação educativa. Não substitui o boleto nem o extrato oficial do contrato.</footer>
 </div>
 
@@ -534,7 +574,7 @@ function anosMeses(m){const a=Math.floor(m/12),r=m%12;const pa=a?a+(a===1?' ano'
 function emMeses(m){return m<=0?'hoje':'daqui a '+anosMeses(m);}
 
 /* ---------- topo ---------- */
-function route(){ $('lead').textContent='A parte da entrada que você parcelou com a Minas Ok tem juros. Cada parcela que você adianta sai com desconto desses juros, e o contrato termina antes.'; }
+function route(){ $('lead').textContent='Adiante parcelas com desconto e termine de pagar antes.'; }
 
 /* ---------- entrada (construtora) ---------- */
 const MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
@@ -583,7 +623,7 @@ function entrada(){
   } else conf.hidden=true;
   const ini=parseD('c-ini')||hoje0(), ult=parseD('c-ult'), hoje=hoje0();
   // cronograma completo
-  const adit=$('c-adit').checked; $('f-adit').hidden=!adit; $('s-info').hidden=!adit;
+  const adit=$('c-adit').checked; $('f-adit').hidden=!adit; $('obs-adit').hidden=!adit; $('s-info').hidden=!adit;
   let cron=[]; for(let j=0;j<n;j++)cron.push({num:j+1,venc:addM(ini,j*step),valor:vals[j]??vals[vals.length-1],resc:false});
   // contrato com faixas em datas próprias (ex.: intervalo combinado entre faixas): cada faixa começa na data do contrato
   const FXD=window.__cliente&&faixas&&window.__cliente.fx.some(f=>f[2])?window.__cliente.fx:null;
@@ -610,7 +650,7 @@ function entrada(){
   n=cron.length;
   const pagas=ult?cron.filter(x=>x.venc<=ult):[];
   // parcelas do fim já adiantadas em antecipações anteriores: saem do contrato e contam como pagas
-  const jaOn=$('c-jaad').checked; $('f-jaad').hidden=!jaOn;
+  const jaOn=$('c-jaad').checked; $('f-jaad').hidden=!jaOn; $('obs-jaad').hidden=!jaOn;
   const jaAd=jaOn?Math.min(Math.max(0,Math.round(num('c-jaad-n'))),n-pagas.length):0;
   $('c-jaad-hint').textContent=jaOn&&jaAd?`Parcelas ${n-jaAd+1}ª a ${n}ª já adiantadas.`:'';
   const abertas=cron.slice(pagas.length,n-jaAd), vencidas=abertas.filter(x=>x.venc<hoje), aVencer=abertas.filter(x=>x.venc>=hoje);
@@ -717,6 +757,8 @@ function entrada(){
   const hojeF=abertas.length, depoisF=vencidas.length?hojeF:Math.max(0,hojeF-N);
   casa.total=n; casa.hoje=hojeF; casa.alvo=depoisF; casa.atraso=!!vencidas.length;
   $('casa-selo').hidden=!vencidas.length;
+  document.body.classList.toggle('atrasado',!!vencidas.length);
+  $('wa').textContent=vencidas.length?'QUERO REGULARIZAR':'QUERO AMORTIZAR!';
   $('casa-cmp').innerHTML=vencidas.length?`Faltam <b>${hojeF}</b> parcelas`:`Hoje: faltam <b>${hojeF}</b> → Depois de adiantar: faltam <b>${depoisF}</b>`;
   animarCasa();
 }
@@ -853,13 +895,20 @@ route(); entrada();
     const ad=d.ad?`<li>Aditivo: as parcelas de ${fmtISO(d.ad.primeira_pausada)} a ${fmtISO(d.ad.ultima_pausada)} foram pausadas e passaram para o fim do contrato.</li>`:'';
     const ja=d.ja>0?`<li>Você já adiantou ${d.ja} ${d.ja===1?'parcela':'parcelas'} do fim do contrato.</li>`:'';
     const bv=$('bemvindo');
-    bv.innerHTML=`${d.demo?'<p class="falta" style="margin:0">Modo demonstração: este é um contrato fictício, só para mostrar como o app funciona.</p>':''}<h3>Encontramos o seu contrato, ${d.pn}</h3>
-      <ul><li>Imóvel: ${d.emp} — ${d.un}</li>
-      <li>Total da confissão de dívida: <b>${brl(d.tot)}</b></li>${u}
+    bv.innerHTML=`${d.demo?'<p class="falta" style="margin:0">Modo demonstração: contrato fictício.</p>':''}<h3>Olá, ${d.pn}!</h3>
+      <p class="bv-imovel">${d.emp} — ${d.un}</p>
+      <p class="falta" id="bv-falta"${d.demo?' hidden':''}>Coloque a <b>data da última parcela que você pagou</b>:</p>
+      <div id="bv-ult"></div>
+      <details class="bv-det"><summary>Conferir dados do contrato</summary>
+      <ul><li>Total da confissão de dívida: <b>${brl(d.tot)}</b></li>${u}
       <li>Parcelado com a construtora: <b>${d.q} parcelas ${d.per==='anual'?'anuais':'mensais'}</b> a partir de ${fmtISO(d.ini)} (${fx}), com juros de ${String(d.tx).replace('.',',')}% ao mês.</li>${ad}${ja}</ul>
-      <p class="falta" id="bv-falta"${d.demo?' hidden':''}>Agora só falta uma coisa: coloque abaixo a <b>data da última parcela que você pagou</b>.</p>
-      <p class="lg-alt">Esses dados vêm do seu contrato e foram atualizados em ${fmtISO(d.at)}. Se algo estiver diferente, fale com a Minas Ok.</p>
+      <div id="bv-card"></div>
+      <p class="lg-alt">Dados atualizados em ${fmtISO(d.at)}. Se algo estiver diferente, fale com a Minas Ok.</p>
+      </details>
       <button type="button" class="btn-sec sair" id="lg-sair">Sair</button>`;
+    // a data da última parcela sobe para o cartão; o resto do contrato fica recolhido
+    const fu=document.querySelector('.f-ult'); $('bv-ult').replaceWith(fu);
+    const cc=$('c-valor').closest('.card'); $('bv-card').replaceWith(cc); cc.classList.add('dentro');
     bv.hidden=false; $('login').hidden=true;
     $('lg-sair').addEventListener('click',()=>location.reload());
     entrada();
